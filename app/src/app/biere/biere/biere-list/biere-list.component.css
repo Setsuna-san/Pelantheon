@@ -1,0 +1,14 @@
+.table-head {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.table-head::after {
+  content: " ▼";
+  font-size: 0.8em;
+  color: #888;
+}
+
+.table-head[data-sort="desc"]::after {
+  content: " ▲";
+}

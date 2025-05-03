@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Liste des bières</h5>
+    <div class="card-tools">
+      <a href="/bieres/edit" class="btn btn-primary btn-sm">
+        <i class="fa-solid fa-plus"></i> Ajouter
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+
+<div class="card-body">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" class="table-head" (click)="sortTable('nom')" [attr.data-sort]="sortColumn === 'nom' ? sortDirection : ''">Nom</th>
+        <th scope="col" class="table-head" (click)="sortTable('type')" [attr.data-sort]="sortColumn === 'type' ? sortDirection : ''">Type</th>
+        <th scope="col" class="table-head" (click)="sortTable('alcool')" [attr.data-sort]="sortColumn === 'alcool' ? sortDirection : ''">Alcool</th>
+        <th scope="col" class="table-head" (click)="sortTable('note')" [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let biere of bieres">
+        <td>{{ biere.nom }}</td>
+        <td>{{ biere.type }}</td>
+        <td>{{ biere.alcool }} %</td>
+        <td>
+          <div [ngClass]="{
+            'btn-success': biere.note === 10,
+            'btn-info': biere.note >= 6 && biere.note <= 9,
+            'btn-warning': biere.note >= 3 && biere.note <= 5,
+            'btn-danger': biere.note < 3
+          }" class="btn">
+            {{ biere.note }}
+          </div>
+        </td>
+        <!-- <td>
+          <a href="/bieres/edit" class="btn btn-warning btn-sm">
+            <i class="fa-solid fa-pen-to-square"></i> Editer
+          </a>
+          <a (click)="delete(biere.id)" class="btn btn-danger btn-sm">
+            <i class="fa-solid fa-trash"></i> Supprimer
+          </a>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
