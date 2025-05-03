@@ -1,0 +1,36 @@
+<br />
+<div class="card text-white bg-primary mb-3">
+  <div class="card-body">
+    <h4 class="card-title">
+      Liste des pizzas &nbsp; <span
+        *ngIf="etatLoad == etatLoading.LOADING || etatLoad == etatLoading.WAITING ">
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+      </span>
+    </h4>
+    <button type="button" routerLink="/admin/pizza/edit/" class="btn btn-info"
+      [disabled]="etatLoad !== etatLoading.SUCCESS">
+      Ajouter une pizza
+    </button>
+
+  </div>
+</div>
+
+<br />
+<h2 *ngIf="etatLoad == etatLoading.ERREUR">
+  <b>{{ pizzas.length }}</b> pizza enregistrée
+</h2>
+<h2 *ngIf="etatLoad == etatLoading.SUCCESS || etatLoad == etatLoading.WAITING ">
+  <b>{{ pizzas.length }}</b> pizza(s) enregistrée(s)
+</h2>
+
+<div *ngIf="etatLoad == etatLoading.SUCCESS || etatLoad == etatLoading.WAITING ">
+  <ul class="list-group mb-2">
+    <app-admin-pizza-item *ngFor="let r of pizzas" [pizza]="r" ></app-admin-pizza-item>
+  </ul>
+</div>
+
+<div class="alert alert-dismissible alert-warning" *ngIf="etatLoad == etatLoading.ERREUR">
+  <h4 class="alert-heading">
+    Service non disponible
+  </h4>
+</div>

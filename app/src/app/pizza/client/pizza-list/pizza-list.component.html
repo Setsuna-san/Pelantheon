@@ -1,0 +1,43 @@
+<div *ngIf="etatLoad == etatLoading.SUCCESS || etatLoad == etatLoading.WAITING ">
+  <div class="row">
+    <br>
+    <div class="col-12" *ngFor="let categorie of categories">
+      <h1 class="carte-titre text-capitalize">
+        {{categorie.name}}
+      </h1>
+      <app-pizza-item *ngFor="let r of pizzaOfCategorie(categorie.id)" [pizza]="r"></app-pizza-item>
+    </div>
+    <br>
+    <h1 class="carte-titre text-capitalize">
+      Boissons
+    </h1>
+    <br>
+    <div *ngFor="let boisson of boissons">
+      <div class="row pizza">
+        <div class="col-12">
+          <span class="h4 pizza_name">
+            {{boisson.name}}
+          </span>
+          <br>
+          <span class="h6">
+            {{boisson.commentaire}}
+          </span>
+        </div>
+        <div class="col-2 row h6">
+          <div class="col-lg-6 col-sm-12">
+            <span class="text-info">Prix</span>
+            <br>
+            {{boisson.price}}€
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-dismissible alert-warning" *ngIf="etatLoad == etatLoading.ERREUR">
+  <h4 class="alert-heading">
+    Service non disponible
+  </h4>
+</div>

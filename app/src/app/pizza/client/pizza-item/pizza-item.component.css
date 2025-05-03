@@ -1,0 +1,20 @@
+.card-title {
+  color: gold;
+}
+
+.card-text {
+  color: goldenrod;
+}
+
+.card-price {
+  text-align: right;
+}
+
+.flexPizza {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pizza_name {
+  color: orange;
+}

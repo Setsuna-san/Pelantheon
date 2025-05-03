@@ -1,0 +1,30 @@
+.btn {
+  padding: 2%;
+  background-color: rgb(190, 190, 3);
+  color: rgb(0, 0, 0);
+  font-style: oblique;
+  font-weight: bolder;
+  font-size: larger;
+  box-shadow: 5px 5px black;
+}
+
+.btn:hover {
+  transform: scale(1.06);
+
+  transition: 0.4s;
+}
+.content {
+  padding: 10rem;
+}
+
+.fleche {
+  color: orange;
+}
+
+h1 {
+  color: orange;
+  text-shadow: -2px -2px 0 orangered, 2px -2px 0 orangered, -2px 2px 0 orangered,
+    2px 2px 0 orangered;
+
+  font-family: "Bangers", cursive;
+}

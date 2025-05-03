@@ -1,0 +1,261 @@
+{
+  "locations": [
+    {
+      "id": 1,
+      "name": "Loubens Lauragais",
+      "day": "Lundi",
+      "map": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1144.1876811353604!2d1.7837717223072134!3d43.57364642502538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDM0JzI1LjciTiAxwrA0NycwMi42IkU!5e1!3m2!1sfr!2sfr!4v1720483558677!5m2!1sfr!2sfr"
+    },
+    {
+      "id": 2,
+      "name": "Saint Julia",
+      "day": "Mercredi",
+      "map": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d755.9357887071573!2d1.897212128489181!3d43.4895556108961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDI5JzIyLjYiTiAxwrA1Myc1MS40IkU!5e1!3m2!1sfr!2sfr!4v1720483630427!5m2!1sfr!2sfr"
+    },
+    {
+      "id": 3,
+      "name": "Le Faget",
+      "day": "Jeudi",
+      "map": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1734.4502627415973!2d1.823376712988808!3d43.56719682090058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDM0JzAzLjYiTiAxwrA0OScyOC44IkU!5e1!3m2!1sfr!2sfr!4v1720483599597!5m2!1sfr!2sfr"
+    },
+    {
+      "id": 4,
+      "name": "Maureville",
+      "day": "Vendredi",
+      "map": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3987.6775494689728!2d1.6986204259721454!3d43.52246727972215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDMxJzIxLjMiTiAxwrA0MicwNy41IkU!5e1!3m2!1sfr!2sfr!4v1720482508280!5m2!1sfr!2sfr"
+    },
+    {
+      "id": 5,
+      "name": "Evenements Divers",
+      "day": "Samedi"
+    },
+    {
+      "id": 6,
+      "name": "Revel",
+      "day": "Dimanche",
+      "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2292.7436912057115!2d2.0025959748055113!3d43.458578414549905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ae42a30f025fd3%3A0x5aa88e9d7d4a4a9d!2sHalle%20Centrale%2C%20Gal%20du%20Midi%2C%2031250%20Revel!5e1!3m2!1sfr!2sfr!4v1720483315901!5m2!1sfr!2sfr"
+    }
+  ],
+  "pizzas": [
+    {
+      "id": 6,
+      "name": "Marguerite",
+      "description": "Tomate, Olives, Râpès",
+      "small_price": 5.5,
+      "large_price": 6.5,
+      "categorie": 1
+    },
+    {
+      "id": 7,
+      "name": "Reine",
+      "description": "Tomate, Jambon, Champignons, Olives, Râpés",
+      "small_price": 9.5,
+      "large_price": 10.5,
+      "categorie": 1
+    },
+    {
+      "id": 8,
+      "name": "Royale",
+      "description": "Tomate, Jambon, Champignons, Olives, Râpés + œuf",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 1
+    },
+    {
+      "id": 9,
+      "name": "Chicken",
+      "description": "Tomate, Blancs de poulet, Champignons, Ail, Olives, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 1
+    },
+    {
+      "id": 10,
+      "name": "Végétarienne",
+      "description": "Tomate, Champignons, Poivrons, Maïs, Artichauts, Olives, Oignons, Râpés",
+      "small_price": 10.5,
+      "large_price": 14,
+      "categorie": 1
+    },
+    {
+      "id": 11,
+      "name": "Biquette",
+      "description": "Tomate, Chèvre, miel, Olives, Râpés",
+      "small_price": 9.5,
+      "large_price": 10.5,
+      "categorie": 2
+    },
+    {
+      "id": 12,
+      "name": "3 Fromages",
+      "description": "Tomate, Chèvre, Pyrénées, Râpés, Olives",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 2
+    },
+    {
+      "id": 13,
+      "name": "4 Fromages",
+      "description": "Tomate, Chèvre, Pyrénées, Bleu, Râpés, Olives",
+      "small_price": 11.5,
+      "large_price": 13,
+      "categorie": 2
+    },
+    {
+      "id": 14,
+      "name": "Savoyarde",
+      "description": "Tomate, Patates, Lardons, Oignons, Roblochon",
+      "small_price": 11.5,
+      "large_price": 13,
+      "categorie": 2
+    },
+    {
+      "id": 15,
+      "name": "Terre & Mer",
+      "description": "Tomate, Thon au naturel, Oignons, Olives, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 3
+    },
+    {
+      "id": 16,
+      "name": "Anchois",
+      "description": "Tomate, Filets d’anchois, Câpres, Râpés",
+      "small_price": 10.5,
+      "large_price": 13,
+      "categorie": 3
+    },
+    {
+      "id": 17,
+      "name": "Nordique",
+      "description": "Crème fraîche, Saumon fumé, Câpres, Estragon, Râpés",
+      "small_price": 11.5,
+      "large_price": 14.5,
+      "categorie": 3
+    },
+    {
+      "id": 18,
+      "name": "Andalouse",
+      "description": "Tomate, Poivrons, Chorizo, Ail, Olives, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 4
+    },
+    {
+      "id": 19,
+      "name": "Hawaï",
+      "description": "Tomate, Jambon, Ananas, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 4
+    },
+    {
+      "id": 20,
+      "name": "Hawaï Chicken",
+      "description": "Tomate, Poulet, Ananas, Râpés",
+      "small_price": 11.5,
+      "large_price": 12.5,
+      "categorie": 4
+    },
+    {
+      "id": 21,
+      "name": "Kebab",
+      "description": "Crème fraîche épicée, Viande de kebab, Oignons, Épices, Râpés",
+      "small_price": 11.5,
+      "large_price": 13,
+      "categorie": 4
+    },
+    {
+      "id": 22,
+      "name": "British",
+      "description": "Tomate, Bacon, Cheddar, œuf, Olives",
+      "small_price": 10.5,
+      "large_price": 13,
+      "categorie": 4
+    },
+    {
+      "id": 23,
+      "name": "Orientale",
+      "description": "Tomate, Merguez, Poivrons, Ail, Épices, Olives, Râpés",
+      "small_price": 10.5,
+      "large_price": 13,
+      "categorie": 4
+    },
+    {
+      "id": 24,
+      "name": "Diable",
+      "description": "Crème fraîche, Moutarde, Blancs de poulet, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 5
+    },
+    {
+      "id": 25,
+      "name": "Flammekueche",
+      "description": "Crème fraîche, Lardons fumés, Oignons, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 5
+    },
+    {
+      "id": 26,
+      "name": "Taz",
+      "description": "Crème fraîche épicée, Poulet, Épices tandoori, Râpés",
+      "small_price": 10.5,
+      "large_price": 12,
+      "categorie": 5
+    },
+    {
+      "id": 27,
+      "name": "Mémé",
+      "description": "Tomate, Magret, Bleu, Noix, Râpés",
+      "small_price": 11.5,
+      "large_price": 14,
+      "categorie": 5
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Traditionnelles"
+    },
+    {
+      "id": 2,
+      "name": "Fromageres"
+    },
+    {
+      "id": 3,
+      "name": "Marines"
+    },
+    {
+      "id": 4,
+      "name": "vacancieres"
+    },
+    {
+      "id": 5,
+      "name": "Spécialités"
+    }
+  ],
+  "boissons": [
+    {
+      "id": 1,
+      "name": "Eau",
+      "price": 1,
+      "quantité": 50
+    },
+    {
+      "id": 2,
+      "name": "Sodas",
+      "quantité": 33,
+      "price": 2,
+      "commentaire": "Selon arrivage"
+    },
+    {
+      "id": 3,
+      "name": "Bières",
+      "quantité": null,
+      "price": 2.5,
+      "commentaire": "Selon arrivage"
+    }
+  ]
+}

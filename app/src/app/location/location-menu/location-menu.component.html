@@ -1,0 +1,10 @@
+<div class="carte text-white ">
+<br>
+  <h1 *ngIf="etatLoad == etatLoading.LOADING || etatLoad == etatLoading.WAITING ">
+    Chargement des localisations ... &nbsp;
+    <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+
+  </h1>
+  <app-location-item *ngFor="let r of locations" [location]="r"></app-location-item>
+
+</div>
