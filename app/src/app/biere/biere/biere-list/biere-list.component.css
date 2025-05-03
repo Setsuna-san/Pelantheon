@@ -12,3 +12,23 @@
 .table-head[data-sort="desc"]::after {
   content: " ▲";
 }
+
+input {
+  border-radius: 5px;
+  padding: 0.2rem;
+  width: 100%;
+}
+
+select {
+  border-radius: 5px;
+  padding: 0.2rem;
+  width: 100%;
+}
+
+.slide {
+  transition: 0.4s;
+
+}
+.slide:hover {
+  transform: translatex(-10px);
+}

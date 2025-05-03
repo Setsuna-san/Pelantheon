@@ -1,0 +1,45 @@
+.trash, .pen {
+  font-weight: bolder;
+  transition: 0.4s;
+}
+
+
+.trash:hover {
+  color: red;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.pen:hover {
+  color: darkblue;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+input {
+  border-radius: 5px;
+  padding: 0.2rem;
+  width: 100%;
+}
+
+select {
+  border-radius: 5px;
+  padding: 0.2rem;
+  width: 100%;
+}
+
+.deroulant {
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.ajout {
+  border-radius: 5px;
+  font-weight: bolder;
+  transition: 0.4s;
+}
+
+.ajout:hover {
+  transform: scale(1.1);
+
+}

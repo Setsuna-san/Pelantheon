@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Biere, NoteBiere, TypeBiere } from '../models/biere';
+import { Biere, NoteBiere } from '../models/biere';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BiereService {
-  readonly biereAPI = environment.apiUrl + '/bieres';
+  private readonly biereAPI = environment.apiUrl + '/bieres';
+  private readonly noteAPI = environment.apiUrl + '/notes';
+
   constructor(private http: HttpClient) {}
 
   // BIERES CRUD
@@ -16,33 +18,40 @@ export class BiereService {
     return this.http.get<Biere[]>(this.biereAPI);
   }
 
-  getBiere(id: number): Observable<Biere> {
-    return this.http.get<Biere>(this.biereAPI + '/' + id);
+  getBiere(id: string): Observable<Biere> {
+    return this.http.get<Biere>(`${this.biereAPI}/${id}`);
   }
 
-  addBiere(nouvelleBiere: Biere): Observable<Biere> {
-    return this.http.post<Biere>(this.biereAPI, nouvelleBiere);
+  addBiere(biere: Biere): Observable<Biere> {
+    return this.http.post<Biere>(this.biereAPI, biere);
   }
 
   updateBiere(biere: Biere): Observable<Biere> {
-    return this.http.put<Biere>(this.biereAPI + '/' + biere.id, biere);
+    return this.http.put<Biere>(`${this.biereAPI}/${biere.id}`, biere);
   }
 
-  deleteBiere(biere: Biere): Observable<Biere> {
-    return this.http.delete<Biere>(this.biereAPI + '/' + biere.id);
+  deleteBiere(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.biereAPI}/${id}`);
+  }
+
+  getNotes(): Observable<NoteBiere[]> {
+    return this.http.get<NoteBiere[]>(`${this.noteAPI}/notes`);
   }
 
   // NOTES CRUD
-  addNoteBiere(note: NoteBiere): Observable<NoteBiere> {
-    return this.http.post<NoteBiere>(`${this.biereAPI}/notes`, note);
-  }
-
-  getNotesBiere(biereId: number): Observable<NoteBiere[]> {
+  getNotesBiere(biereId: string): Observable<NoteBiere[]> {
     return this.http.get<NoteBiere[]>(`${this.biereAPI}/${biereId}/notes`);
   }
 
-  // TYPES CRUD
-  getTypesBiere(): Observable<TypeBiere[]> {
-    return this.http.get<TypeBiere[]>(`${this.biereAPI}/types`);
+  addNote(note: NoteBiere): Observable<NoteBiere> {
+    return this.http.post<NoteBiere>(this.noteAPI, note);
+  }
+
+  updateNote(note: NoteBiere): Observable<NoteBiere> {
+    return this.http.put<NoteBiere>(`${this.noteAPI}/${note.id}`, note);
+  }
+
+  deleteNote(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.noteAPI}/${id}`);
   }
 }

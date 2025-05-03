@@ -8,11 +8,16 @@ import { AuthGuard } from './guards/auth.guard';
 
 import { BiereListComponent } from './biere/biere/biere-list/biere-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
+import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
 
 
 const routes: Routes = [
   { path: 'admin/accueil', component:AcceuilComponent, canActivate: [AuthGuard] },
   { path: 'bieres', component:BiereListComponent},
+  { path: 'bieres/new', component:BiereEditComponent},
+  { path: 'bieres/edit/:id', component:BiereEditComponent},
+  { path: 'bieres/:id', component:BiereShowComponent},
   { path: 'propos', component:ProposComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },

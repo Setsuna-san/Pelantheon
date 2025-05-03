@@ -13,7 +13,8 @@ import { AdminComponent } from './admin/admin.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BiereListComponent } from './biere/biere/biere-list/biere-list.component';
 import { NoteListComponent } from './biere/note/note-list/note-list.component';
-import { BiereItemComponent } from './biere/biere/biere-item/biere-item.component';
+import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
+import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { BiereItemComponent } from './biere/biere/biere-item/biere-item.componen
     PageNotFoundComponent,
     BiereListComponent,
     NoteListComponent,
-    BiereItemComponent
+    BiereEditComponent,
+    BiereShowComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,51 +1,74 @@
 <div class="card">
-  <div class="card-header">
-    <h5 class="card-title">Liste des bières</h5>
-    <div class="card-tools">
-      <a href="/bieres/edit" class="btn btn-primary btn-sm">
-        <i class="fa-solid fa-plus"></i> Ajouter
-      </a>
+  <div class="card-header ">
+    <h5 class="card-title">
+
+      Liste des bières
+      <div class="float-end">
+        <a href="/bieres/new" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-plus"></i> <span class=""> Ajouter</span>
+        </a>
+      </div>
+    </h5>
+    <hr>
+    Recherche <br>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <label for="search">Nom</label>
+        <input type="text" name="search" id="search">
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <label for="type">Type</label>
+        &nbsp;
+        <select name="type" id="type">
+          <option value="rien">rien</option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <label for="type">Note</label>
+        &nbsp;
+        <input type="number" name="note" id="note" max="10" min="0">
+      </div>
     </div>
+    <hr>
   </div>
 </div>
 
 <div class="card">
 
-<div class="card-body">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col" class="table-head" (click)="sortTable('nom')" [attr.data-sort]="sortColumn === 'nom' ? sortDirection : ''">Nom</th>
-        <th scope="col" class="table-head" (click)="sortTable('type')" [attr.data-sort]="sortColumn === 'type' ? sortDirection : ''">Type</th>
-        <th scope="col" class="table-head" (click)="sortTable('alcool')" [attr.data-sort]="sortColumn === 'alcool' ? sortDirection : ''">Alcool</th>
-        <th scope="col" class="table-head" (click)="sortTable('note')" [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let biere of bieres">
-        <td>{{ biere.nom }}</td>
-        <td>{{ biere.type }}</td>
-        <td>{{ biere.alcool }} %</td>
-        <td>
-          <div [ngClass]="{
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="table-head" (click)="sortTable('nom')"
+            [attr.data-sort]="sortColumn === 'nom' ? sortDirection : ''">Nom</th>
+          <th scope="col" class="table-head" (click)="sortTable('type')"
+            [attr.data-sort]="sortColumn === 'type' ? sortDirection : ''">Type</th>
+          <th scope="col" class="table-head" (click)="sortTable('alcool')"
+            [attr.data-sort]="sortColumn === 'alcool' ? sortDirection : ''">Alcool</th>
+          <th scope="col" class="table-head" (click)="sortTable('note')"
+            [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
+          <th scope="col" class="table-head" (click)="sortTable('nb_notes')"
+            [attr.data-sort]="sortColumn === 'nb_notes' ? sortDirection : ''">nb de notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let biere of bieres" [routerLink]="['/bieres', biere.id]" class="pointer slide">
+          <td>{{ biere.nom }}</td>
+          <td>{{ biere.type }}</td>
+          <td>{{ biere.alcool }} %</td>
+          <td>
+            <div [ngClass]="{
             'btn-success': biere.note === 10,
             'btn-info': biere.note >= 6 && biere.note <= 9,
             'btn-warning': biere.note >= 3 && biere.note <= 5,
             'btn-danger': biere.note < 3
           }" class="btn">
-            {{ biere.note }}
-          </div>
-        </td>
-        <!-- <td>
-          <a href="/bieres/edit" class="btn btn-warning btn-sm">
-            <i class="fa-solid fa-pen-to-square"></i> Editer
-          </a>
-          <a (click)="delete(biere.id)" class="btn btn-danger btn-sm">
-            <i class="fa-solid fa-trash"></i> Supprimer
-          </a>
-        </td> -->
-      </tr>
-    </tbody>
-  </table>
-</div>
+              {{ biere.note < 10 ? '0' + biere.note : biere.note }} </div>
+          </td>
+          <td>{{ biere.nb_notes || 0 }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

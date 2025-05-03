@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs'); // Module pour travailler avec les fichiers
-const cors = require('cors'); // Middleware pour gérer CORS
+const fs = require('fs');
+const cors = require('cors');
+const { log } = require('console');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -9,15 +10,14 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(cors());
 
-let data = loadDataFromFile(); // Charger les données depuis le fichier JSON
+let data = loadDataFromFile();
 
 app.listen(port, () => {
     console.log("Serveur écoutant sur le port " + port);
 });
 
-let nextPizzaId = getNextPizzaId(data.pizzas); // Initialiser le prochain ID disponible pour les tâches
-let nextLocationId = getNextLocationId(data.locations);
-
+let nextBiereId = data.bieres?.length > 0 ? Math.max(...data.bieres.map(biere => biere.id)) + 1 : 1;
+let nextNoteId = data.notes?.length > 0 ? Math.max(...data.notes.map(note => note.id)) + 1 : 1;
 
 // Fonction pour charger les données depuis le fichier JSON
 function loadDataFromFile() {
@@ -26,7 +26,7 @@ function loadDataFromFile() {
         return JSON.parse(rawData);
     } catch (err) {
         console.error("Erreur lors du chargement du fichier JSON:", err);
-        return { locations: [], pizzas: [] };
+        return { bieres: [], notes: [] };
     }
 }
 
@@ -40,205 +40,121 @@ function saveDataToFile() {
     }
 }
 
-// Fonction pour obtenir le prochain ID disponible pour les tâches
-function getNextPizzaId(pizzas) {
-    return pizzas.length > 0 ? Math.max(...pizzas.map(pizza => pizza.id)) + 1 : 1;
-}
-
-function getNextLocationId(locations) {
-    return locations.length > 0 ? Math.max(...locations.map(location => location.id)) + 1 : 1;
-}
-
-
-// Routes pour les pizzas (Exemple)
-app.get('/pizzas', (req, res) => {
-    res.json(data.pizzas);
-    console.log('data retourner :' + data/pizzas)
+// Routes pour les bières
+app.get('/bieres', (req, res) => {
+    res.json(data.bieres);
 });
 
-app.get('/pizzas/:id', (req, res) => {
-    const pizzaId = parseInt(req.params.id);
-    const pizza = data.pizzas.find(pizza => pizza.id === pizzaId);
-
-    if (pizza) {
-        res.json(pizza);
+app.get('/bieres/:id', (req, res) => {
+    const biereId = parseInt(req.params.id);
+    const biere = data.bieres.find(b => b.id === biereId);
+    if (biere) {
+        const notes = data.notes.filter(note => note.biereId === biere.id);
+        const averageNote = notes.length > 0 ? (notes.reduce((sum, note) => sum + note.note, 0) / notes.length).toFixed(2) : 0;
+        res.json({ ...biere, note: parseFloat(averageNote) });
     } else {
-        res.status(404).json({ error: 'Pizza non trouvée' });
+        res.status(404).json({ error: 'Bière non trouvée' });
     }
 });
 
-app.post('/pizzas', (req, res) => {
-    const newPizza = {
-        id: nextPizzaId++,
-        name: req.body.name,
-        description: req.body.description,
-        small_price: req.body.small_price,
-        large_price: req.body.large_price,
-        categorie: req.body.categorie,
+app.post('/bieres', (req, res) => {
+    console.log(`Ajout d'une nouvelle bière: ${JSON.stringify(req.body)}`);
+    const newBiere = {
+        id: nextBiereId++,
+        nom: req.body.nom,
+        alcool: req.body.alcool,
+        type: req.body.type,
+        note: 0,
+        nb_notes: 0,
     };
-    data.pizzas.push(newPizza);
-    saveDataToFile(); // Sauvegarder après l'ajout d'une pizza
-    res.status(201).json({ message: 'Pizza ajoutée avec succès', pizza: newPizza });
-});
-
-app.put('/pizzas/:id', (req, res) => {
-    const pizzaId = parseInt(req.params.id);
-    const pizza = data.pizzas.find(pizza => pizza.id === pizzaId);
-
-    if (pizza) {
-        pizza.name = req.body.name;
-        pizza.description = req.body.description;
-        pizza.small_price= req.body.small_price;
-        pizza.large_price= req.body.large_price;
-        pizza.categorie = req.body.categorie;
-
-        saveDataToFile(); // Sauvegarder après la mise à jour d'une pizza
-        res.json({ message: 'Pizza mise à jour avec succès', pizza });
-    } else {
-        res.status(404).json({ error: 'Pizza non trouvée' });
-    }
-});
-
-app.delete('/pizzas/:id', (req, res) => {
-    const pizzaId = parseInt(req.params.id);
-    data.pizzas = data.pizzas.filter(pizza => pizza.id !== pizzaId);
-    saveDataToFile(); // Sauvegarder après la suppression d'une pizza
-    res.json({ message: 'Pizza supprimée avec succès' });
-});
-
-app.get('/locations', (req, res) => {
-    res.json(data.locations);
-    console.log('data retourner :' + data/locations)
-});
-
-app.post('/locations', (req, res) => {
-    const newlocation = {
-        id: nextLocationId++,
-        name: req.body.name,
-        description: req.body.description,
-        creationDate: new Date().toISOString()
-    };
-    data.locations.push(newlocation);
-    saveDataToFile(); // Sauvegarder après l'ajout d'une pizza
-    res.status(201).json({ message: 'Localisation ajoutée avec succès', location: newlocation });
-});
-
-app.put('/locations/:id', (req, res) => {
-    const locationId = parseInt(req.params.id);
-    const location = data.locations.find(location => location.id === locationId);
-
-    if (location) {
-        location.name = req.body.name;
-        location.day = req.body.day
-        location.map = req.body.map;
-        saveDataToFile(); // Sauvegarder après la mise à jour d'une pizza
-        res.json({ message: 'Localisation mise à jour avec succès', location });
-    } else {
-        res.status(404).json({ error: 'localisation non trouvée' });
-    }
-});
-
-app.delete('/locations/:id', (req, res) => {
-    const locationId = parseInt(req.params.id);
-    data.locations = data.locations.filter(location => location.id !== locationId);
-    saveDataToFile(); // Sauvegarder après la suppression d'une pizza
-    res.json({ message: 'localisation supprimée avec succès' });
-});
-
-// Routes pour les catégories
-app.get('/categories', (req, res) => {
-    res.json(data.categories);
-});
-
-app.get('/categories/:id', (req, res) => {
-    const categorieId = parseInt(req.params.id);
-    const categorie = data.categories.find(cat => cat.id === categorieId);
-
-    if (categorie) {
-        res.json(categorie);
-    } else {
-        res.status(404).json({ error: 'Catégorie non trouvée' });
-    }
-});
-
-app.post('/categories', (req, res) => {
-    const newCategorie = {
-        id: data.categories.length > 0 ? Math.max(...data.categories.map(cat => cat.id)) + 1 : 1,
-        name: req.body.name,
-    };
-    data.categories.push(newCategorie);
+    data.bieres.push(newBiere);
     saveDataToFile();
-    res.status(201).json({ message: 'Catégorie ajoutée avec succès', categorie: newCategorie });
+    res.status(201).json({ message: 'Bière ajoutée avec succès', biere: newBiere });
 });
 
-app.put('/categories/:id', (req, res) => {
-    const categorieId = parseInt(req.params.id);
-    const categorie = data.categories.find(cat => cat.id === categorieId);
+app.put('/bieres/:id', (req, res) => {
+    console.log(`Mise à jour de la bière avec l'ID ${req.params.id}: ${JSON.stringify(req.body)}`);
+    const biereId = parseInt(req.params.id);
+    const biere = data.bieres.find(b => b.id === biereId);
 
-    if (categorie) {
-        categorie.name = req.body.name;
+    if (biere) {
+        biere.nom = req.body.nom;
+        biere.alcool = req.body.alcool;
+        biere.type = req.body.type;
+        updateBiereAverageNote(biereId); 
         saveDataToFile();
-        res.json({ message: 'Catégorie mise à jour avec succès', categorie });
+        res.json({ message: 'Bière mise à jour avec succès', biere });
     } else {
-        res.status(404).json({ error: 'Catégorie non trouvée' });
+        res.status(404).json({ error: 'Bière non trouvée' });
     }
 });
 
-app.delete('/categories/:id', (req, res) => {
-    const categorieId = parseInt(req.params.id);
-    data.categories = data.categories.filter(cat => cat.id !== categorieId);
+app.delete('/bieres/:id', (req, res) => {
+    console.log(`Suppression de la bière avec l'ID ${req.params.id}`);
+    const biereId = parseInt(req.params.id);
+    data.bieres = data.bieres.filter(b => b.id !== biereId);
     saveDataToFile();
-    res.json({ message: 'Catégorie supprimée avec succès' });
+    res.json({ message: 'Bière supprimée avec succès' });
 });
 
-// Routes pour les boissons
-app.get('/boissons', (req, res) => {
-    res.json(data.boissons);
+// Routes pour les notes
+app.get('/bieres/:biereId/notes', (req, res) => {
+    console.log(`Récupération des notes pour la bière avec l'ID ${req.params.biereId}`);
+    const biereId = parseInt(req.params.biereId);
+    const notes = data.notes.filter(note => note.biereId === biereId);
+    res.json(notes);
 });
 
-app.get('/boissons/:id', (req, res) => {
-    const boissonId = parseInt(req.params.id);
-    const boisson = data.boissons.find(b => b.id === boissonId);
-
-    if (boisson) {
-        res.json(boisson);
-    } else {
-        res.status(404).json({ error: 'Boisson non trouvée' });
-    }
-});
-
-app.post('/boissons', (req, res) => {
-    const newBoisson = {
-        id: data.boissons.length > 0 ? Math.max(...data.boissons.map(b => b.id)) + 1 : 1,
-        name: req.body.name,
-        price: req.body.price,
-        quantité: req.body.quantité,
-        commentaire: req.body.commentaire || null,
+app.post('/notes', (req, res) => {
+    console.log(`Ajout d'une nouvelle note: ${JSON.stringify(req.body)}`);
+    const newNote = {
+        id: nextNoteId++,
+        note: req.body.note,
+        commentaire: req.body.commentaire,
+        date: req.body.date,
+        biereId: req.body.biereId,
     };
-    data.boissons.push(newBoisson);
+    data.notes.push(newNote);
+    updateBiereAverageNote(req.body.biereId);
     saveDataToFile();
-    res.status(201).json({ message: 'Boisson ajoutée avec succès', boisson: newBoisson });
+    res.status(201).json({ message: 'Note ajoutée avec succès', note: newNote });
 });
 
-app.put('/boissons/:id', (req, res) => {
-    const boissonId = parseInt(req.params.id);
-    const boisson = data.boissons.find(b => b.id === boissonId);
+app.put('/notes/:id', (req, res) => {
+    console.log(`Mise à jour de la note avec l'ID ${req.params.id}: ${JSON.stringify(req.body)}`);
+    const noteId = parseInt(req.params.id);
+    const note = data.notes.find(n => n.id === noteId);
 
-    if (boisson) {
-        boisson.name = req.body.name;
-        boisson.price = req.body.price;
-        boisson.quantité = req.body.quantité;
-        boisson.commentaire = req.body.commentaire || null;
+    if (note) {
+        note.note = req.body.note;
+        note.commentaire = req.body.commentaire;
+        note.date = req.body.date;
+        updateBiereAverageNote(req.body.biereId);
         saveDataToFile();
-        res.json({ message: 'Boisson mise à jour avec succès', boisson });
+        res.json({ message: 'Note mise à jour avec succès', note });
     } else {
-        res.status(404).json({ error: 'Boisson non trouvée' });
+        res.status(404).json({ error: 'Note non trouvée' });
     }
 });
 
-app.delete('/boissons/:id', (req, res) => {
-    const boissonId = parseInt(req.params.id);
-    data.boissons = data.boissons.filter(b => b.id !== boissonId);
+app.delete('/notes/:id', (req, res) => {
+    console.log(`Suppression de la note avec l'ID ${req.params.id}`);
+    const noteId = parseInt(req.params.id);
+    data.notes = data.notes.filter(n => n.id !== noteId);
     saveDataToFile();
-    res.json({ message: 'Boisson supprimée avec succès' });
+    updateBiereAverageNote(req.body.biereId);
+    res.json({ message: 'Note supprimée avec succès' });
 });
+
+
+function updateBiereAverageNote(biereId) {
+    console.log(`Mise à jour de la note pour la bière avec l'ID ${biereId}`);
+    const notes = data.notes.filter(note => note.biereId === biereId);
+    const averageNote = notes.length > 0 ? (notes.reduce((sum, note) => sum + note.note, 0) / notes.length).toFixed(2) : 0;
+    const biere = data.bieres.find(b => b.id === biereId);
+    if (biere) {
+        biere.note = averageNote;
+        biere.nb_notes = notes.length;
+        saveDataToFile();
+    }
+}

@@ -1,0 +1,92 @@
+<div class="card">
+  <h5 class="card-header bg-info fw-bolder">
+    {{biere.nom}}
+    <div class="float-end"><a href="/bieres/edit" class="pen btn btn-sm">
+        <i class="fa-solid fa-pen"></i> Editer
+      </a>
+      <a href="/bieres/edit" class="trash btn btn-sm">
+        <i class="fa-solid fa-trash"></i> Supprimer
+      </a>
+    </div>
+  </h5>
+</div>
+
+<div class="container card">
+  <div class="card-title ">
+    <br>
+    Informations
+  </div>
+  <div class="card-body indent">
+    <div class="row">
+      Type : {{biere.type}}
+      <br>
+      Alcool : {{biere.alcool}} %
+    </div>
+  </div>
+
+
+</div>
+<br>
+<div class="card">
+  <div class="card-header bg-info ">
+    <i class="fa-solid fa-plus"></i>
+    Ajouter une note
+  </div>
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-lg-1 col-sm-2">
+        <label for="note">Note</label>
+        <input type="number" [(ngModel)]="newNotes.note" name="note" id="note" max="10" min="0" required>
+      </div>
+      <div class="col-lg-7 col-sm-7">
+        <label for="commentaire">Commentaire</label>
+        <input type="text" [(ngModel)]="newNotes.commentaire" name="commentaire" id="commentaire" required>
+      </div>
+      <div class="col-lg-2 col-sm-2 ">
+        <label for="date">Date</label>
+        <input type="date" [(ngModel)]="newDate" name="date" id="date" required>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <br>
+        <a class="btn btn-info p-1 border border-info ajout" (click)="onAddNote()">
+          Ajouter <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="card">
+  <div class="card-header bg-info ">
+    <i class="fa-solid fa-list"></i>
+    Liste des notes
+  </div>
+
+  <div class="card-body indent">
+
+    <table *ngIf="notes.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="table-head" (click)="sortTable('note')"
+            [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
+          <th scope="col" class="table-head" [attr.data-sort]="sortColumn === 'commentaire' ? sortDirection : ''">
+            Commentaire</th>
+          <th scope="col" class="table-head" (click)="sortTable('date')"
+            [attr.data-sort]="sortColumn === 'date' ? sortDirection : ''">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of notes" class="slide">
+          <td>{{ note.note }}</td>
+          <td>{{ note.commentaire }}</td>
+          <td>{{ note.date }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+    <span *ngIf="notes.length <= 0">Aucune note pour cette biere </span>
+
+  </div>
+
+</div>
