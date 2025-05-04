@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Biere, NoteBiere } from 'src/app/models/biere';
 import { Etatload } from 'src/app/models/etatload';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment';
 import { BiereService } from 'src/app/services/biere.service';
 
 @Component({
