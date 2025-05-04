@@ -17,7 +17,8 @@ export class NoteBiere {
     public note: number = 0,
     public commentaire: string = '',
     public date: String | Date = new Date().toLocaleDateString('fr-FR'),
-    public biereId: string = ""
+    public biereId: string = "",
+    public userId: string = "",
   ) {}
 }
 

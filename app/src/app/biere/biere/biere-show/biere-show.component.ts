@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Biere, NoteBiere } from 'src/app/models/biere';
 import { Etatload } from 'src/app/models/etatload';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
 
@@ -14,8 +15,12 @@ export class BiereShowComponent implements OnInit {
 
   biere: Biere = new Biere();
   notes: NoteBiere[] = [];
+  users: User[] = [];
+  usersById: { [id: string]: User } = {}; // Index des utilisateurs par ID
   newNotes: NoteBiere = new NoteBiere();
   newDate: Date = new Date();
+
+  selectedPersonne: number = 0;
   public etatLoad: Etatload = Etatload.LOADING;
   public noteLoad: Etatload = Etatload.LOADING;
   public Etatload = Etatload;
@@ -54,10 +59,27 @@ export class BiereShowComponent implements OnInit {
           console.error('Erreur lors de la récupération des notes:', err);
         },
       });
+
+      this.bieresService.getUsers().subscribe({
+        next: (users) => {
+          this.users = users;
+          this.usersById = this.indexUsersById(users); // Indexation des utilisateurs
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des utilisateurs:', err);
+        },
+      });
     } else {
       this.router.navigate(['/bieres']);
     }
 
+  }
+
+  private indexUsersById(users: User[]): { [id: string]: User } {
+    return users.reduce((acc, user) => {
+      acc[user.id] = user;
+      return acc;
+    }, {} as { [id: string]: User });
   }
 
   sortTable(column: keyof NoteBiere) { // Utilisez 'keyof Biere' pour restreindre les colonnes triables

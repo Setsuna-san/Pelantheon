@@ -21,15 +21,31 @@
       "id": 1,
       "note": 8,
       "commentaire": "bien",
-      "date": "2025-05-03T23:15:43.415Z",
-      "biereId": 1
+      "date": "03/12/2024",
+      "biereId": 1,
+      "userId": 1
     },
     {
       "id": 2,
       "note": 10,
       "commentaire": "super bon",
       "date": "04/05/2025",
-      "biereId": 1
+      "biereId": 1,
+      "userId": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nom": "Jean",
+      "prenom": "Dupont",
+      "surnom": "JDP"
+    }, 
+    {
+      "id": 2,
+      "nom": "Marie",
+      "prenom": "Durand",
+      "surnom": "MarieDisco"
     }
   ]
 }

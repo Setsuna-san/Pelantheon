@@ -18,15 +18,20 @@ app.listen(port, () => {
 
 let nextBiereId = data.bieres?.length > 0 ? Math.max(...data.bieres.map(biere => biere.id)) + 1 : 1;
 let nextNoteId = data.notes?.length > 0 ? Math.max(...data.notes.map(note => note.id)) + 1 : 1;
+let nextUserId = data.users?.length > 0 ? Math.max(...data.users.map(user => parseInt(user.id))) + 1 : 1;
 
 // Fonction pour charger les données depuis le fichier JSON
 function loadDataFromFile() {
     try {
         const rawData = fs.readFileSync('data.json', 'utf8');
-        return JSON.parse(rawData);
+        const parsedData = JSON.parse(rawData);
+        if (!parsedData.users) {
+            parsedData.users = []; // Initialiser les utilisateurs si absents
+        }
+        return parsedData;
     } catch (err) {
         console.error("Erreur lors du chargement du fichier JSON:", err);
-        return { bieres: [], notes: [] };
+        return { bieres: [], notes: [], users: [] };
     }
 }
 
@@ -146,6 +151,60 @@ app.delete('/notes/:id', (req, res) => {
     res.json({ message: 'Note supprimée avec succès' });
 });
 
+// Routes pour les utilisateurs
+app.get('/users', (req, res) => {
+    console.log("Récupération de tous les utilisateurs");
+    res.json(data.users);
+});
+
+app.get('/users/:id', (req, res) => {
+    console.log(`Récupération de l'utilisateur avec l'ID ${req.params.id}`);
+    const userId = req.params.id;
+    const user = data.users.find(u => u.id === userId);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json({ error: 'Utilisateur non trouvé' });
+    }
+});
+
+app.post('/users', (req, res) => {
+    console.log(`Ajout d'un nouvel utilisateur: ${JSON.stringify(req.body)}`);
+    const newUser = {
+        id: nextUserId.toString(),
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        surnom: req.body.surnom,
+    };
+    nextUserId++;
+    data.users.push(newUser);
+    saveDataToFile();
+    res.status(201).json({ message: 'Utilisateur ajouté avec succès', user: newUser });
+});
+
+app.put('/users/:id', (req, res) => {
+    console.log(`Mise à jour de l'utilisateur avec l'ID ${req.params.id}: ${JSON.stringify(req.body)}`);
+    const userId = req.params.id;
+    const user = data.users.find(u => u.id === userId);
+
+    if (user) {
+        user.nom = req.body.nom;
+        user.prenom = req.body.prenom;
+        user.surnom = req.body.surnom;
+        saveDataToFile();
+        res.json({ message: 'Utilisateur mis à jour avec succès', user });
+    } else {
+        res.status(404).json({ error: 'Utilisateur non trouvé' });
+    }
+});
+
+app.delete('/users/:id', (req, res) => {
+    console.log(`Suppression de l'utilisateur avec l'ID ${req.params.id}`);
+    const userId = req.params.id;
+    data.users = data.users.filter(u => u.id !== userId);
+    saveDataToFile();
+    res.json({ message: 'Utilisateur supprimé avec succès' });
+});
 
 function updateBiereAverageNote(biereId) {
     console.log(`Mise à jour de la note pour la bière avec l'ID ${biereId}`);

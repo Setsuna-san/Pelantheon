@@ -34,17 +34,33 @@
   </div>
   <div class="card-body">
     <div class="row ">
-      <div class="col-lg-1 col-sm-2">
+      <div class="col-lg-1 col-sm-1">
         <label for="note">Note</label>
         <input type="number" [(ngModel)]="newNotes.note" name="note" id="note" max="10" min="0" required>
       </div>
-      <div class="col-lg-7 col-sm-7">
+      <div class="col-lg-4 col-sm-7">
         <label for="commentaire">Commentaire</label>
         <input type="text" [(ngModel)]="newNotes.commentaire" name="commentaire" id="commentaire" required>
       </div>
       <div class="col-lg-2 col-sm-2 ">
         <label for="date">Date</label>
         <input type="date" [(ngModel)]="newDate" name="date" id="date" required>
+      </div>
+      <div class="col-lg-2 col-sm-2 ">
+        <label for="auteur">Auteur</label>
+
+        <ng-select
+            [items]="users"
+            bindLabel="nom"
+            bindValue="id"
+            placeholder="Chercher une personne"
+            [(ngModel)]="selectedPersonne"
+            [searchable]="true">
+          </ng-select>
+
+        <select name="auteur" id="auteur">
+          <option *ngFor="let user of users" [value]="user.id">{{user.surnom}}</option>
+        </select>
       </div>
       <div class="col-lg-2 col-sm-2">
         <br>
@@ -74,14 +90,15 @@
             Commentaire</th>
           <th scope="col" class="table-head" (click)="sortTable('date')"
             [attr.data-sort]="sortColumn === 'date' ? sortDirection : ''">Date</th>
-        </tr>
+          <th scope="col" class="table-head">Auteur</th>
+          </tr>
       </thead>
       <tbody>
         <tr *ngFor="let note of notes" class="slide">
           <td>{{ note.note }}</td>
           <td>{{ note.commentaire }}</td>
           <td>{{ note.date }}</td>
-
+          <td>{{ usersById[note.userId].surnom }}</td>
         </tr>
       </tbody>
     </table>

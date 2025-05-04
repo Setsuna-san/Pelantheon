@@ -15,6 +15,7 @@ import { BiereListComponent } from './biere/biere/biere-list/biere-list.componen
 import { NoteListComponent } from './biere/note/note-list/note-list.component';
 import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { BiereShowComponent } from './biere/biere/biere-show/biere-show.componen
     BiereShowComponent,
   ],
   imports: [
+    NgSelectModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
