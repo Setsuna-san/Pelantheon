@@ -118,6 +118,7 @@ app.post('/notes', (req, res) => {
         commentaire: req.body.commentaire,
         date: req.body.date,
         biereId: req.body.biereId,
+        userId: req.body.userId,
     };
     data.notes.push(newNote);
     updateBiereAverageNote(req.body.biereId);

@@ -5,8 +5,8 @@
       "nom": "Oeuf mayo",
       "alcool": 8,
       "type": "blanche",
-      "note": "9.00",
-      "nb_notes": 2
+      "note": "4.71",
+      "nb_notes": 7
     },
     {
       "id": 2,
@@ -32,6 +32,46 @@
       "date": "04/05/2025",
       "biereId": 1,
       "userId": 2
+    },
+    {
+      "id": 3,
+      "note": 5,
+      "commentaire": "add",
+      "date": "05/05/2025",
+      "biereId": 1,
+      "userId": "1"
+    },
+    {
+      "id": 4,
+      "note": 5,
+      "commentaire": "ca va ",
+      "date": "05/05/2025",
+      "biereId": 1,
+      "userId": 1
+    },
+    {
+      "id": 5,
+      "note": 0,
+      "commentaire": "",
+      "date": "05/05/2025",
+      "biereId": 1,
+      "userId": 1
+    },
+    {
+      "id": 6,
+      "note": 5,
+      "commentaire": "bof",
+      "date": "05/05/2025",
+      "biereId": 1,
+      "userId": 2
+    },
+    {
+      "id": 7,
+      "note": 0,
+      "commentaire": "",
+      "date": "05/05/2025",
+      "biereId": 1,
+      "userId": 2
     }
   ],
   "users": [
@@ -40,7 +80,7 @@
       "nom": "Jean",
       "prenom": "Dupont",
       "surnom": "JDP"
-    }, 
+    },
     {
       "id": 2,
       "nom": "Marie",

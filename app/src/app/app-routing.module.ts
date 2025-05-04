@@ -5,25 +5,23 @@ import { ProposComponent } from './propos/propos.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './guards/auth.guard';
-
 import { BiereListComponent } from './biere/biere/biere-list/biere-list.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
 import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: 'admin/accueil', component:AcceuilComponent, canActivate: [AuthGuard] },
-  { path: 'bieres', component:BiereListComponent},
-  { path: 'bieres/new', component:BiereEditComponent},
-  { path: 'bieres/edit/:id', component:BiereEditComponent},
-  { path: 'bieres/:id', component:BiereShowComponent},
-  { path: 'propos', component:ProposComponent },
+  { path: '', component: AcceuilComponent },
+  { path: 'accueil', component: AcceuilComponent },
+  { path: 'propos', component: ProposComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
-  { path: 'accueil', component: AcceuilComponent},
-  { path: '', component: AcceuilComponent},
-  { path: '**', component: AcceuilComponent }
+  { path: 'admin/accueil', component: AcceuilComponent, canActivate: [AuthGuard] },
+  { path: 'bieres', component: BiereListComponent },
+  { path: 'bieres/new', component: BiereEditComponent },
+  { path: 'bieres/edit/:id', component: BiereEditComponent },
+  { path: 'bieres/:id', component: BiereShowComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

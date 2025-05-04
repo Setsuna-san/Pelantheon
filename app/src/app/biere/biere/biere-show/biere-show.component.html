@@ -33,7 +33,7 @@
     Ajouter une note
   </div>
   <div class="card-body">
-    <div class="row ">
+    <form class="row " (ngSubmit)="onAddNote()">
       <div class="col-lg-1 col-sm-1">
         <label for="note">Note</label>
         <input type="number" [(ngModel)]="newNotes.note" name="note" id="note" max="10" min="0" required>
@@ -50,25 +50,23 @@
         <label for="auteur">Auteur</label>
 
         <ng-select
+            *ngIf="users.length > 0"
             [items]="users"
-            bindLabel="nom"
+            bindLabel="surnom"
             bindValue="id"
             placeholder="Chercher une personne"
-            [(ngModel)]="selectedPersonne"
-            [searchable]="true">
-          </ng-select>
-
-        <select name="auteur" id="auteur">
-          <option *ngFor="let user of users" [value]="user.id">{{user.surnom}}</option>
-        </select>
+            [searchable]="true"
+            (change)="onPersonneChange($event.id)">
+        </ng-select>
+        <span *ngIf="users.length === 0">Chargement des utilisateurs...</span>
       </div>
       <div class="col-lg-2 col-sm-2">
         <br>
-        <a class="btn btn-info p-1 border border-info ajout" (click)="onAddNote()">
+        <button type="submit" class="btn btn-info p-1 border border-info ajout"  >
           Ajouter <i class="fa-solid fa-arrow-right"></i>
-        </a>
+        </button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 <br>
