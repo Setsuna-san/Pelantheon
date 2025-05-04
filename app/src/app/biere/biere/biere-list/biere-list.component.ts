@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
 import { Biere } from 'src/app/models/biere';
 
+
 @Component({
   selector: 'app-biere-list',
   templateUrl: './biere-list.component.html',

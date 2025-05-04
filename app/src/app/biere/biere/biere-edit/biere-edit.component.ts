@@ -87,13 +87,15 @@ export class BiereEditComponent implements OnInit {
   onUpdate() {
     if (this.editing) {
       this.bieresService.updateBiere(this.biere).subscribe({
-        next: (biere) => {
-          this.biere = biere;
+        next: () => {
           this.etatLoad = Etatload.SUCCESS;
-          this.router.navigate(['/bieres/' + this.biere.id]);
+          this.router.navigate(['/bieres', this.biere.id]);
         },
-        error: (err) => (this.etatLoad = Etatload.ERREUR),
+        error: () => {
+          this.etatLoad = Etatload.ERREUR;
+        },
       });
     }
   }
+
 }
