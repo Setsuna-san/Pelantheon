@@ -84,10 +84,6 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
-                },
-                {
-                  "replace": "src/app/services/bieres.service.ts",
-                  "with": "src/app/services/bieres.service.development.ts"
                 }
               ]
             }
