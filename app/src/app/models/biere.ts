@@ -2,7 +2,7 @@ import { getLocaleDateFormat } from '@angular/common';
 
 export class Biere {
   constructor(
-    public id: number = 0,
+    public id: string = "",
     public nom: string = '',
     public alcool: number = 0.0,
     public type: string = "",
@@ -13,11 +13,11 @@ export class Biere {
 
 export class NoteBiere {
   constructor(
-    public id: number = 0,
+    public id: string = "",
     public note: number = 0,
     public commentaire: string = '',
     public date: String | Date = new Date().toLocaleDateString('fr-FR'),
-    public biereId: number = 0
+    public biereId: string = ""
   ) {}
 }
 
