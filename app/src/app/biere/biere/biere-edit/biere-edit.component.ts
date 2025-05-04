@@ -11,9 +11,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Etatload } from 'src/app/models/etatload';
 @Component({
-  selector: 'app-biere-edit',
-  templateUrl: './biere-edit.component.html',
-  styleUrls: ['./biere-edit.component.css'],
+    selector: 'app-biere-edit',
+    templateUrl: './biere-edit.component.html',
+    styleUrls: ['./biere-edit.component.css'],
+    standalone: false
 })
 export class BiereEditComponent implements OnInit {
   biereId: string | null = null;

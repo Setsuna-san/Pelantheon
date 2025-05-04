@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
 
 @Component({
-  selector: 'app-biere-show',
-  templateUrl: './biere-show.component.html',
-  styleUrls: ['./biere-show.component.css'],
+    selector: 'app-biere-show',
+    templateUrl: './biere-show.component.html',
+    styleUrls: ['./biere-show.component.css'],
+    standalone: false
 })
 export class BiereShowComponent implements OnInit {
 

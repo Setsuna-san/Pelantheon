@@ -5,9 +5,10 @@ import { BiereService } from 'src/app/services/biere.service';
 import { Biere } from 'src/app/models/biere';
 
 @Component({
-  selector: 'app-biere-list',
-  templateUrl: './biere-list.component.html',
-  styleUrls: ['./biere-list.component.css']
+    selector: 'app-biere-list',
+    templateUrl: './biere-list.component.html',
+    styleUrls: ['./biere-list.component.css'],
+    standalone: false
 })
 export class BiereListComponent implements OnInit {
 

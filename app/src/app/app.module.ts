@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { MenuComponent } from './menu/menu.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { ProposComponent } from './propos/propos.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
@@ -15,8 +14,6 @@ import { BiereListComponent } from './biere/biere/biere-list/biere-list.componen
 import { NoteListComponent } from './biere/note/note-list/note-list.component';
 import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
-import { NgSelectModule } from '@ng-select/ng-select';
-
 
 @NgModule({
   declarations: [
@@ -33,11 +30,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BiereShowComponent,
   ],
   imports: [
-    NgSelectModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    FormsModule
+    // Ajoutez ici d'autres modules nécessaires si requis par Angular 19
   ],
   providers: [],
   bootstrap: [AppComponent]

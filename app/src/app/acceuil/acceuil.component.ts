@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-acceuil',
-  templateUrl: './acceuil.component.html',
-  styleUrls: ['./acceuil.component.css']
+    selector: 'app-acceuil',
+    templateUrl: './acceuil.component.html',
+    styleUrls: ['./acceuil.component.css'],
+    standalone: false
 })
 export class AcceuilComponent {
   constructor(protected authService: AuthService, private router: Router) {}
