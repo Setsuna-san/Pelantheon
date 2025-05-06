@@ -4,13 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BiereService } from 'src/app/services/biere.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Etatload } from 'src/app/models/etatload';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-biere-edit',
@@ -35,7 +32,8 @@ export class BiereEditComponent implements OnInit {
     private route: ActivatedRoute,
     private bieresService: BiereService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -128,7 +126,7 @@ export class BiereEditComponent implements OnInit {
         config,
         (decodedText) => {
           console.log(`Code-barres scanné : ${decodedText}`);
-          this.codeBarre = decodedText;
+          this.biere.ean = decodedText;
 
           this.closeCamera(); // Ferme la caméra après un scan réussi
         },
@@ -154,4 +152,5 @@ export class BiereEditComponent implements OnInit {
       });
     }
   }
+
 }

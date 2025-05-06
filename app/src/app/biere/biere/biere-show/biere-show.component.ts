@@ -1,4 +1,5 @@
-import { Component, isStandalone, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Biere, NoteBiere } from 'src/app/models/biere';
 import { Etatload } from 'src/app/models/etatload';
@@ -19,8 +20,6 @@ export class BiereShowComponent implements OnInit {
   users: User[] = [];
   usersById: { [id: string]: User } = {}; // Index des utilisateurs par ID
   newNotes: NoteBiere = new NoteBiere();
-  newDate: Date = new Date();
-
   public selectedPersonne: string | null = ''; // Initialisation à une chaîne vide
 
   public etatLoad: Etatload = Etatload.LOADING;
@@ -34,11 +33,13 @@ export class BiereShowComponent implements OnInit {
     private route: ActivatedRoute,
     private bieresService: BiereService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
     ) {}
 
   ngOnInit(): void {
     // Logique d'initialisation si nécessaire
+    this.newNotes.date = new Date().toISOString().substring(0, 10);
     const biereId = this.route.snapshot.paramMap.get('id');
     if (biereId) {
       this.bieresService.getBiere(biereId).subscribe({

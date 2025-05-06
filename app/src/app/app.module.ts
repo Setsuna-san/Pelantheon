@@ -15,6 +15,7 @@ import { NoteListComponent } from './biere/note/note-list/note-list.component';
 import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BoutonRetourComponent } from "./elements/bouton-retour/bouton-retour.component";
 
 @NgModule({
   declarations: [
@@ -27,8 +28,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BiereListComponent,
     NoteListComponent,
     BiereEditComponent,
-    BiereShowComponent,
-  ],
+    BiereShowComponent
+   ],
   imports: [
     NgSelectModule,
     BrowserModule,
@@ -36,7 +37,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     HttpClientModule // Ajoutez HttpClientModule ici
     // Ajoutez ici d'autres modules nécessaires si requis par Angular 19
-  ],
+    ,
+    BoutonRetourComponent
+],
   providers: [],
   bootstrap: [AppComponent]
 })

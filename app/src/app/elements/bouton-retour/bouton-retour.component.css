@@ -1,0 +1,10 @@
+.link-retour {
+  text-decoration: none;
+  font-weight: bolder;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.link-retour:hover {
+  transform: translateX(-1rem);
+}

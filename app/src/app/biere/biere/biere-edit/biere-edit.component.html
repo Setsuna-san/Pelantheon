@@ -1,3 +1,5 @@
+<app-bouton-retour></app-bouton-retour>
+
 <div class="card">
   <div class="card-header">
     <h5 class="card-title">
@@ -12,7 +14,7 @@
           <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Enregistrer</span>
         </button>
         <button *ngIf="!editing" class="btn btn-success btn-sm" (click)="onAdd()">
-          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Enregistrer</span>
+          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Créer</span>
         </button>
       </div>
     </h5>
@@ -21,7 +23,10 @@
   <div class="card">
 
     <div class="card-body">
-      <h6 class="text-secondary-emphasis fw-bolder"> Scanner le Code barre </h6>
+
+
+
+      <h6 class="text-secondary-emphasis fw-bolder"> Scanner le Code barre <span class="text-warning">(en test)</span>  </h6>
       <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
         <div id="scanButton" class="w-100 h-100"></div>
         <button class="btn btn-outline-success w-auto mt-2" (click)="onScan()">
@@ -32,9 +37,22 @@
       </div>
     </div>
 
-    <br><br>
+    <br>
+    <div class="ml-4 container text-secondary-emphasis small text-center">
+        Il sera plutard utilisé pour :
+        <br>
+<br>
+        Rapidement selectionner la biere à noter
+        <br>
+        Remplir automatiquement les caractèristiques lors de la création
+      <br>
+      <br><br>
+    <span>Code scanner : <i> {{biere.ean || "aucun"}}</i> </span>
 
-    <h6>Code scanner :  {{codeBarre}} </h6>
+    </div>
+
+    <br>
+
 
 
 

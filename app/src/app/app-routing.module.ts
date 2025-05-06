@@ -7,16 +7,22 @@ import { BiereListComponent } from './biere/biere/biere-list/biere-list.componen
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
 import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InProgressComponent } from './in-progress/in-progress.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
   { path: 'accueil', component: AcceuilComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   { path: 'admin/accueil', component: AcceuilComponent, canActivate: [AuthGuard] },
   { path: 'bieres', component: BiereListComponent },
-  { path: 'bieres/new', component: BiereEditComponent },
-  { path: 'bieres/edit/:id', component: BiereEditComponent },
-  { path: 'bieres/:id', component: BiereShowComponent },
+  { path: 'bieres/new', component: BiereEditComponent , canActivate: [AuthGuard] },
+  { path: 'bieres/edit/:id', component: BiereEditComponent , canActivate: [AuthGuard] },
+  { path: 'bieres/:id', component: BiereShowComponent , canActivate: [AuthGuard] },
+  { path: 'notes', component: InProgressComponent },
+  { path: 'notes/new', component: InProgressComponent , canActivate: [AuthGuard] },
+  { path: 'notes/:id', component: InProgressComponent , canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 

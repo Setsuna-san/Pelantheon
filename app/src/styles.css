@@ -5,3 +5,8 @@
 .indent {
   padding-left: 2rem;
 }
+
+.nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

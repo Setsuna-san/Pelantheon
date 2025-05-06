@@ -1,1 +1,13 @@
 /* Fichier vidé, aucun style personnalisé n'est conservé. */
+
+
+.log {
+  color: rgba(255, 255, 255, 0.71);
+  text-decoration: none;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.log:hover {
+  color: white;
+}

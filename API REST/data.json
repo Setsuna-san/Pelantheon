@@ -13,7 +13,8 @@
       "nom": "Heineken",
       "alcool": 12,
       "type": "blanche",
-      "note": 0
+      "note": "3.00",
+      "nb_notes": 2
     },
     {
       "id": 3,
@@ -80,6 +81,22 @@
       "date": "05/05/2025",
       "biereId": 1,
       "userId": 2
+    },
+    {
+      "id": 8,
+      "note": 5,
+      "commentaire": "bien",
+      "date": "06/05/2025",
+      "biereId": 2,
+      "userId": 2
+    },
+    {
+      "id": 9,
+      "note": 1,
+      "commentaire": "",
+      "date": "06/05/2025",
+      "biereId": 2,
+      "userId": 1
     }
   ],
   "users": [

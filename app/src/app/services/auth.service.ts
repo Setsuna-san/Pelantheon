@@ -11,13 +11,18 @@ export class AuthService {
     this.checkSession();
   }
 
+  getUsername(): string {
+    return sessionStorage.getItem('username') || ''; // Récupère le nom d'utilisateur depuis la session
+  }
+
   // Simuler la connexion d'un utilisateur
   login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin') {
+    if (username === 'admin' && password === 'autru') {
       this.isLoggedIn = true;
       const expirationDate = new Date().getTime() + this.expirationTime; // Calculer la date d'expiration
       sessionStorage.setItem('isLoggedIn', 'true');  // Enregistrer l'état de connexion
-      sessionStorage.setItem('expirationDate', expirationDate.toString());  // Enregistrer la date d'expiration*
+      sessionStorage.setItem('expirationDate', expirationDate.toString());  // Enregistrer la date d'expiration
+      sessionStorage.setItem('username', username);  // Enregistrer le nom d'utilisateur
       return true;
     }
     return false;
@@ -28,6 +33,7 @@ export class AuthService {
     this.isLoggedIn = false;
     sessionStorage.removeItem('isLoggedIn');  // Supprimer l'état de la session
     sessionStorage.removeItem('expirationDate');  // Supprimer la date d'expiration
+    sessionStorage.removeItem('username');  // Supprimer le nom d'utilisateur
   }
 
   // Vérification si l'utilisateur est connecté

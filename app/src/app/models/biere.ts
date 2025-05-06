@@ -5,6 +5,7 @@ export class Biere {
     public id: string = "",
     public nom: string = '',
     public alcool: number = 0.0,
+    public ean : string = "",
     public type: string = "",
     public note: number = 0.0,
     public nb_notes: number = 0.0,
@@ -30,7 +31,8 @@ export const TypeBiere = [
   'BLANCHE',
   'RED ALE',
   'IPA',
-  'TEQUILA'
+  'TEQUILA',
+  'AUTRES'
 ] as const;
 
 export type TypeBiereType = typeof TypeBiere[number];
