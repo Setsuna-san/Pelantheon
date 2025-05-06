@@ -4,7 +4,7 @@
       "id": 1,
       "nom": "Oeuf mayo",
       "alcool": 8,
-      "type": "blanche",
+      "type": "NEIPA",
       "note": "4.71",
       "nb_notes": 7
     },
@@ -14,6 +14,14 @@
       "alcool": 12,
       "type": "blanche",
       "note": 0
+    },
+    {
+      "id": 3,
+      "nom": "Despe",
+      "alcool": 5,
+      "type": "AMBREE",
+      "note": 0,
+      "nb_notes": 0
     }
   ],
   "notes": [

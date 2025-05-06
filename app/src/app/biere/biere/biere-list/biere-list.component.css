@@ -1,6 +1,11 @@
 .table-head {
   cursor: pointer;
   font-weight: bold;
+  user-select: none;
+}
+
+.table-head:hover .table-head::after{
+  color: black;
 }
 
 .table-head::after {
@@ -9,8 +14,19 @@
   color: #888;
 }
 
+
 .table-head[data-sort="desc"]::after {
   content: " ▲";
+}
+
+.notes {
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+  align-items: center;
+  color: white;
+  border-radius: 5px;
+
 }
 
 input {

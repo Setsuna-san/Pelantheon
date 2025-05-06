@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { MenuComponent } from './menu/menu.component';
-import { ProposComponent } from './propos/propos.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -22,7 +21,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AppComponent,
     AcceuilComponent,
     MenuComponent,
-    ProposComponent,
     LoginComponent,
     AdminComponent,
     PageNotFoundComponent,

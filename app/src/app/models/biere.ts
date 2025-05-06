@@ -22,17 +22,17 @@ export class NoteBiere {
   ) {}
 }
 
-export enum TypeBiere {
-  'blanche',
-  'ambrée',
-  'brune',
-  'blonde',
-  'rouge',
-  'noire',
-  'fruitée',
-  'épice',
-  'herbe',
-  'autre'
-}
+export const TypeBiere = [
+  'NEIPA',
+  'BLONDE',
+  'AMBREE',
+  'STOUT',
+  'BLANCHE',
+  'RED ALE',
+  'IPA',
+  'TEQUILA'
+] as const;
+
+export type TypeBiereType = typeof TypeBiere[number];
 
 

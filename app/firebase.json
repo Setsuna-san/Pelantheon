@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "les-pelatiens",
-    "public": "dist",
+    "public": "dist/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

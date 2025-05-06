@@ -1,7 +1,7 @@
 <div class="card">
   <h5 class="card-header bg-info fw-bolder">
     {{biere.nom}}
-    <div class="float-end"><a href="/bieres/edit" class="pen btn btn-sm">
+    <div class="float-end"><a (click)="editer()" class="pen btn btn-sm">
         <i class="fa-solid fa-pen"></i> Editer
       </a>
       <a href="/bieres/edit" class="trash btn btn-sm">
@@ -48,7 +48,6 @@
       </div>
       <div class="col-lg-2 col-sm-2 ">
         <label for="auteur">Auteur</label>
-
         <ng-select
             *ngIf="users.length > 0"
             [items]="users"

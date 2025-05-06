@@ -10,19 +10,26 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Etatload } from 'src/app/models/etatload';
+import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+
 @Component({
-    selector: 'app-biere-edit',
-    templateUrl: './biere-edit.component.html',
-    styleUrls: ['./biere-edit.component.css'],
-    standalone: false
+  selector: 'app-biere-edit',
+  templateUrl: './biere-edit.component.html',
+  styleUrls: ['./biere-edit.component.css'],
+  standalone: false,
 })
 export class BiereEditComponent implements OnInit {
   biereId: string | null = null;
   biere: Biere = new Biere();
-  public types = TypeBiere;
+  public types = TypeBiere; // Liste des types de bières
   public editing: boolean = false;
   public etatLoad: Etatload = Etatload.SUCCESS;
   public Etatload = Etatload;
+  private filming: boolean = false;
+  private qrCodeScanner: Html5Qrcode | null = null; // Instance du scanner
+  public isCameraOpen: boolean = false; // État de la caméra
+
+  public codeBarre: string = ''; // Code-barres scanné
 
   constructor(
     private route: ActivatedRoute,
@@ -44,8 +51,7 @@ export class BiereEditComponent implements OnInit {
         },
         error: (err) => (this.etatLoad = Etatload.ERREUR),
       });
-    }
-    else {
+    } else {
       this.biere.nom = '';
       this.biere.alcool = 0;
     }
@@ -86,7 +92,7 @@ export class BiereEditComponent implements OnInit {
   }
 
   onUpdate() {
-    if ( environment.status === 'dev') {
+    if (environment.status === 'dev') {
       if (this.editing) {
         this.bieresService.updateBiere(this.biere).subscribe({
           next: (biere) => {
@@ -96,10 +102,56 @@ export class BiereEditComponent implements OnInit {
           error: (err) => (this.etatLoad = Etatload.ERREUR),
         });
       }
+    } else {
     }
-    else {
+  }
 
+  onScan() {
+    if (this.isCameraOpen) {
+      this.closeCamera();
+      return;
     }
 
+    this.qrCodeScanner = new Html5Qrcode('scanButton');
+    const config = {
+      fps: 10,
+      qrbox: { width: 250, height: 100 }, // Ajustez la hauteur pour correspondre à un code-barres
+      supportedFormats: [
+        Html5QrcodeSupportedFormats.CODE_128,
+        Html5QrcodeSupportedFormats.EAN_13,
+      ], // Formats spécifiques aux codes-barres
+    };
+
+    this.qrCodeScanner
+      .start(
+        { facingMode: 'environment' }, // Utilise la caméra arrière
+        config,
+        (decodedText) => {
+          console.log(`Code-barres scanné : ${decodedText}`);
+          this.codeBarre = decodedText;
+
+          this.closeCamera(); // Ferme la caméra après un scan réussi
+        },
+        (errorMessage) => {
+          console.error(`Erreur de scan : ${errorMessage}`);
+        }
+      )
+      .then(() => {
+        this.isCameraOpen = true; // Marque la caméra comme ouverte
+      })
+      .catch((err) => {
+        console.error(`Erreur lors de l'initialisation du scanner : ${err}`);
+      });
+  }
+
+  closeCamera() {
+    if (this.qrCodeScanner) {
+      this.qrCodeScanner.stop().then(() => {
+        this.isCameraOpen = false; // Marque la caméra comme fermée
+        console.log('Caméra fermée');
+      }).catch((err) => {
+        console.error(`Erreur lors de la fermeture de la caméra : ${err}`);
+      });
+    }
   }
 }

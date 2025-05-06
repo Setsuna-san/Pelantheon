@@ -132,4 +132,8 @@ export class BiereShowComponent implements OnInit {
     this.selectedPersonne = newPersonne; // Met à jour la valeur de selectedPersonne
     console.log('Personne sélectionnée :', this.selectedPersonne);
   }
+
+  editer(){
+    this.router.navigate(['/bieres/edit/' + this.biere.id]);
+  }
 }
