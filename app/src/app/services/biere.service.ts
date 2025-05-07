@@ -1,198 +1,80 @@
 import { Injectable } from '@angular/core';
-import { from, map, Observable, switchMap } from 'rxjs';
-import { firebaseConfig } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Biere, NoteBiere } from 'src/app/models/biere';
-import { initializeApp, getApps } from 'firebase/app';
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  getDoc,
-  doc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  DocumentReference,
-  query,
-  where,
-} from 'firebase/firestore';
 import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BiereService {
-  private db;
+  private readonly biereAPI = environment.apiUrl + '/bieres';
+  private readonly noteAPI = environment.apiUrl + '/notes';
+  private readonly userAPI = environment.apiUrl + '/users';
 
-  constructor() {
-    if (!getApps().length) {
-      initializeApp(firebaseConfig);
-    }
-    this.db = getFirestore();
-  }
+  constructor(private http: HttpClient) {}
 
-  // 🔍 Récupère toutes les bières
+  // BIERES CRUD
   getBieres(): Observable<Biere[]> {
-    const biereCollection = collection(this.db, 'bieres');
-    return from(getDocs(biereCollection)).pipe(
-      map((querySnapshot) =>
-        querySnapshot.docs.map((docSnap) => {
-          const data = docSnap.data() as Omit<Biere, 'id'>;
-          return {
-            id: docSnap.id,
-            ...data,
-          };
-        })
-      )
-    );
+    return this.http.get<Biere[]>(this.biereAPI);
   }
 
-  // 🔍 Récupère une bière par ID
   getBiere(id: string): Observable<Biere> {
-    const docRef = doc(this.db, 'bieres', id);
-    return from(getDoc(docRef)).pipe(
-      map((docSnap) => {
-        if (!docSnap.exists()) {
-          throw new Error('Bière non trouvée');
-        }
-        const data = docSnap.data() as Omit<Biere, 'id'>;
-        return { id: docSnap.id, ...data };
-      })
-    );
+    return this.http.get<Biere>(`${this.biereAPI}/${id}`);
   }
 
-  addBiere(biere: Omit<Biere, 'id'>): Observable<Biere> {
-    const biereCollection = collection(this.db, 'bieres');
-    const data = JSON.parse(JSON.stringify(biere));
-
-    return from(addDoc(biereCollection, data)).pipe(
-      switchMap((docRef: DocumentReference) =>
-        from(updateDoc(docRef, { id: docRef.id })).pipe(
-          map(() => ({ id: docRef.id, ...data }))
-        )
-      )
-    );
+  addBiere(biere: Biere): Observable<Biere> {
+    return this.http.post<Biere>(this.biereAPI, biere);
   }
 
-  // ✏️ Met à jour une bière
-  updateBiere(biere: Biere): Observable<void> {
-    const docRef = doc(this.db, 'bieres', biere.id);
-    const { id, ...data } = JSON.parse(JSON.stringify(biere));
-    return from(updateDoc(docRef, data));
+  updateBiere(biere: Biere): Observable<Biere> {
+    return this.http.put<Biere>(`${this.biereAPI}/${biere.id}`, biere);
   }
 
-  // ❌ Supprime une bière
-  deleteBiere(id: string): Observable<void> {
-    const docRef = doc(this.db, 'bieres', id);
-    return from(deleteDoc(docRef));
+  deleteBiere(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.biereAPI}/${id}`);
   }
 
-  // 🔍 Récupère toutes les notes
   getNotes(): Observable<NoteBiere[]> {
-    const notesCollection = collection(this.db, 'notes');
-    return from(getDocs(notesCollection)).pipe(
-      map((querySnapshot) =>
-        querySnapshot.docs.map((docSnap) => {
-          const data = docSnap.data() as Omit<NoteBiere, 'id'>;
-          return { id: docSnap.id, ...data };
-        })
-      )
-    );
+    return this.http.get<NoteBiere[]>(`${this.noteAPI}/notes`);
   }
 
-  // 🔍 Récupère les notes d'une bière spécifique
+  // NOTES CRUD
   getNotesBiere(biereId: string): Observable<NoteBiere[]> {
-    const notesCollection = collection(this.db, 'notes');
-    const q = query(notesCollection, where('biereId', '==', biereId));
-    return from(getDocs(q)).pipe(
-      map((querySnapshot) =>
-        querySnapshot.docs.map((docSnap) => {
-          const data = docSnap.data() as Omit<NoteBiere, 'id'>;
-          return { id: docSnap.id, ...data };
-        })
-      )
-    );
+    return this.http.get<NoteBiere[]>(`${this.biereAPI}/${biereId}/notes`);
   }
 
-  // ➕ Ajoute une note
-  addNote(note: Omit<NoteBiere, 'id'>): Observable<NoteBiere> {
-    const notesCollection = collection(this.db, 'notes');
-    const data = JSON.parse(JSON.stringify(note));
-
-    return from(addDoc(notesCollection, data)).pipe(
-      switchMap((docRef: DocumentReference) =>
-        from(updateDoc(docRef, { id: docRef.id })).pipe(
-          map(() => ({ id: docRef.id, ...data }))
-        )
-      )
-    );
+  addNote(note: NoteBiere): Observable<NoteBiere> {
+    return this.http.post<NoteBiere>(this.noteAPI, note);
   }
 
-
-  // ✏️ Met à jour une note
-  updateNote(note: NoteBiere): Observable<void> {
-    const docRef = doc(this.db, 'notes', note.id);
-    const { id, ...data } = JSON.parse(JSON.stringify(note));
-    return from(updateDoc(docRef, data));
+  updateNote(note: NoteBiere): Observable<NoteBiere> {
+    return this.http.put<NoteBiere>(`${this.noteAPI}/${note.id}`, note);
   }
 
-  // ❌ Supprime une note
-  deleteNote(id: string): Observable<void> {
-    const docRef = doc(this.db, 'notes', id);
-    return from(deleteDoc(docRef));
+  deleteNote(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.noteAPI}/${id}`);
   }
 
-  // ➕ Ajoute un utilisateur
-  addUser(user: Omit<User, 'id'>): Observable<User> {
-    const usersCollection = collection(this.db, 'users');
-    const data = JSON.parse(JSON.stringify(user));
-
-    return from(addDoc(usersCollection, data)).pipe(
-      switchMap((docRef: DocumentReference) =>
-        from(updateDoc(docRef, { id: docRef.id })).pipe(
-          map(() => ({ id: docRef.id, ...data }))
-        )
-      )
-    );
-  }
-
-  // 🔍 Récupère tous les utilisateurs
+  // USERS CRUD
   getUsers(): Observable<User[]> {
-    const usersCollection = collection(this.db, 'users');
-    return from(getDocs(usersCollection)).pipe(
-      map((querySnapshot) =>
-        querySnapshot.docs.map((docSnap) => {
-          const data = docSnap.data() as Omit<User, 'id'>;
-          return { id: docSnap.id, ...data };
-        })
-      )
-    );
+    return this.http.get<User[]>(this.userAPI);
   }
 
-  // 🔍 Récupère un utilisateur par ID
   getUser(id: string): Observable<User> {
-    const docRef = doc(this.db, 'users', id);
-    return from(getDoc(docRef)).pipe(
-      map((docSnap) => {
-        if (!docSnap.exists()) {
-          throw new Error('Utilisateur non trouvé');
-        }
-        const data = docSnap.data() as Omit<User, 'id'>;
-        return { id: docSnap.id, ...data };
-      })
-    );
+    return this.http.get<User>(`${this.userAPI}/${id}`);
   }
 
-  // ✏️ Met à jour un utilisateur
-  updateUser(user: User): Observable<void> {
-    const docRef = doc(this.db, 'users', user.id);
-    const { id, ...data } = JSON.parse(JSON.stringify(user));
-    return from(updateDoc(docRef, data));
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.userAPI, user);
   }
 
-  // ❌ Supprime un utilisateur
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.userAPI}/${user.id}`, user);
+  }
+
   deleteUser(id: string): Observable<void> {
-    const docRef = doc(this.db, 'users', id);
-    return from(deleteDoc(docRef));
+    return this.http.delete<void>(`${this.userAPI}/${id}`);
   }
 }

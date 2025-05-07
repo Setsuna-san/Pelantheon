@@ -1,0 +1,66 @@
+<app-bouton-retour></app-bouton-retour>
+
+<div class="card">
+  <div class="card-header ">
+    <h5 class="card-title">
+
+      Liste des personnes enregistrées
+      <div class="float-end">
+        <a href="/personnes/new" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-plus"></i> <span class=""> Ajouter</span>
+        </a>
+      </div>
+    </h5>
+    <hr>
+    Recherche <br>
+    <form class="row">
+      <div class="col-lg-2 col-sm-2">
+
+        <label for="search">Nom</label>
+        <input type="text" name="search" id="search" (input)="filterTable()">
+      </div>
+    </form>
+    <hr>
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <!-- <th scope="col" class="table-head" (click)="sortTable('prenom')"
+            [attr.data-sort]="sortColumn === 'prenom' ? sortDirection : ''">Nom</th> -->
+            <th scope="col-lg-1 col-sm-2" class="table-head">Action</th>
+            <th scope="col" class="table-head">Nom</th>
+
+        </tr>
+      </thead>
+      <tr *ngIf="etatLoad == Etatload.LOADING">
+        <td colspan="5" class="text-center align-middle">
+          <br>
+          Chargement
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </td>
+      </tr>
+      <tbody *ngIf="etatLoad == Etatload.SUCCESS">
+        <tr *ngFor="let utilisateur of utilisateurs"  class="slide">
+          <td [routerLink]="['/personnes', utilisateur.id]" class="pointer col-lg-1 col-sm-2">Modifier </td>
+          <td>{{ utilisateur.surnom }}</td>
+        </tr>
+      </tbody>
+      <tr *ngIf="etatLoad == Etatload.ERREUR">
+        <td colspan="5" class="text-center align-middle">
+          <br>
+          Erreur de chargement des données
+          <br>
+          <br>
+          <button class="btn btn-primary btn-sm" (click)="reloadPage()">
+            <i class="fa-solid fa-rotate"></i> Réessayer
+          </button>
+        </td>
+    </table>
+
+  </div>
+</div>

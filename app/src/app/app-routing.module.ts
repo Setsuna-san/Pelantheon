@@ -9,6 +9,8 @@ import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.componen
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
 import { LoginComponent } from './login/login.component';
+import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisateur-edit.component';
+import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
@@ -16,6 +18,9 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'admin/accueil', component: AcceuilComponent, canActivate: [AuthGuard] },
+  { path: 'personnes' , component: UtilisateurListComponent},
+  { path: 'personnes/new', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
+  { path: 'personnes/:id', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres', component: BiereListComponent },
   { path: 'bieres/new', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/edit/:id', component: BiereEditComponent , canActivate: [AuthGuard] },
