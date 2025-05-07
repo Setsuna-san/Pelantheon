@@ -1,0 +1,34 @@
+
+<app-bouton-retour></app-bouton-retour>
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">
+      <span *ngIf="isEditing">Modification d'un Zytologue</span>
+      <span *ngIf="!isEditing">Création d'un Zytologue</span>
+      <div class="float-end btn-group">
+        <button *ngIf="isEditing" class="btn btn-success btn-sm" (click)="onUpdate()">
+          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Enregistrer</span>
+        </button>
+        <button *ngIf="!isEditing" class="btn btn-success btn-sm" (click)="onAdd()">
+          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Créer</span>
+        </button>
+      </div>
+    </h5>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h6 class="text-secondary-emphasis fw-bolder"> Formulaire </h6>
+
+      <!-- <form [formGroup]="biereForm" (ngSubmit)="onSubmit()"> -->
+      <div class="container">
+        <div class="">
+          <label for="surnom" class="form-label">Nom</label>
+          <input type="text" id="surnom" [(ngModel)]="personne.surnom" class="form-control p-1"
+            placeholder="Nom...">
+        </div>
+      </div>
+
+    </div>
+  </div>

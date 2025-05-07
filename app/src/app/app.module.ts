@@ -16,6 +16,7 @@ import { BiereEditComponent } from './biere/biere/biere-edit/biere-edit.componen
 import { BiereShowComponent } from './biere/biere/biere-show/biere-show.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BoutonRetourComponent } from "./elements/bouton-retour/bouton-retour.component";
+import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisateur-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BoutonRetourComponent } from "./elements/bouton-retour/bouton-retour.co
     BiereListComponent,
     NoteListComponent,
     BiereEditComponent,
-    BiereShowComponent
+    BiereShowComponent,
+    UtilisateurEditComponent
    ],
   imports: [
     NgSelectModule,

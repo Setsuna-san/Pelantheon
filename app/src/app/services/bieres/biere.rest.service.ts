@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Biere, NoteBiere } from '../../models/biere';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { Biere, NoteBiere } from '../../models/biere';
 export class BiereService {
   private readonly biereAPI = environment.apiUrl + '/bieres';
   private readonly noteAPI = environment.apiUrl + '/notes';
+  private readonly userAPI = environment.apiUrl + '/users';
 
   constructor(private http: HttpClient) {}
 
@@ -53,5 +55,26 @@ export class BiereService {
 
   deleteNote(id: number): Observable<void> {
     return this.http.delete<void>(`${this.noteAPI}/${id}`);
+  }
+
+  // USERS CRUD
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.userAPI);
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`${this.userAPI}/${id}`);
+  }
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.userAPI, user);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.userAPI}/${user.id}`, user);
+  }
+
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.userAPI}/${id}`);
   }
 }
