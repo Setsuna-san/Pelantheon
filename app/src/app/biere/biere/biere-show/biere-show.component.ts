@@ -121,9 +121,13 @@ export class BiereShowComponent implements OnInit {
     this.bieresService.addNote(this.newNotes).subscribe({
       next: (note) => {
         this.notes.push(this.newNotes);
-        this.biere.note = (this.biere.note * this.biere.nb_notes + note.note) / (this.biere.nb_notes + 1);
+        this.biere.nb_notes = this.notes.length ;
 
+        this.biere.note = this.notes.reduce((sum, note) => sum + note.note, 0) / this.notes.length;
+        const dateSelected = this.newNotes.date ;
         this.newNotes = new NoteBiere();
+        this.newNotes.date = dateSelected;
+        this.bieresService.updateBiere(this.biere);
       },
       error: (err) => {
         console.error('Erreur lors de l\'ajout de la note:', err);

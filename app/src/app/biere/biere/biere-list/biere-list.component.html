@@ -52,7 +52,7 @@
             [attr.data-sort]="sortColumn === 'alcool' ? sortDirection : ''">Alc</th>
           <th scope="col" class="table-head" (click)="sortTable('note')"
             [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
-          <th scope="col" class="table-head" (click)="sortTable('nb_notes')"
+          <th scope="col" class="table-head d-none d-lg-table-cell" (click)="sortTable('nb_notes')"
             [attr.data-sort]="sortColumn === 'nb_notes' ? sortDirection : ''">Avis</th>
         </tr>
       </thead>
@@ -78,7 +78,9 @@
         <tr *ngFor="let biere of bieres" [routerLink]="['/bieres', biere.id]" class="pointer slide">
           <td>{{ biere.nom }}</td>
           <td>{{ biere.type }}</td>
-          <td>{{ biere.alcool }} %</td>
+          <td *ngIf="biere.alcool!=null">{{ biere.alcool }}% </td>
+          <td *ngIf="biere.alcool==null">Nan</td>
+
           <td>
             <div class="" [ngClass]="{
               'bg-success': biere.note === 10,
@@ -88,7 +90,7 @@
             }" class="notes">
               {{ biere.note < 10 ? '0' + biere.note : biere.note }} </div>
           </td>
-          <td>{{ biere.nb_notes || 0 }}</td>
+          <td class="d-none d-lg-table-cell" >{{ biere.nb_notes }}</td>
 
         </tr>
       </tbody>

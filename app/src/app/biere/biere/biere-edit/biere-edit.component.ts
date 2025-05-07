@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Biere, TypeBiere } from 'src/app/models/biere';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BiereService } from 'src/app/services/biere.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -21,6 +21,8 @@ export class BiereEditComponent implements OnInit {
   public types = TypeBiere; // Liste des types de bières
   public editing: boolean = false;
   public etatLoad: Etatload = Etatload.SUCCESS;
+  public etatAction: Etatload = Etatload.SUCCESS;
+
   public Etatload = Etatload;
   private filming: boolean = false;
   private qrCodeScanner: Html5Qrcode | null = null; // Instance du scanner
@@ -75,14 +77,16 @@ export class BiereEditComponent implements OnInit {
     console.log('Adding a new beer');
 
     if (!this.editing) {
+    this.etatAction = Etatload.LOADING;
       this.bieresService.addBiere(this.biere).subscribe({
         next: (biere) => {
           console.log('Beer added successfully:', biere);
-          this.etatLoad = Etatload.SUCCESS;
+          this.etatAction = Etatload.SUCCESS;
           this.router.navigate(['/bieres/' + this.biere.id]);
+
         },
         error: (err) => (
-          (this.etatLoad = Etatload.ERREUR),
+          (this.etatAction = Etatload.ERREUR),
           console.log('error added successfully :', err)
         ),
       });
@@ -92,12 +96,13 @@ export class BiereEditComponent implements OnInit {
   onUpdate() {
     if (environment.status === 'dev') {
       if (this.editing) {
+    this.etatAction = Etatload.LOADING;
         this.bieresService.updateBiere(this.biere).subscribe({
           next: (biere) => {
-            this.etatLoad = Etatload.SUCCESS;
+            this.etatAction = Etatload.SUCCESS;
             this.router.navigate(['/bieres/' + this.biere.id]);
           },
-          error: (err) => (this.etatLoad = Etatload.ERREUR),
+          error: (err) => (this.etatAction = Etatload.ERREUR),
         });
       }
     } else {
