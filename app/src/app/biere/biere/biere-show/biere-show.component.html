@@ -6,7 +6,7 @@
     <div class="float-end"><a (click)="editer()" class="pen btn btn-sm">
         <i class="fa-solid fa-pen"></i> Editer
       </a>
-      <a href="/bieres/edit" class="trash btn btn-sm">
+      <a (click)="onDelete()" class="trash btn btn-sm">
         <i class="fa-solid fa-trash"></i> Supprimer
       </a>
     </div>
@@ -14,10 +14,6 @@
 </div>
 
 <div class="container card">
-  <div class="card-title ">
-    <br>
-    Informations
-  </div>
   <div class="card-body indent">
     <div class="row">
       Type : {{biere.type}}
@@ -57,9 +53,11 @@
             bindValue="id"
             placeholder="Chercher une personne"
             [searchable]="true"
-            (change)="onPersonneChange($event.id)">
+            (change)="onPersonneChange($event.id)"
+
+            >
         </ng-select>
-        <span *ngIf="users.length === 0">Chargement des utilisateurs...</span>
+        <span class="form-text" *ngIf="users.length === 0"><br>Aucun créer...</span>
       </div>
       <div class="col-lg-2 col-sm-2">
         <br>

@@ -30,7 +30,6 @@ export class BiereService {
     }
     this.db = getFirestore();
   }
-
   // 🔍 Récupère toutes les bières
   getBieres(): Observable<Biere[]> {
     const biereCollection = collection(this.db, 'bieres');
@@ -127,7 +126,6 @@ export class BiereService {
       )
     );
   }
-
 
   // ✏️ Met à jour une note
   updateNote(note: NoteBiere): Observable<void> {

@@ -1,3 +1,7 @@
+<div *ngIf="etatAction == Etatload.ERREUR"  class="alert alert-dismissible alert-danger">
+  <a type="button" class="btn-close" data-bs-dismiss="alert"> </a>
+  <strong>Erreur !</strong> impossible d'enregistrer pour le moment <small>(réssayez ou contactez votre super informaticien)</small>
+</div>
 
 <app-bouton-retour></app-bouton-retour>
 
@@ -8,10 +12,14 @@
       <span *ngIf="!isEditing">Création d'un Zytologue</span>
       <div class="float-end btn-group">
         <button *ngIf="isEditing" class="btn btn-success btn-sm" (click)="onUpdate()">
-          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Enregistrer</span>
+          <i *ngIf="etatAction != Etatload.LOADING" class="fa-solid fa-floppy-disk"></i>
+          <i *ngIf="etatAction == Etatload.LOADING" class="fa-solid fa-spinner fa-spin-pulse"></i>
+          <span class="d-none d-sm-inline"> Enregistrer</span>
         </button>
         <button *ngIf="!isEditing" class="btn btn-success btn-sm" (click)="onAdd()">
-          <i class="fa-solid fa-floppy-disk"></i> <span class="d-none d-sm-inline"> Créer</span>
+          <i *ngIf="etatAction != Etatload.LOADING" class="fa-solid fa-floppy-disk"></i>
+          <i *ngIf="etatAction == Etatload.LOADING" class="fa-solid fa-spinner fa-spin-pulse"></i>
+          <span class="d-none d-sm-inline"> Créer</span>
         </button>
       </div>
     </h5>
@@ -25,7 +33,7 @@
       <div class="container">
         <div class="">
           <label for="surnom" class="form-label">Nom</label>
-          <input type="text" id="surnom" [(ngModel)]="personne.surnom" class="form-control p-1"
+          <input type="text" id="surnom" [(ngModel)]="user.surnom" class="form-control p-1"
             placeholder="Nom...">
         </div>
       </div>

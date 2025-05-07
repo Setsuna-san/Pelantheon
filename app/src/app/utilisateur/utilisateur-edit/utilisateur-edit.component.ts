@@ -1,73 +1,71 @@
 import { Component, OnInit } from '@angular/core';
-import { BoutonRetourComponent } from "../../elements/bouton-retour/bouton-retour.component";
+import { BoutonRetourComponent } from '../../elements/bouton-retour/bouton-retour.component';
 import { BiereService } from 'src/app/services/biere.service';
 import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Etatload } from 'src/app/models/etatload';
 
 @Component({
   selector: 'app-utilisateur-edit',
   templateUrl: './utilisateur-edit.component.html',
   styleUrl: './utilisateur-edit.component.css',
-  standalone : false
+  standalone: false,
 })
 export class UtilisateurEditComponent implements OnInit {
-
   constructor(
-    private biereService : BiereService,
-    private route : ActivatedRoute
-  ) {
-
-  }
-  public personne: User = new User();
-  public personneID: string | null  = null;
-  public isEditing : boolean = false;
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  public user: User = new User();
+  public userID: string | null = null;
+  public isEditing: boolean = false;
+  public etatLoading: Etatload = Etatload.LOADING;
+  public etatAction: Etatload = Etatload.SUCCESS;
+  public Etatload = Etatload;
 
   ngOnInit(): void {
-    this.personneID = this.route.snapshot.paramMap.get('id');
-    if (this.personneID) {
-      this.isEditing =  true;
-      this.personne.surnom = "zozo"
-    }
-    else {
-      this.personne.surnom = ""
 
+    this.userID = this.route.snapshot.paramMap.get('id');
+    if (this.userID) {
+      this.isEditing = true;
+      this.user.surnom = 'zozo';
+    } else {
+      this.user.surnom = '';
     }
   }
 
   onAdd() {
-      console.log('Adding a new beer');
-
-      // if (!this.editing) {
-      //   this.bieresService.addBiere(this.biere).subscribe({
-      //     next: (biere) => {
-      //       console.log('Beer added successfully:', biere);
-      //       this.etatLoad = Etatload.SUCCESS;
-      //       this.router.navigate(['/bieres/' + this.biere.id]);
-      //     },
-      //     error: (err) => (
-      //       (this.etatLoad = Etatload.ERREUR),
-      //       console.log('error added successfully :', err)
-      //     ),
-      //   });
-      // }
+    console.log('Adding a new beer');
+    this.etatAction = Etatload.LOADING;
+    if (!this.isEditing) {
+      this.userService.addUser(this.user).subscribe({
+        next: (user) => {
+          console.log('Personne added successfully:', user);
+          this.etatAction = Etatload.SUCCESS;
+          this.router.navigate(['/personnes/' + this.user.id]);
+        },
+        error: (err) => (
+          (this.etatAction = Etatload.ERREUR),
+          console.log('error added successfully :', err)
+        ),
+      });
     }
+  }
 
-    onUpdate() {
-      // if (environment.status === 'dev') {
-      //   if (this.editing) {
-      //     this.bieresService.updateBiere(this.biere).subscribe({
-      //       next: (biere) => {
-      //         this.etatLoad = Etatload.SUCCESS;
-      //         this.router.navigate(['/bieres/' + this.biere.id]);
-      //       },
-      //       error: (err) => (this.etatLoad = Etatload.ERREUR),
-      //     });
-      //   }
-      // } else {
-      // }
+  onUpdate() {
+    if (this.isEditing) {
+      this.etatAction = Etatload.LOADING;
+
+      this.userService.updateUser(this.user).subscribe({
+        next: (user) => {
+          this.etatAction = Etatload.SUCCESS;
+          this.router.navigate(['/personnes/' + this.user.id]);
+        },
+        error: (err) => (this.etatAction = Etatload.ERREUR),
+      });
     }
-
-
-
+  }
 }

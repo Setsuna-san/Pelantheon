@@ -4,6 +4,7 @@ import { Etatload } from 'src/app/models/etatload';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-utilisateur-list',
@@ -15,7 +16,7 @@ export class UtilisateurListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private bieresService: BiereService,
+    private userService: UserService,
     private authService: AuthService,
     private router: Router
   ) {
@@ -24,65 +25,64 @@ export class UtilisateurListComponent implements OnInit {
   public etatLoad: Etatload = Etatload.LOADING;
   public Etatload = Etatload;
 
+  public searchCriteria = {
+    surnom: ''
+  };
+
+
+  private allUtilisateurs: User[] = []; // Liste complète des bières pour conserver les données originales
+
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+
   ngOnInit(): void {
     // Initialisation de la liste des bières
-    // this.bieresService.getBieres().subscribe({
-    //   next: (bieres) => {
+    this.userService.getUsers().subscribe({
+      next: (utilisateurs) => {
 
-    //     this.utilisateurs = bieres;
-    //     this.etatLoad = Etatload.SUCCESS;
-    //   },
-    //   error: (err) => {
-    //     this.etatLoad = Etatload.ERREUR;
-    //     console.error('Erreur lors de la récupération des bières:', err);
-    //   }
-    // });
-    this.utilisateurs = [
-      new User('1', 'Alice'),
-      new User('2', 'Bob'),
-      new User('3', 'Charlie')
-    ];
-    this.etatLoad = Etatload.SUCCESS;
+        this.utilisateurs = utilisateurs;
+        this.etatLoad = Etatload.SUCCESS;
+      },
+      error: (err) => {
+        this.etatLoad = Etatload.ERREUR;
+        console.error('Erreur lors de la récupération des utilisateurs:', err);
+      }
+    });
+
 
   }
 
-
   sortTable(column: keyof User) { // Utilisez 'keyof Biere' pour restreindre les colonnes triables
-      // if (this.sortColumn === column) {
-      //   this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-      // } else {
-      //   this.sortColumn = column;
-      //   this.sortDirection = 'asc';
-      // }
+      if (this.sortColumn === column) {
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sortColumn = column;
+        this.sortDirection = 'asc';
+      }
 
-      // this.bieres.sort((a, b) => {
-      //   const valueA = a[column];
-      //   const valueB = b[column];
+      this.utilisateurs.sort((a, b) => {
+        const valueA = a[column];
+        const valueB = b[column];
 
-      //   if (valueA < valueB) {
-      //     return this.sortDirection === 'asc' ? -1 : 1;
-      //   }
-      //   if (valueA > valueB) {
-      //     return this.sortDirection === 'asc' ? 1 : -1;
-      //   }
-      //   return 0;
-      // });
+        if (valueA < valueB) {
+          return this.sortDirection === 'asc' ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return this.sortDirection === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
     }
 
     filterTable() {
-      // this.bieres = this.allBieres.filter(biere => {
-      //   const matchesNom = this.searchCriteria.nom
-      //     ? biere.nom.toLowerCase().includes(this.searchCriteria.nom.toLowerCase())
-      //     : true;
-      //   const matchesType = this.searchCriteria.type
-      //     ? biere.type.toUpperCase() === this.searchCriteria.type.toUpperCase()
-      //     : true;
-      //   const matchesNote = this.searchCriteria.note !== null
-      //     ? biere.note >= this.searchCriteria.note
-      //     : true;
+      this.utilisateurs = this.allUtilisateurs.filter(utilisateur => {
+        const matchesNom = this.searchCriteria.surnom
+          ? utilisateur.surnom.toLowerCase().includes(this.searchCriteria.surnom.toLowerCase())
+          : true;
 
-      //   return matchesNom && matchesType && matchesNote;
-      // });
+        return matchesNom ;
+      });
     }
 
   reloadPage() {

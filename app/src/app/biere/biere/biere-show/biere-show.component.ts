@@ -6,6 +6,7 @@ import { Etatload } from 'src/app/models/etatload';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-biere-show',
@@ -32,6 +33,7 @@ export class BiereShowComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bieresService: BiereService,
+    private userService: UserService,
     private router: Router,
     private authService: AuthService,
     private location: Location
@@ -63,7 +65,7 @@ export class BiereShowComponent implements OnInit {
         },
       });
 
-      this.bieresService.getUsers().subscribe({
+      this.userService.getUsers().subscribe({
         next: (users) => {
           this.users = users;
           this.usersById = this.indexUsersById(users); // Indexation des utilisateurs
@@ -136,5 +138,9 @@ export class BiereShowComponent implements OnInit {
 
   editer(){
     this.router.navigate(['/bieres/edit/' + this.biere.id]);
+  }
+
+  onDelete() {
+    confirm("Impossible pour le moment");
   }
 }

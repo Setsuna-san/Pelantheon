@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { getAuth, signInWithEmailAndPassword, User } from 'firebase/auth';
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   private isLoggedIn: boolean = false;
   private expirationTime = 30 * 60 * 1000; // Durée de session de 30 minutes (en millisecondes)
 

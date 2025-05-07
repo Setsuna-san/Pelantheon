@@ -64,6 +64,17 @@
         </td>
       </tr>
       <tbody *ngIf="etatLoad == Etatload.SUCCESS">
+        <tr *ngIf="bieres.length == 0">
+          <td colspan="5" class="text-center align-middle">
+            <br>
+                Aucune biere pour le moment
+            <br>
+            <br>
+            <button class="btn btn-primary btn-sm" routerLink="/bieres/new">
+              <i class="fa-solid fa-plus "></i> Créer une nouvelle
+            </button>
+          </td>
+        </tr>
         <tr *ngFor="let biere of bieres" [routerLink]="['/bieres', biere.id]" class="pointer slide">
           <td>{{ biere.nom }}</td>
           <td>{{ biere.type }}</td>

@@ -1,5 +1,8 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { getApps, initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { firebaseConfig } from 'src/environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -8,5 +11,4 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class AppComponent {
-
 }
