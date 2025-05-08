@@ -3,12 +3,20 @@
 <head>
   <meta charset="utf-8">
   <title>Pelat - développement</title>
-  <base href="/">
+  <base [routerLink]="['/']">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="image/pepe.ico">
+  <link rel="icon" type="image/x-icon" href="./assets/beer.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+  <meta name="description" content="Description de votre site qui sera affichée lors du partage.">
+  <meta property="og:title" content="Le pelatheon !!">
+  <meta property="og:description" content="Site officiel du pelat, lieu de communions et de partage">
+  <meta property="og:image" content="https://les-pelatiens.web.app/assets/jesus.png">
+  <meta property="og:url" content="https://les-pelatiens.web.app">
+  <meta property="og:type" content="website" />
+
 </head>
 <body>
-  <app-root></app-root>
+    <app-root></app-root>
 </body>
 </html>
