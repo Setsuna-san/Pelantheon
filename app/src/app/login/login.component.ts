@@ -25,7 +25,7 @@ export class LoginComponent {
   login() {
     if (this.authService.login(this.username, this.password)) {
       // Rediriger vers la page d'origine ou vers l'accueil par défaut
-      this.router.navigate(['/accueil']);
+      this.router.navigate([this.returnUrl]);
     } else {
       this.errorMessage = 'Identifiants incorrects';
     }

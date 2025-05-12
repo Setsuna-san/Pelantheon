@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-bouton-retour',
@@ -10,10 +12,12 @@ import { Component } from '@angular/core';
 export class BoutonRetourComponent {
 
   constructor(
-    private location: Location // Injecte le service Location pour gérer la navigation
+    private router: Router,
+    private HistoryService : HistoryService
   ) { }
 
   retour() {
-    this.location.back(); // Utilise la méthode back() de Location pour revenir à la page précédente
+    const url = this.HistoryService.getPreviousPage() ;
+    this.router.navigate([url], { queryParams: { b: 1 } });
   }
 }

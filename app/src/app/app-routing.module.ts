@@ -26,8 +26,8 @@ const routes: Routes = [
   { path: 'bieres/edit/:id', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/:id', component: BiereShowComponent , canActivate: [AuthGuard] },
   { path: 'notes', component: InProgressComponent },
-  { path: 'notes/new', component: InProgressComponent , canActivate: [AuthGuard] },
-  { path: 'notes/:id', component: InProgressComponent , canActivate: [AuthGuard] },
+  { path: 'notes/new', component: InProgressComponent },
+  { path: 'notes/:id', component: InProgressComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

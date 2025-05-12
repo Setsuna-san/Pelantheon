@@ -27,6 +27,7 @@ export class AuthService {
       sessionStorage.setItem('isLoggedIn', 'true');  // Enregistrer l'état de connexion
       sessionStorage.setItem('expirationDate', expirationDate.toString());  // Enregistrer la date d'expiration
       sessionStorage.setItem('username', username);  // Enregistrer le nom d'utilisateur
+      localStorage.setItem('username', username);  // Enregistrer le nom d'utilisateur
       return true;
     }
     return false;
