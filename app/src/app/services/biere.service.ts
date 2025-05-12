@@ -15,6 +15,7 @@ import {
   DocumentReference,
   query,
   where,
+  orderBy,
 } from 'firebase/firestore';
 import { User } from 'src/app/models/user';
 
@@ -102,7 +103,21 @@ export class BiereService {
   // 🔍 Récupère les notes d'une bière spécifique
   getNotesBiere(biereId: string): Observable<NoteBiere[]> {
     const notesCollection = collection(this.db, 'notes');
-    const q = query(notesCollection, where('biereId', '==', biereId));
+    const q = query(notesCollection, where('biereId', '==', biereId), orderBy('note', 'desc'));
+    return from(getDocs(q)).pipe(
+      map((querySnapshot) =>
+        querySnapshot.docs.map((docSnap) => {
+          const data = docSnap.data() as Omit<NoteBiere, 'id'>;
+          return { id: docSnap.id, ...data };
+        })
+      )
+    );
+  }
+
+  getNotesUser(userId: string): Observable<NoteBiere[]> {
+    const notesCollection = collection(this.db, 'notes');
+
+    const q = query(notesCollection, where('userId', '==', userId), orderBy('note', 'desc'));
     return from(getDocs(q)).pipe(
       map((querySnapshot) =>
         querySnapshot.docs.map((docSnap) => {

@@ -35,8 +35,15 @@ export class HistoryService {
 
   getPreviousPage(): string {
     const history = this.getHistory();
-    history.pop() ;
-    sessionStorage.setItem(this.historyKey, JSON.stringify(history));
+    if (history.length == 1) {
+      sessionStorage.setItem(this.historyKey, '');
+      history.pop() ;
+    }
+    else {
+      history.pop() ;
+      sessionStorage.setItem(this.historyKey, JSON.stringify(history));
+    }
     return history[history.length - 1];
   }
+
 }

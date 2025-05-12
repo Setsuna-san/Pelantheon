@@ -19,7 +19,7 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ;
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '' ;
   }
 
   login() {

@@ -32,7 +32,8 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
     BiereEditComponent,
     BiereShowComponent,
     UtilisateurEditComponent,
-    UtilisateurListComponent
+    UtilisateurListComponent,
+    BoutonRetourComponent
    ],
   imports: [
     NgSelectModule,
@@ -41,8 +42,7 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
     FormsModule,
     HttpClientModule // Ajoutez HttpClientModule ici
     // Ajoutez ici d'autres modules nécessaires si requis par Angular 19
-    ,
-    BoutonRetourComponent
+
 ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,5 @@
 <br>
-<div (click)="retour()" class="link-retour p-1"> <i class="fa-solid fa-arrow-left"></i> Retour en arrière </div>
-<br>
+<span *ngIf="asHistory">
+  <div (click)="retour()" class="link-retour p-1"> <i class="fa-solid fa-arrow-left"></i> Retour en arrière </div>
+  <br>
+</span>

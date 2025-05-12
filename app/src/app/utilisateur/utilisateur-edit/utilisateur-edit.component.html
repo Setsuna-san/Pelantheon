@@ -1,12 +1,13 @@
-<div *ngIf="etatAction == Etatload.ERREUR"  class="alert alert-dismissible alert-danger">
+<div *ngIf="etatAction == Etatload.ERREUR" class="alert alert-dismissible alert-danger">
   <a type="button" class="btn-close" data-bs-dismiss="alert"> </a>
-  <strong>Erreur !</strong> impossible d'enregistrer pour le moment <small>(réssayez ou contactez votre super informaticien)</small>
+  <strong>Erreur !</strong> impossible d'enregistrer pour le moment <small>(réssayez ou contactez votre super
+    informaticien)</small>
 </div>
 
 <app-bouton-retour></app-bouton-retour>
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header bg-info">
     <h5 class="card-title">
       <span *ngIf="isEditing">Modification d'un Zytologue</span>
       <span *ngIf="!isEditing">Création d'un Zytologue</span>
@@ -24,19 +25,87 @@
       </div>
     </h5>
   </div>
-
-  <div class="card">
-    <div class="card-body">
-      <h6 class="text-secondary-emphasis fw-bolder"> Formulaire </h6>
-
-      <!-- <form [formGroup]="biereForm" (ngSubmit)="onSubmit()"> -->
-      <div class="container">
-        <div class="">
-          <label for="surnom" class="form-label">Nom</label>
-          <input type="text" id="surnom" [(ngModel)]="user.surnom" class="form-control p-1"
-            placeholder="Nom...">
-        </div>
+  <div class="card-body">
+    <h6 class="text-secondary-emphasis fw-bolder"> Formulaire </h6>
+    <!-- <form [formGroup]="biereForm" (ngSubmit)="onSubmit()"> -->
+    <div class="container">
+      <div class="">
+        <label for="surnom" class="form-label">Nom</label>
+        <input type="text" id="surnom" [(ngModel)]="user.surnom" class="form-control p-1" placeholder="Nom...">
       </div>
-
     </div>
+
   </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header bg-info ">
+    <i class="fa-solid fa-plus"></i>
+    Ajouter une note
+  </div>
+  <div class="card-body">
+    <form class="row" (ngSubmit)="onAddNote()">
+      <div class="col-lg-1 col-sm-12">
+        <label for="note">Note</label>
+        <input type="number" [(ngModel)]="newNotes.note" name="note" id="note" max="10" min="0" required>
+      </div>
+      <div class="col-lg-4 col-sm-12">
+        <label for="commentaire">Commentaire</label><br>
+        <input type="text" [(ngModel)]="newNotes.commentaire" name="commentaire" id="commentaire" required>
+      </div>
+      <div class="col-lg-2 col-sm-12">
+        <label for="date">Date</label> <br>
+        <input type="date" [(ngModel)]="this.newNotes.date" name="date" id="date" required>
+      </div>
+      <div class="col-lg-2 col-sm-2 ">
+        <label for="auteur">Biere</label>
+        <ng-select *ngIf="bieres.length > 0" [items]="bieres" bindLabel="nom" bindValue="id"
+          placeholder="Chercher une biere" [searchable]="true" (change)="onBiereChange($event.id)">
+        </ng-select>
+        <span class="form-text" *ngIf="bieres.length === 0"><br>Aucun créer...</span>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <br>
+        <button type="submit" class="btn btn-info p-1 border border-info ajout">
+          Ajouter <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<br>
+
+<div class="card">
+  <div class="card-header bg-info ">
+    <i class="fa-solid fa-list"></i>
+    Liste des notes
+  </div>
+
+  <div class="card-body indent">
+
+    <table *ngIf="notes.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="table-head" (click)="sortTable('note')"
+            [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''">Note</th>
+          <th scope="col" class="table-head" [attr.data-sort]="sortColumn === 'commentaire' ? sortDirection : ''">
+            Commentaire</th>
+          <th scope="col" class="table-head" (click)="sortTable('date')"
+            [attr.data-sort]="sortColumn === 'date' ? sortDirection : ''">Date</th>
+          <th scope="col" class="table-head">Biere</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of notes" class="slide">
+          <td>{{ note.note }}</td>
+          <td>{{ note.commentaire }}</td>
+          <td>{{ note.date }}</td>
+          <td>{{ bieresById[note.biereId].nom }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <span *ngIf="notes.length <= 0">Aucune note pour cette biere </span>
+
+  </div>
+
+</div>

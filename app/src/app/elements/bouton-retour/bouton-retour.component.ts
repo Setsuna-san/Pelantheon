@@ -1,23 +1,33 @@
-import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { isEmpty } from 'rxjs';
 import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-bouton-retour',
-  imports: [],
   templateUrl: './bouton-retour.component.html',
-  styleUrl: './bouton-retour.component.css'
+  styleUrl: './bouton-retour.component.css',
+  standalone : false
 })
-export class BoutonRetourComponent {
+export class BoutonRetourComponent implements OnInit {
+  public asHistory : boolean = false ;
+  public history : string[] = [] ;
+
 
   constructor(
     private router: Router,
-    private HistoryService : HistoryService
-  ) { }
+    private historyService : HistoryService
+  ) {
+
+  }
+
+  ngOnInit(): void {
+    this.history = this.historyService.getHistory();
+    this.asHistory = this.history.length > 0; // Vérifie correctement si l'historique est vide
+  }
 
   retour() {
-    const url = this.HistoryService.getPreviousPage() ;
+    const url = this.historyService.getPreviousPage() ;
     this.router.navigate([url], { queryParams: { b: 1 } });
   }
 }
