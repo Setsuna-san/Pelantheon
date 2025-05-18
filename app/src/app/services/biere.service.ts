@@ -34,7 +34,8 @@ export class BiereService {
   // 🔍 Récupère toutes les bières
   getBieres(): Observable<Biere[]> {
     const biereCollection = collection(this.db, 'bieres');
-    return from(getDocs(biereCollection)).pipe(
+    const q = query(biereCollection, orderBy('note', 'desc'));
+    return from(getDocs(q)).pipe(
       map((querySnapshot) =>
         querySnapshot.docs.map((docSnap) => {
           const data = docSnap.data() as Omit<Biere, 'id'>;

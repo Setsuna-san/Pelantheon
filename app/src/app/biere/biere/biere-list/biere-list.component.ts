@@ -83,7 +83,7 @@ export class BiereListComponent implements OnInit {
         ? biere.type.toUpperCase() === this.searchCriteria.type.toUpperCase()
         : true;
       const matchesNote = this.searchCriteria.note !== null
-        ? biere.note >= this.searchCriteria.note
+        ? biere.note === this.searchCriteria.note
         : true;
 
       return matchesNom && matchesType && matchesNote;
