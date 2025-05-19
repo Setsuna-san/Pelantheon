@@ -42,10 +42,10 @@ export class BiereService {
     console.log('debut getInfo');
     return this.http.get<any>(url).pipe(
       map((data) => ({
-        name: data.product?.generic_name_fr ?? 'Nom inconnu',
-        image: data.product?.image_front_small_url ?? '',
-        alcool: data.product?.nutrients?.alcohol ?? '',
-        type: data.product?.agribalyse?.name_fr ?? '',
+        name: data.product?.generic_name_fr ?? null,
+        image: data.product?.image_front_small_url ?? null,
+        alcool: data.product?.nutriments?.alcohol ?? null,
+        type: data.product?.ecoscore_data?.agribalyse?.name_fr ?? null,
       }))
     );
   }

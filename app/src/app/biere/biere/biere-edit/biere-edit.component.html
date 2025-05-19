@@ -38,13 +38,8 @@
 
     <br>
     <div class="ml-4 container text-secondary-emphasis small text-center">
-      Il sera plus tard utilisé pour :
-      <br>
-      <br>
-      Rapidement selectionner la biere à noter
-      <br>
-      Remplir automatiquement les caractèristiques lors de la création
-      <br>
+      <a class="btn btn-info border" style="border-radius: 15px;" (click)="getInformationsByEAN()">Charger les données via EAN</a>
+
       <br><br>
       <span>Code scanner : <i> {{biere.ean || "aucun"}}</i> </span>
     </div>

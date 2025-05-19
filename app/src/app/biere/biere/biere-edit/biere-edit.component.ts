@@ -79,30 +79,16 @@ export class BiereEditComponent implements OnInit {
 
     if (!this.editing) {
       this.etatAction = Etatload.LOADING;
-      if (this.biere.ean !== '' && this.biere.imgUrl === '') {
-         this.bieresService.getInformations(this.biere.ean).subscribe({
-            next: (info) => {
-              this.biere.nom = this.biere.nom || info.name;
-              this.biere.imgUrl = info.image;
-              this.biere.alcool = Number(info.alcool);
-              this.biere.type = info.type;
-
-              this.bieresService.addBiere(this.biere).subscribe({
-                next: () => {
-                  this.etatAction = Etatload.SUCCESS;
-                  this.router.navigate(['/bieres/' + this.biere.id]);
-                },
-                error: (err) => {
-                  this.etatAction = Etatload.ERREUR;
-                  console.log('Erreur lors de la mise à jour', err);
-                },
-              });
-          },
-          error: (err) => {
-            console.log('Erreur lors de la récupération des infos : ' + err);
-          },
-        });
-      }
+      this.bieresService.addBiere(this.biere).subscribe({
+        next: () => {
+          this.etatAction = Etatload.SUCCESS;
+          this.router.navigate(['/bieres/' + this.biere.id]);
+        },
+        error: (err) => {
+          this.etatAction = Etatload.ERREUR;
+          console.log('Erreur lors de la mise à jour', err);
+        },
+      });
     }
   }
 
@@ -110,30 +96,16 @@ export class BiereEditComponent implements OnInit {
     if (this.editing) {
       this.etatAction = Etatload.LOADING;
       console.log('debut update biere');
-      if (this.biere.ean !== '' ) {
-        this.bieresService.getInformations(this.biere.ean).subscribe({
-            next: (info) => {
-              this.biere.nom = this.biere.nom || info.name;
-              this.biere.imgUrl = info.image;
-              this.biere.alcool = Number(info.alcool);
-              this.biere.type = info.type;
-
-              this.bieresService.updateBiere(this.biere).subscribe({
-                next: () => {
-                  this.etatAction = Etatload.SUCCESS;
-                  this.router.navigate(['/bieres/' + this.biere.id]);
-                },
-                error: (err) => {
-                  this.etatAction = Etatload.ERREUR;
-                  console.log('Erreur lors de la mise à jour', err);
-                },
-              });
-          },
-          error: (err) => {
-            console.log('Erreur lors de la récupération des infos : ' + err);
-          },
-        });
-      }
+      this.bieresService.updateBiere(this.biere).subscribe({
+        next: () => {
+          this.etatAction = Etatload.SUCCESS;
+          this.router.navigate(['/bieres/' + this.biere.id]);
+        },
+        error: (err) => {
+          this.etatAction = Etatload.ERREUR;
+          console.log('Erreur lors de la mise à jour', err);
+        },
+      });
     }
   }
 
@@ -173,6 +145,23 @@ export class BiereEditComponent implements OnInit {
       .catch((err) => {
         console.error(`Erreur lors de l'initialisation du scanner : ${err}`);
       });
+  }
+
+  getInformationsByEAN() {
+    if (this.biere.ean) {
+      this.bieresService.getInformations(this.biere.ean).subscribe({
+      next: (info) => {
+        this.biere.nom = this.biere.nom || info.name;
+        this.biere.imgUrl = info.image;
+        this.biere.alcool = Number(info.alcool) || this.biere.alcool;
+        this.biere.type = info.type;
+      },
+      error: (err) => {
+        console.log('Erreur lors de la récupération des infos : ' + err);
+      },
+    });
+    }
+
   }
 
   closeCamera() {
