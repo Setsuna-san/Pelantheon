@@ -6,6 +6,7 @@ export class Biere {
     public nom: string = '',
     public alcool: number = 0.0,
     public ean : string = "",
+    public imgUrl : string = "",
     public type: string = "",
     public note: number = 0.0,
     public nb_notes: number = 0.0,

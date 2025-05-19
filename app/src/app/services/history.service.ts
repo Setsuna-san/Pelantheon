@@ -17,6 +17,10 @@ export class HistoryService {
     if (this.route.snapshot.queryParams['b'] == 1) {
       return;
     }
+    const excludedRoutes = ['/login', '/new', '/edit'];
+    if (excludedRoutes.some(route => url.includes(route))) {
+      return;
+    }
     const history = this.getHistory();
     history.push(url);
 

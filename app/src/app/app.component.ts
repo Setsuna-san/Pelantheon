@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.urlAfterRedirects && !event.urlAfterRedirects.includes('/login')) {
+        if (event.urlAfterRedirects) {
           // Ajouter l'URL actuelle à l'historique
           this.historyService.addToHistory(event.urlAfterRedirects);
         }

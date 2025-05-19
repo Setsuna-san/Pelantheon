@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Etatload } from 'src/app/models/etatload';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { Location } from '@angular/common';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-biere-edit',
@@ -77,35 +78,62 @@ export class BiereEditComponent implements OnInit {
     console.log('Adding a new beer');
 
     if (!this.editing) {
-    this.etatAction = Etatload.LOADING;
-      this.bieresService.addBiere(this.biere).subscribe({
-        next: (biere) => {
-          console.log('Beer added successfully:', biere);
-          this.etatAction = Etatload.SUCCESS;
-          this.router.navigate(['/bieres/' + this.biere.id]);
+      this.etatAction = Etatload.LOADING;
+      if (this.biere.ean !== '' && this.biere.imgUrl === '') {
+         this.bieresService.getInformations(this.biere.ean).subscribe({
+            next: (info) => {
+              this.biere.nom = this.biere.nom || info.name;
+              this.biere.imgUrl = info.image;
+              this.biere.alcool = Number(info.alcool);
+              this.biere.type = info.type;
 
-        },
-        error: (err) => (
-          (this.etatAction = Etatload.ERREUR),
-          console.log('error added successfully :', err)
-        ),
-      });
+              this.bieresService.addBiere(this.biere).subscribe({
+                next: () => {
+                  this.etatAction = Etatload.SUCCESS;
+                  this.router.navigate(['/bieres/' + this.biere.id]);
+                },
+                error: (err) => {
+                  this.etatAction = Etatload.ERREUR;
+                  console.log('Erreur lors de la mise à jour', err);
+                },
+              });
+          },
+          error: (err) => {
+            console.log('Erreur lors de la récupération des infos : ' + err);
+          },
+        });
+      }
     }
   }
 
   onUpdate() {
-    if (environment.status === 'dev') {
-      if (this.editing) {
-    this.etatAction = Etatload.LOADING;
-        this.bieresService.updateBiere(this.biere).subscribe({
-          next: (biere) => {
-            this.etatAction = Etatload.SUCCESS;
-            this.router.navigate(['/bieres/' + this.biere.id]);
+    if (this.editing) {
+      this.etatAction = Etatload.LOADING;
+      console.log('debut update biere');
+      if (this.biere.ean !== '' ) {
+        this.bieresService.getInformations(this.biere.ean).subscribe({
+            next: (info) => {
+              this.biere.nom = this.biere.nom || info.name;
+              this.biere.imgUrl = info.image;
+              this.biere.alcool = Number(info.alcool);
+              this.biere.type = info.type;
+
+              this.bieresService.updateBiere(this.biere).subscribe({
+                next: () => {
+                  this.etatAction = Etatload.SUCCESS;
+                  this.router.navigate(['/bieres/' + this.biere.id]);
+                },
+                error: (err) => {
+                  this.etatAction = Etatload.ERREUR;
+                  console.log('Erreur lors de la mise à jour', err);
+                },
+              });
           },
-          error: (err) => (this.etatAction = Etatload.ERREUR),
+          error: (err) => {
+            console.log('Erreur lors de la récupération des infos : ' + err);
+          },
         });
       }
-    } else {
     }
   }
 
@@ -149,13 +177,15 @@ export class BiereEditComponent implements OnInit {
 
   closeCamera() {
     if (this.qrCodeScanner) {
-      this.qrCodeScanner.stop().then(() => {
-        this.isCameraOpen = false; // Marque la caméra comme fermée
-        console.log('Caméra fermée');
-      }).catch((err) => {
-        console.error(`Erreur lors de la fermeture de la caméra : ${err}`);
-      });
+      this.qrCodeScanner
+        .stop()
+        .then(() => {
+          this.isCameraOpen = false; // Marque la caméra comme fermée
+          console.log('Caméra fermée');
+        })
+        .catch((err) => {
+          console.error(`Erreur lors de la fermeture de la caméra : ${err}`);
+        });
     }
   }
-
 }

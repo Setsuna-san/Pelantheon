@@ -16,16 +16,27 @@
 <div class="container card">
   <div class="card-body indent">
     <div class="row">
+      <div class="w-25 h-25 col-lg-3 col-sm-6">
+        <img src="{{biere.imgUrl}}" alt="Image biere">
+      </div>
       <div class="col-lg-3 col-sm-6">
         Type : {{biere.type}}
         <br>
         Alcool : {{biere.alcool}} %
+        <br>
+        <br>
+        Code barre (EAN) : {{biere.ean || "Aucun code"}}
+
       </div>
 
       <div class="col-lg-3 col-sm-6">
         Note globale : {{biere.note}}
         <br>
         Nombre de notes : {{biere.nb_notes}}
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <br>
+
       </div>
 
     </div>
@@ -55,22 +66,14 @@
       </div>
       <div class="col-lg-2 col-sm-2 ">
         <label for="auteur">Auteur</label>
-        <ng-select
-            *ngIf="users.length > 0"
-            [items]="users"
-            bindLabel="surnom"
-            bindValue="id"
-            placeholder="Chercher une personne"
-            [searchable]="true"
-            (change)="onPersonneChange($event.id)"
-
-            >
+        <ng-select *ngIf="users.length > 0" [items]="users" bindLabel="surnom" bindValue="id"
+          placeholder="Chercher une personne" [searchable]="true" (change)="onPersonneChange($event.id)">
         </ng-select>
         <span class="form-text" *ngIf="users.length === 0"><br>Aucun créer...</span>
       </div>
       <div class="col-lg-2 col-sm-2">
         <br>
-        <button type="submit" class="btn btn-info p-1 border border-info ajout"  >
+        <button type="submit" class="btn btn-info p-1 border border-info ajout">
           Ajouter <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
@@ -97,7 +100,7 @@
           <th scope="col" class="table-head" (click)="sortTable('date')"
             [attr.data-sort]="sortColumn === 'date' ? sortDirection : ''">Date</th>
           <th scope="col" class="table-head">Auteur</th>
-          </tr>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let note of notes" class="slide">

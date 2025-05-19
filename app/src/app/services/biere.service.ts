@@ -18,6 +18,7 @@ import {
   orderBy,
 } from 'firebase/firestore';
 import { User } from 'src/app/models/user';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +26,30 @@ import { User } from 'src/app/models/user';
 export class BiereService {
   private db;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     if (!getApps().length) {
       initializeApp(firebaseConfig);
     }
     this.db = getFirestore();
   }
+
+  //nutriments , alcohol, generic_name_fr, image_front_small_url
+
+  getInformations(
+    code: string
+  ): Observable<{ name: string; image: string; alcool: string; type: string }> {
+    const url = `https://world.openfoodfacts.org/api/v2/product/${code}`;
+    console.log('debut getInfo');
+    return this.http.get<any>(url).pipe(
+      map((data) => ({
+        name: data.product?.generic_name_fr ?? 'Nom inconnu',
+        image: data.product?.image_front_small_url ?? '',
+        alcool: data.product?.nutrients?.alcohol ?? '',
+        type: data.product?.agribalyse?.name_fr ?? '',
+      }))
+    );
+  }
+
   // 🔍 Récupère toutes les bières
   getBieres(): Observable<Biere[]> {
     const biereCollection = collection(this.db, 'bieres');
@@ -104,7 +123,11 @@ export class BiereService {
   // 🔍 Récupère les notes d'une bière spécifique
   getNotesBiere(biereId: string): Observable<NoteBiere[]> {
     const notesCollection = collection(this.db, 'notes');
-    const q = query(notesCollection, where('biereId', '==', biereId), orderBy('note', 'desc'));
+    const q = query(
+      notesCollection,
+      where('biereId', '==', biereId),
+      orderBy('note', 'desc')
+    );
     return from(getDocs(q)).pipe(
       map((querySnapshot) =>
         querySnapshot.docs.map((docSnap) => {
@@ -118,7 +141,11 @@ export class BiereService {
   getNotesUser(userId: string): Observable<NoteBiere[]> {
     const notesCollection = collection(this.db, 'notes');
 
-    const q = query(notesCollection, where('userId', '==', userId), orderBy('note', 'desc'));
+    const q = query(
+      notesCollection,
+      where('userId', '==', userId),
+      orderBy('note', 'desc')
+    );
     return from(getDocs(q)).pipe(
       map((querySnapshot) =>
         querySnapshot.docs.map((docSnap) => {
