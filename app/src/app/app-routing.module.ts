@@ -11,6 +11,7 @@ import { InProgressComponent } from './in-progress/in-progress.component';
 import { LoginComponent } from './login/login.component';
 import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisateur-edit.component';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
+import { InformationsComponent } from './informations/informations.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
@@ -23,11 +24,13 @@ const routes: Routes = [
   { path: 'personnes/:id', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres', component: BiereListComponent },
   { path: 'bieres/new', component: BiereEditComponent , canActivate: [AuthGuard] },
+  { path: 'bieres/new/:ean', component: BiereEditComponent, canActivate: [AuthGuard]  },
   { path: 'bieres/edit/:id', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/:id', component: BiereShowComponent , canActivate: [AuthGuard] },
   { path: 'notes', component: InProgressComponent },
   { path: 'notes/new', component: InProgressComponent },
   { path: 'notes/:id', component: InProgressComponent },
+  { path: 'informations', component: InformationsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

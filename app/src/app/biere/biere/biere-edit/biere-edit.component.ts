@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Biere, TypeBiere } from 'src/app/models/biere';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BiereService } from 'src/app/services/biere.service';
@@ -16,7 +16,7 @@ import { isEmpty } from 'rxjs';
   styleUrls: ['./biere-edit.component.css'],
   standalone: false,
 })
-export class BiereEditComponent implements OnInit {
+export class BiereEditComponent implements OnInit, OnDestroy {
   biereId: string | null = null;
   biere: Biere = new Biere();
   public types = TypeBiere; // Liste des types de bières
@@ -55,11 +55,14 @@ export class BiereEditComponent implements OnInit {
     } else {
       this.biere.nom = '';
       this.biere.alcool = 0;
-    }
-  }
 
-  onCancel() {
-    // Handle cancel action
+      this.biere.ean = this.route.snapshot.queryParamMap.get('ean') ?? "";
+
+      if ( this.biere.ean !== "") {
+        this.getInformationsByEAN() ;
+      }
+
+    }
   }
 
   // onDelete() {
@@ -74,15 +77,18 @@ export class BiereEditComponent implements OnInit {
   //   }
   // }
 
+  ngOnDestroy() {
+    this.closeCamera();
+  }
+
   onAdd() {
     console.log('Adding a new beer');
-
     if (!this.editing) {
       this.etatAction = Etatload.LOADING;
       this.bieresService.addBiere(this.biere).subscribe({
         next: () => {
           this.etatAction = Etatload.SUCCESS;
-          this.router.navigate(['/bieres/' + this.biere.id]);
+          this.router.navigateByUrl('/bieres/' + this.biere.id);
         },
         error: (err) => {
           this.etatAction = Etatload.ERREUR;
@@ -99,7 +105,7 @@ export class BiereEditComponent implements OnInit {
       this.bieresService.updateBiere(this.biere).subscribe({
         next: () => {
           this.etatAction = Etatload.SUCCESS;
-          this.router.navigate(['/bieres/' + this.biere.id]);
+          this.router.navigateByUrl('/bieres/' + this.biere.id);
         },
         error: (err) => {
           this.etatAction = Etatload.ERREUR;
@@ -147,23 +153,6 @@ export class BiereEditComponent implements OnInit {
       });
   }
 
-  getInformationsByEAN() {
-    if (this.biere.ean) {
-      this.bieresService.getInformations(this.biere.ean).subscribe({
-      next: (info) => {
-        this.biere.nom = this.biere.nom || info.name;
-        this.biere.imgUrl = info.image;
-        this.biere.alcool = Number(info.alcool) || this.biere.alcool;
-        this.biere.type = info.type;
-      },
-      error: (err) => {
-        console.log('Erreur lors de la récupération des infos : ' + err);
-      },
-    });
-    }
-
-  }
-
   closeCamera() {
     if (this.qrCodeScanner) {
       this.qrCodeScanner
@@ -176,5 +165,23 @@ export class BiereEditComponent implements OnInit {
           console.error(`Erreur lors de la fermeture de la caméra : ${err}`);
         });
     }
+  }
+
+  getInformationsByEAN() {
+    if (this.biere.ean) {
+      this.bieresService.getInformations(this.biere.ean).subscribe({
+      next: (info) => {
+        this.biere.nom = this.biere.nom || info.name;
+        this.biere.imgUrl = info.image;
+        this.biere.alcool = Number(info.alcool) || this.biere.alcool;
+        this.biere.type = info.type;
+      },
+      error: (err) => {
+
+        console.log('Erreur lors de la récupération des infos : ' + err);
+      },
+    });
+    }
+
   }
 }

@@ -81,6 +81,21 @@ export class BiereService {
     );
   }
 
+  getBiereByEan(ean: string): Observable<Biere> {
+    const biereCollection = collection(this.db, 'bieres');
+    const q = query(biereCollection, where('ean', '==', ean));
+    return from(getDocs(q)).pipe(
+      map((querySnapshot) => {
+        if (querySnapshot.empty) {
+          throw new Error('Bière non trouvée');
+        }
+        const docSnap = querySnapshot.docs[0];
+        const data = docSnap.data() as Omit<Biere, 'id'>;
+        return { id: docSnap.id, ...data };
+      })
+    );
+  }
+
   addBiere(biere: Omit<Biere, 'id'>): Observable<Biere> {
     const biereCollection = collection(this.db, 'bieres');
     const data = JSON.parse(JSON.stringify(biere));

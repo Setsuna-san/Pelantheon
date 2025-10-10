@@ -2,87 +2,45 @@
   <span class="h1">
     Bienvenue sur le site du pelat
   </span>
-  <br><br><br><br>
+  <br><br>
+  <div class="card">
 
-  <div class="row">
-    <div class="p-3 m-1 col-lg-3 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-beer-mug-empty fa-xs"></i>&nbsp;
-          Gestion des bieres
-        </strong>
-      </h3>
+    <div class="card-body">
+      <div>
+        Ajouter une note ?
+        <div class="card-body">
+          <h6 class="text-secondary-emphasis fw-bolder"> Scanner le Code barre </h6>
+          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
+            <div id="scanButton" class="w-100 h-100"></div>
+            <button class="btn btn-outline-success w-auto mt-2" (click)="onScan()">
+              {{ isCameraOpen ? 'Fermer la caméra' : 'Scanner le code-barres' }} &nbsp;
+              <i class="fa-solid" [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"></i>
+            </button>
 
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a routerLink="/bieres" class="lien">
-            <span>Liste des bieres</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
+          </div>
 
-          <a class="lien" routerLink="/bieres/new" >
-            <span>Ajouter une biere</span>
-          </a>
-        </li>
-      </ul>
+          <div *ngIf="asBiere" class="w-100 text-center ">
+            <span class="text-danger">
+              Ce code barre n'est lié a aucune bière : <br>
+            </span>
 
-    </div>
+            Elle n'existe pas ? <a routerLink="/bieres/new" [queryParams]="{ ean: this.codeBarre }">la créer</a> &nbsp;
+            Deja noté ? <a routerLink="/bieres">la chercher</a>
+          </div>
+        </div>
+        ou
 
-    <div class="p-3 m-1 col-lg-4 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-person fa-xs"></i>&nbsp;
-          Gestion des zytologues
-        </strong>
-      </h3>
+        <div class="card-body">
+          <h6 class="text-secondary-emphasis fw-bolder"> Recherche par nom </h6>
+          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
+            <div class="text-center">
+              <button class="btn btn-outline-success" routerLink="/bieres"> Liste des bieres </button>
 
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a href="/personnes" class="lien">
-            <span>Liste des zytologues</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
-
-          <a class="lien" routerLink="/personnes/new" >
-            <span>Ajouter une zytologues</span>
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-    <div class="p-3 m-1 col-lg-4 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-code fa-xs"></i> &nbsp;
-          En développement
-        </strong>
-      </h3>
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a routerLink="/notes" class="lien">
-            <span>Liste des notes</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
-          <a class="lien " routerLink="/notes/new">
-            <span>Ajouter une note</span>
-          </a>
-        </li>
-      </ul>
-
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-
-
 
 </div>
