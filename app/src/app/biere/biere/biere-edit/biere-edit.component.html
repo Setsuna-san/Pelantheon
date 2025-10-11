@@ -117,43 +117,21 @@
 </div>
 
 <!-- liste des notes -->
-<div class="card">
+<div class="card" *ngIf="editing">
   <div class="card-header bg-info">
     <i class="fa-solid fa-list"></i>
     Liste des notes
   </div>
 
-  <div class="card-body indent">
+  <div class="card-body ">
     <table *ngIf="notes.length > 0" class="table table-striped">
       <thead>
         <tr>
-          <th
-            scope="col"
-            class="table-head"
-            (click)="sortTable('note')"
-            [attr.data-sort]="sortColumn === 'note' ? sortDirection : ''"
-          >
-            Note
-          </th>
-          <th
-            scope="col"
-            class="table-head"
-            [attr.data-sort]="sortColumn === 'commentaire' ? sortDirection : ''"
-          >
-            Commentaire
-          </th>
-          <th
-            scope="col"
-            class="table-head"
-            (click)="sortTable('date')"
-            [attr.data-sort]="sortColumn === 'date' ? sortDirection : ''"
-          >
-            Date
-          </th>
-
+          <th scope="col" class="table-head">Note</th>
+          <th scope="col" class="table-head">Commentaire</th>
+          <th scope="col" class="table-head">Date</th>
           <th scope="col" class="table-head">Auteur</th>
-
-          <th class="table-head"></th>
+          <th scope="col" class="table-head"></th>
         </tr>
       </thead>
       <tbody>
@@ -162,7 +140,12 @@
           <td>{{ note.commentaire }}</td>
           <td>{{ note.date }}</td>
           <td>{{ usersById[note.userId].surnom }}</td>
-          <td><span class="fa-solid fa-minus suppr" (click)="deleteNote(note.id)"></span></td>
+          <td>
+            <span
+              class="fa-solid fa-minus suppr"
+              (click)="deleteNote(note.id)"
+            ></span>
+          </td>
         </tr>
       </tbody>
     </table>

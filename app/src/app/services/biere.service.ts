@@ -122,6 +122,9 @@ export class BiereService {
   updateBiere(biere: Biere): Observable<void> {
     const docRef = doc(this.db, 'bieres', biere.id);
     const { id, ...data } = JSON.parse(JSON.stringify(biere));
+    if (typeof data.note === 'number') {
+      data.note = parseFloat(data.note.toFixed(2));
+    }
     return from(updateDoc(docRef, data));
   }
 

@@ -9,13 +9,12 @@ import { BiereService } from 'src/app/services/biere.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-biere-show',
-    templateUrl: './biere-show.component.html',
-    styleUrls: ['./biere-show.component.css'],
-    standalone: false
+  selector: 'app-biere-show',
+  templateUrl: './biere-show.component.html',
+  styleUrls: ['./biere-show.component.css'],
+  standalone: false,
 })
 export class BiereShowComponent implements OnInit {
-
   biere: Biere = new Biere();
   notes: NoteBiere[] = [];
   users: User[] = [];
@@ -37,7 +36,7 @@ export class BiereShowComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private location: Location
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     // Logique d'initialisation si nécessaire
@@ -74,18 +73,19 @@ export class BiereShowComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.error('Erreur lors de la récupération des utilisateurs:', err);
+          console.error(
+            'Erreur lors de la récupération des utilisateurs:',
+            err
+          );
         },
       });
     } else {
       this.router.navigate(['/bieres']);
     }
-
   }
 
-  
-
-  sortTable(column: keyof NoteBiere) { // Utilisez 'keyof Biere' pour restreindre les colonnes triables
+  sortTable(column: keyof NoteBiere) {
+    // Utilisez 'keyof Biere' pour restreindre les colonnes triables
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
@@ -108,7 +108,8 @@ export class BiereShowComponent implements OnInit {
 
   onAddNote() {
     this.newNotes.biereId = this.biere.id;
-    if (!this.selectedPersonne) { // Vérification améliorée
+    if (!this.selectedPersonne) {
+      // Vérification améliorée
       console.error('Aucun utilisateur sélectionné pour la note.');
       return;
     }
@@ -116,16 +117,18 @@ export class BiereShowComponent implements OnInit {
     this.bieresService.addNote(this.newNotes).subscribe({
       next: (note) => {
         this.notes.push(this.newNotes);
-        this.biere.nb_notes = this.notes.length ;
+        this.biere.nb_notes = this.notes.length;
 
-        this.biere.note = this.notes.reduce((sum, note) => sum + note.note, 0) / this.notes.length;
-        const dateSelected = this.newNotes.date ;
+        this.biere.note =
+          this.notes.reduce((sum, note) => sum + note.note, 0) /
+          this.notes.length;
+        const dateSelected = this.newNotes.date;
         this.newNotes = new NoteBiere();
         this.newNotes.date = dateSelected;
         this.bieresService.updateBiere(this.biere);
       },
       error: (err) => {
-        console.error('Erreur lors de l\'ajout de la note:', err);
+        console.error("Erreur lors de l'ajout de la note:", err);
       },
     });
   }
@@ -135,11 +138,11 @@ export class BiereShowComponent implements OnInit {
     console.log('Personne sélectionnée :', this.selectedPersonne);
   }
 
-  editer(){
+  editer() {
     this.router.navigate(['/bieres/edit/' + this.biere.id]);
   }
 
   onDelete() {
-    confirm("Impossible pour le moment");
+    alert('Impossible pour le moment');
   }
 }

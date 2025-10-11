@@ -209,18 +209,23 @@ export class BiereEditComponent implements OnInit, OnDestroy {
   }
 
   deleteNote(noteId: string) {
-    if (confirm('Voulez-vous vraiment supprimer cette note ?') === false) {
-      return;
-    }
-    if (noteId) {
-      this.bieresService.deleteNote(noteId).subscribe({
-        next: () => {
-          this.notes = this.notes.filter((note) => note.id !== noteId);
-        },
-        error: (err) => {
-          console.error('Erreur lors de la suppression de la note :', err);
-        },
-      });
+    if (confirm('Voulez-vous vraiment supprimer cette note ?')) {
+      if (noteId) {
+        console.log('Suppression de la note avec ID : ' + noteId);
+        this.bieresService.deleteNote(noteId).subscribe({
+          next: () => {
+            this.notes = this.notes.filter((note) => note.id !== noteId);
+            this.biere.note =
+              this.notes.reduce((sum, note) => sum + note.note, 0) /
+              this.notes.length;
+            this.biere.nb_notes = this.notes.length;
+            this.bieresService.updateBiere(this.biere);
+          },
+          error: (err) => {
+            console.error('Erreur lors de la suppression de la note :', err);
+          },
+        });
+      }
     }
   }
 

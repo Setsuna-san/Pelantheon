@@ -51,8 +51,8 @@
               {{ note.note }}
             </div>
           </td>
-          <td>{{ usersById[note.userId]?.surnom || "Erreur" }}</td>
-          <td>{{ bieresById[note.biereId]?.nom || "Erreur"  }}</td>
+          <td>{{ usersById?.[note.userId]?.surnom || "Erreur" }}</td>
+          <td>{{ bieresById?.[note.biereId]?.nom || "Erreur" }}</td>
           <td class="d-none d-lg-table-cell">{{ note.commentaire }}</td>
           <td>{{  timeSince(note.date) }}</td>
         </tr>

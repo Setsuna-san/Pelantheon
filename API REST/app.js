@@ -147,8 +147,8 @@ app.delete('/notes/:id', (req, res) => {
     console.log(`Suppression de la note avec l'ID ${req.params.id}`);
     const noteId = parseInt(req.params.id);
     data.notes = data.notes.filter(n => n.id !== noteId);
-    saveDataToFile();
     updateBiereAverageNote(req.body.biereId);
+    saveDataToFile();
     res.json({ message: 'Note supprimée avec succès' });
 });
 

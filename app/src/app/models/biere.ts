@@ -33,6 +33,7 @@ export const TypeBiere = [
   'RED ALE',
   'IPA',
   'TEQUILA',
+  'TRIPLE',
   'AUTRES'
 ] as const;
 
