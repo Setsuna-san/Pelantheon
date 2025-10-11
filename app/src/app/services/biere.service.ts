@@ -35,6 +35,15 @@ export class BiereService {
 
   //nutriments , alcohol, generic_name_fr, image_front_small_url
 
+  indexBieresById(bieres: Biere[]): { [id: string]: Biere } {
+      return bieres.reduce((acc, biere) => {
+        acc[biere.id] = biere;
+        return acc;
+      }, {} as { [id: string]: Biere });
+  }
+
+
+
   getInformations(
     code: string
   ): Observable<{ name: string; image: string; alcool: string; type: string }> {

@@ -42,10 +42,4 @@ select {
   width: 100%;
 }
 
-.slide {
-  transition: 0.4s;
 
-}
-.slide:hover {
-  transform: translatex(-10px);
-}

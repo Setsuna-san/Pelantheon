@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisateur-edit.component';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 import { InformationsComponent } from './informations/informations.component';
+import { NoteListComponent } from './biere/note/note-list/note-list.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'personnes' , component: UtilisateurListComponent},
   { path: 'personnes/new', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
   { path: 'personnes/:id', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
+  { path: 'notes', component: NoteListComponent },
   { path: 'bieres', component: BiereListComponent },
   { path: 'bieres/new', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/new/:ean', component: BiereEditComponent, canActivate: [AuthGuard]  },

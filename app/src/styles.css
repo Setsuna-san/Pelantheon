@@ -10,3 +10,11 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+.slide {
+  transition: 0.4s;
+
+}
+.slide:hover {
+  transform: translatex(-10px);
+}

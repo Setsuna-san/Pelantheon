@@ -31,6 +31,13 @@ export class UserService {
     this.db = getFirestore();
   }
 
+  indexUsersById(users: User[]): { [id: string]: User } {
+      return users.reduce((acc, user) => {
+        acc[user.id] = user;
+        return acc;
+      }, {} as { [id: string]: User });
+  }
+
   // ➕ Ajoute un utilisateur
   addUser(user: Omit<User, 'id'>): Observable<User> {
     const usersCollection = collection(this.db, 'users');

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Biere, TypeBiere } from 'src/app/models/biere';
+import { Biere, NoteBiere, TypeBiere } from 'src/app/models/biere';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BiereService } from 'src/app/services/biere.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,6 +9,8 @@ import { Etatload } from 'src/app/models/etatload';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { Location } from '@angular/common';
 import { isEmpty } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-biere-edit',
@@ -31,9 +33,16 @@ export class BiereEditComponent implements OnInit, OnDestroy {
 
   public codeBarre: string = ''; // Code-barres scanné
 
+  public noteLoad: Etatload = Etatload.LOADING;
+  notes: NoteBiere[] = [];
+
+  users: User[] = [];
+  usersById: { [id: string]: User } = {}; // Index des utilisateurs par ID
+
   constructor(
     private route: ActivatedRoute,
     private bieresService: BiereService,
+    private userService: UserService,
     private router: Router,
     private authService: AuthService,
     private location: Location
@@ -49,6 +58,28 @@ export class BiereEditComponent implements OnInit, OnDestroy {
         next: (biere) => {
           this.biere = biere;
           this.etatLoad = Etatload.SUCCESS;
+          this.bieresService.getNotesBiere(this.biere.id).subscribe({
+            next: (biere) => {
+              this.notes = biere;
+              this.noteLoad = Etatload.SUCCESS;
+              this.userService.getUsers().subscribe({
+                next: (users) => {
+                  this.users = users;
+                  this.usersById = this.userService.indexUsersById(users); // Indexation des utilisateurs
+                },
+                error: (err) => {
+                  console.error(
+                    'Erreur lors de la récupération des utilisateurs:',
+                    err
+                  );
+                },
+              });
+            },
+            error: (err) => {
+              this.noteLoad = Etatload.ERREUR;
+              console.error('Erreur lors de la récupération des notes:', err);
+            },
+          });
         },
         error: (err) => (this.etatLoad = Etatload.ERREUR),
       });
@@ -56,12 +87,11 @@ export class BiereEditComponent implements OnInit, OnDestroy {
       this.biere.nom = '';
       this.biere.alcool = 0;
 
-      this.biere.ean = this.route.snapshot.queryParamMap.get('ean') ?? "";
+      this.biere.ean = this.route.snapshot.queryParamMap.get('ean') ?? '';
 
-      if ( this.biere.ean !== "") {
-        this.getInformationsByEAN() ;
+      if (this.biere.ean !== '') {
+        this.getInformationsByEAN();
       }
-
     }
   }
 
@@ -79,6 +109,31 @@ export class BiereEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.closeCamera();
+  }
+
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  sortTable(column: keyof NoteBiere) {
+    // Utilisez 'keyof Biere' pour restreindre les colonnes triables
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+    this.notes.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      if (valueA < valueB) {
+        return this.sortDirection === 'asc' ? -1 : 1;
+      }
+      if (valueA > valueB) {
+        return this.sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
   }
 
   onAdd() {
@@ -153,6 +208,22 @@ export class BiereEditComponent implements OnInit, OnDestroy {
       });
   }
 
+  deleteNote(noteId: string) {
+    if (confirm('Voulez-vous vraiment supprimer cette note ?') === false) {
+      return;
+    }
+    if (noteId) {
+      this.bieresService.deleteNote(noteId).subscribe({
+        next: () => {
+          this.notes = this.notes.filter((note) => note.id !== noteId);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression de la note :', err);
+        },
+      });
+    }
+  }
+
   closeCamera() {
     if (this.qrCodeScanner) {
       this.qrCodeScanner
@@ -170,18 +241,16 @@ export class BiereEditComponent implements OnInit, OnDestroy {
   getInformationsByEAN() {
     if (this.biere.ean) {
       this.bieresService.getInformations(this.biere.ean).subscribe({
-      next: (info) => {
-        this.biere.nom = this.biere.nom || info.name;
-        this.biere.imgUrl = info.image;
-        this.biere.alcool = Number(info.alcool) || this.biere.alcool;
-        this.biere.type = info.type;
-      },
-      error: (err) => {
-
-        console.log('Erreur lors de la récupération des infos : ' + err);
-      },
-    });
+        next: (info) => {
+          this.biere.nom = this.biere.nom || info.name;
+          this.biere.imgUrl = info.image;
+          this.biere.alcool = Number(info.alcool) || this.biere.alcool;
+          this.biere.type = info.type;
+        },
+        error: (err) => {
+          console.log('Erreur lors de la récupération des infos : ' + err);
+        },
+      });
     }
-
   }
 }

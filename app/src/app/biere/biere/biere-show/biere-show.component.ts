@@ -68,7 +68,7 @@ export class BiereShowComponent implements OnInit {
       this.userService.getUsers().subscribe({
         next: (users) => {
           this.users = users;
-          this.usersById = this.indexUsersById(users); // Indexation des utilisateurs
+          this.usersById = this.userService.indexUsersById(users); // Indexation des utilisateurs
           if (this.users.length > 0) {
             this.selectedPersonne = this.users[0].id; // Initialisation avec le premier utilisateur
           }
@@ -83,12 +83,7 @@ export class BiereShowComponent implements OnInit {
 
   }
 
-  private indexUsersById(users: User[]): { [id: string]: User } {
-    return users.reduce((acc, user) => {
-      acc[user.id] = user;
-      return acc;
-    }, {} as { [id: string]: User });
-  }
+  
 
   sortTable(column: keyof NoteBiere) { // Utilisez 'keyof Biere' pour restreindre les colonnes triables
     if (this.sortColumn === column) {

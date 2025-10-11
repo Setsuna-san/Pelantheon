@@ -1,0 +1,11 @@
+.suppr {
+    color: white;
+    background-color: red;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.suppr:hover {
+    background-color: rgb(202, 25, 25);
+}

@@ -1,1 +1,73 @@
-<p>note-list works!</p>
+<app-bouton-retour></app-bouton-retour>
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Liste des notes</h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="table-head">Note</th>
+          <th scope="col" class="table-head">Auteur</th>
+          <th scope="col" class="table-head">Biere</th>
+          <th scope="col" class="table-head d-none d-lg-table-cell">Commentaire</th>
+          <th scope="col" class="table-head">Il y a ...</th>
+        </tr>
+      </thead>
+      <tr *ngIf="etatLoad == Etatload.LOADING">
+        <td colspan="5" class="text-center align-middle">
+          <br />
+          Chargement
+          <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </td>
+      </tr>
+      <tbody *ngIf="etatLoad == Etatload.SUCCESS">
+        <tr *ngIf="notes.length == 0">
+          <td colspan="5" class="text-center align-middle">
+            <br />
+            Aucune note pour le moment
+            <br /><br />
+          </td>
+        </tr>
+        <tr
+          *ngFor="let note of notes"
+          [routerLink]="['/bieres', note.biereId]"
+          class="pointer slide"
+          [ngClass]="{
+            'table-danger': !usersById[note.userId]?.surnom || !bieresById[note.biereId]?.nom
+          }"
+        >
+          <td>
+            <div
+              class="note-listeNote"
+              [ngClass]="{
+                'bg-success': note.note === 10,
+                'bg-info': note.note >= 6 && note.note <= 9,
+                'bg-warning': note.note >= 3 && note.note <= 5,
+                'bg-danger': note.note < 3
+              }"
+            >
+              {{ note.note }}
+            </div>
+          </td>
+          <td>{{ usersById[note.userId]?.surnom || "Erreur" }}</td>
+          <td>{{ bieresById[note.biereId]?.nom || "Erreur"  }}</td>
+          <td class="d-none d-lg-table-cell">{{ note.commentaire }}</td>
+          <td>{{  timeSince(note.date) }}</td>
+        </tr>
+      </tbody>
+      <tr *ngIf="etatLoad == Etatload.ERREUR">
+        <td colspan="5" class="text-center align-middle">
+          <br />
+          Erreur de chargement des données
+          <br />
+          <br />
+          <button class="btn btn-primary btn-sm" (click)="reloadPage()">
+            <i class="fa-solid fa-rotate"></i> Réessayer
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

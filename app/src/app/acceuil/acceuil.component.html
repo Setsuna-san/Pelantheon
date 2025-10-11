@@ -1,46 +1,91 @@
-<div class=" container">
-  <span class="h1">
-    Bienvenue sur le site du pelat
-  </span>
-  <br><br>
+<div class="container">
+  <span class="h1"> Bienvenue sur le site du pelat </span>
+  <br /><br />
   <div class="card">
-
     <div class="card-body">
       <div>
         Ajouter une note ?
         <div class="card-body">
-          <h6 class="text-secondary-emphasis fw-bolder"> Scanner le Code barre </h6>
-          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
+          <h6 class="text-secondary-emphasis fw-bolder">
+            Scanner le Code barre
+          </h6>
+          <div
+            class="row g-3 w-100 align-content-center d-flex justify-content-center"
+          >
             <div id="scanButton" class="w-100 h-100"></div>
-            <button class="btn btn-outline-success w-auto mt-2" (click)="onScan()">
-              {{ isCameraOpen ? 'Fermer la caméra' : 'Scanner le code-barres' }} &nbsp;
-              <i class="fa-solid" [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"></i>
+            <button
+              class="btn btn-outline-success w-auto mt-2"
+              (click)="onScan()"
+            >
+              {{ isCameraOpen ? "Fermer la caméra" : "Scanner le code-barres" }}
+              &nbsp;
+              <i
+                class="fa-solid"
+                [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"
+              ></i>
             </button>
-
           </div>
 
-          <div *ngIf="asBiere" class="w-100 text-center ">
+          <div *ngIf="asBiere" class="w-100 text-center">
             <span class="text-danger">
-              Ce code barre n'est lié a aucune bière : <br>
+              Ce code barre n'est lié a aucune bière : <br />
             </span>
 
-            Elle n'existe pas ? <a routerLink="/bieres/new" [queryParams]="{ ean: this.codeBarre }">la créer</a> &nbsp;
-            Deja noté ? <a routerLink="/bieres">la chercher</a>
+            Elle n'existe pas ?
+            <a routerLink="/bieres/new" [queryParams]="{ ean: this.codeBarre }"
+              >la créer</a
+            >
+            &nbsp; Deja noté ? <a routerLink="/bieres">la chercher</a>
           </div>
         </div>
         ou
 
         <div class="card-body">
-          <h6 class="text-secondary-emphasis fw-bolder"> Recherche par nom </h6>
-          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
+          <h6 class="text-secondary-emphasis fw-bolder">Recherche par nom</h6>
+          <div
+            class="row g-3 w-100 align-content-center d-flex justify-content-center"
+          >
             <div class="text-center">
-              <button class="btn btn-outline-success" routerLink="/bieres"> Liste des bieres </button>
-
+              <button class="btn btn-outline-success" routerLink="/bieres">
+                Liste des bieres
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <br />
+  <div class="card">
+    <div class="card-body">
+      <h3>Nouveautés et mise à jour</h3>
+      Dernière mise à jour le 11/10/2025 
+      <br><br>
+      <div style="padding-left: 25px;">
+        <ul>
+          <li>Arrondissements des notes global des bières à 2 décimales</li>
+          <li>Possibilité de supprimer les notes d'une bière ( Dans la page de modification d'un biere ex : <a href="http://localhost:4200/bieres/edit/XgqtW3bycw6GZbl9LMaX">Fiche info Kwak</a>  )</li>
+          <li>Liste des notes dans l'ordre d'ajout</li>
+        </ul>
+      </div>
 
+    </div>
+  </div>
+  <br>
+
+  <div class="card">
+    <div class="card-body">
+      <h3>À venir</h3>
+      <br>
+      <div style="padding-left: 25px;">
+        <ul>
+          <li>Nouveau système de connexion plus rapide et plus fexible</li>
+
+          <li>Statistiques améliorer sur les zytologues</li>
+          <li>Divers classement des zytologues</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
 </div>
