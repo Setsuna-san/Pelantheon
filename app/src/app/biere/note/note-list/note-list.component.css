@@ -1,9 +1,8 @@
-.note-listeNote {
-    width: 30px;
-    height: 25px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid black;
-    color: rgb(0, 0, 0);
-    font-weight: bolder;
+.notes {
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+  align-items: center;
+  color: white;
+  border-radius: 5px;
 }
