@@ -4,11 +4,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BiereService } from 'src/app/services/biere.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { Etatload } from 'src/app/models/etatload';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { Location } from '@angular/common';
-import { isEmpty } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 

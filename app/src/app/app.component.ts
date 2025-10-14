@@ -10,7 +10,7 @@ import { HistoryService } from './services/history.service';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    standalone: false
+    standalone: false,
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router, private historyService: HistoryService) {}

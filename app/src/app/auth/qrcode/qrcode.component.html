@@ -1,0 +1,10 @@
+<div>{{ message }}</div>
+<br>
+<div *ngIf="valide == 1">
+    <span>Vous etes désormais authentifier via votre navigateur, vous n'aurai plus besoin de vous connecter tant que vous utiliserez ce navigateur</span>
+    <br><br>Redirection dans 7 secondes ...
+</div>
+
+<p *ngIf="valide == 2">
+    erreur de validation du QRCode
+</p>

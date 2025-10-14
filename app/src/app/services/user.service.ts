@@ -31,11 +31,84 @@ export class UserService {
     this.db = getFirestore();
   }
 
+  qrcodeConnexion(tryToken: string): Observable<boolean> {
+    const wxcv = doc(this.db, 'config', 'token'); // Document "token"
+
+    return from(getDoc(wxcv)).pipe(
+      map((docSnap) => {
+        if (!docSnap.exists()) {
+          throw new Error('Document token non trouvé');
+        }
+        const data = docSnap.data();
+        const valeurOui = data?.['oui'];
+        return valeurOui === tryToken; // retourne true si correct, false sinon
+      })
+    );
+  }
+
+  identifyUser(): Observable<boolean> {
+    const localToken = localStorage.getItem('IdToken') || '';
+    const docRef = doc(
+      this.db,
+      'config',
+      'b4c7d4f11a075d426895e5580b88dca6b30741683b80579adb6f79314377b382'
+    );
+
+    return from(getDoc(docRef)).pipe(
+      map((docSnap) => {
+        if (!docSnap.exists()) {
+          throw new Error('Document token non trouvé');
+        }
+        const data = docSnap.data();
+        const firestoreToken =
+          data?.[
+            '7b147f38deb4a9066197dd19b3d0aebe58b2ed5dda2ee8b08e30172937f3b498'
+          ] || '';
+
+        console.log('Comparing tokens:', { firestoreToken, localToken });
+        return firestoreToken === localToken;
+      })
+    );
+  }
+
+  saveFirestoreTokenToLocalStorage(): void {
+    console.log('Saving Firestore token to localStorage');
+    const docRef = doc(
+      this.db,
+      'config',
+      'b4c7d4f11a075d426895e5580b88dca6b30741683b80579adb6f79314377b382'
+    );
+    console.log('Document reference:', docRef);
+
+    from(getDoc(docRef))
+      .pipe(
+        map((docSnap) => {
+          if (!docSnap.exists()) {
+            console.log('Document token non trouvé');
+            throw new Error('Document token non trouvé');
+          }
+          console.log('Document data:', docSnap.data());
+          const data = docSnap.data();
+          const firestoreToken =
+            data?.[
+              '7b147f38deb4a9066197dd19b3d0aebe58b2ed5dda2ee8b08e30172937f3b498'
+            ] || '';
+
+          localStorage.setItem('IdToken', firestoreToken); // Enregistre dans localStorage
+        })
+      )
+      .subscribe({
+        // 🔥 Sans subscribe, le Observable n'est jamais exécuté
+        next: () => console.log('Token enregistré dans localStorage ✅'),
+        error: (err) => console.error('Erreur:', err),
+      });
+  }
+
   indexUsersById(users: User[]): { [id: string]: User } {
-      return users.reduce((acc, user) => {
-        acc[user.id] = user;
-        return acc;
-      }, {} as { [id: string]: User });
+    return users.reduce((acc, user) => {
+      acc[user.id] = user;
+      return acc;
+    }, {} as { [id: string]: User });
   }
 
   // ➕ Ajoute un utilisateur

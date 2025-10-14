@@ -13,6 +13,7 @@ import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisa
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 import { InformationsComponent } from './informations/informations.component';
 import { NoteListComponent } from './biere/note/note-list/note-list.component';
+import { QrcodeComponent } from './auth/qrcode/qrcode.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'notes', component: InProgressComponent },
   { path: 'notes/new', component: InProgressComponent },
   { path: 'notes/:id', component: InProgressComponent },
+  { path: 'qrcode/connexion/:token', component: QrcodeComponent },
+  { path: 'qrcode/connexion', component: QrcodeComponent },
   { path: 'informations', component: InformationsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -19,11 +19,14 @@ export class AcceuilComponent implements OnDestroy {
   public codeBarre: string = ''; // Code-barres scanné
   public asBiere: boolean = false;
 
+  
+
   constructor(
     protected authService: AuthService,
     private router: Router,
     private biereService: BiereService
-  ) {}
+  ) {
+  }
 
   public status = environment.status;
 

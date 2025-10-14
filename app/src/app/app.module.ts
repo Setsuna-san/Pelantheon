@@ -18,6 +18,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BoutonRetourComponent } from "./elements/bouton-retour/bouton-retour.component";
 import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisateur-edit.component';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
+import { QrcodeComponent } from './auth/qrcode/qrcode.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
     BiereShowComponent,
     UtilisateurEditComponent,
     UtilisateurListComponent,
-    BoutonRetourComponent
+    BoutonRetourComponent,
+    QrcodeComponent
    ],
   imports: [
     NgSelectModule,
