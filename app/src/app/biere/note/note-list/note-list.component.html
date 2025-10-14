@@ -39,17 +39,13 @@
           }"
         >
           <td>
-            <div
-              class="note-listeNote"
-              [ngClass]="{
-                'bg-success': note.note === 10,
-                'bg-info': note.note >= 6 && note.note <= 9,
-                'bg-warning': note.note >= 3 && note.note <= 5,
-                'bg-danger': note.note < 3
-              }"
-            >
-              {{ note.note }}
-            </div>
+            <div class="" [ngClass]="{
+              'bg-success': note.note === 10,
+              'bg-info': note.note >= 5 && note.note < 10,
+              'bg-warning': note.note >= 3 && note.note < 5,
+              'bg-danger': note.note < 3
+            }" class="notes">
+              {{ note.note < 10 ? '0' + note.note : note.note }} </div>
           </td>
           <td>{{ usersById?.[note.userId]?.surnom || "Erreur" }}</td>
           <td>{{ bieresById?.[note.biereId]?.nom || "Erreur" }}</td>
