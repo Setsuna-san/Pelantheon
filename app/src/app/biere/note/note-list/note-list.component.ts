@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Biere, NoteBiere } from 'src/app/models/biere';
 import { Etatload } from 'src/app/models/etatload';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
 import { BiereService } from 'src/app/services/biere.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,7 +17,6 @@ export class NoteListComponent implements OnInit {
     private route: ActivatedRoute,
     private biereService: BiereService,
     private userService: UserService,
-    private authService: AuthService,
     private router: Router
   ) {}
   public notes: NoteBiere[] = []; // Liste des bières

@@ -1,88 +1,118 @@
 <div class=" container">
-  <span class="h1">
-    Bienvenue sur le site du pelat
-  </span>
-  <br><br><br><br>
-
-  <div class="row">
-    <div class="p-3 m-1 col-lg-3 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-beer-mug-empty fa-xs"></i>&nbsp;
-          Gestion des bieres
-        </strong>
-      </h3>
-
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a routerLink="/bieres" class="lien">
-            <span>Liste des bieres</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
-
-          <a class="lien" routerLink="/bieres/new" >
-            <span>Ajouter une biere</span>
-          </a>
-        </li>
-      </ul>
-
+  <h1>
+    Centre de données <i class="text-black-50"> - en développement </i>
+  </h1>
+  <hr>
+  <div class="row gap-3">
+    <div class="col-auto">
+      <b>Mise en ligne : </b> <i>20 / 05 / 2025</i>
     </div>
-
-    <div class="p-3 m-1 col-lg-4 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-person fa-xs"></i>&nbsp;
-          Gestion des zytologues
-        </strong>
-      </h3>
-
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a href="/personnes" class="lien">
-            <span>Liste des zytologues</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
-
-          <a class="lien" routerLink="/personnes/new" >
-            <span>Ajouter une zytologues</span>
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-    <div class="p-3 m-1 col-lg-4 col-sm-6">
-      <h3>
-        <strong>
-          <i class="fa-solid fa-code fa-xs"></i> &nbsp;
-          En développement
-        </strong>
-      </h3>
-      <ul class="ms-4 list-unstyled">
-        <li>
-          <i class="fa-solid fa-list m-1"></i>
-          <a routerLink="/notes" class="lien">
-            <span>Liste des notes</span>
-          </a>
-        </li>
-        <li>
-          <i class="fa-solid fa-plus m-1"></i>
-          <a class="lien " routerLink="/notes/new">
-            <span>Ajouter une note</span>
-          </a>
-        </li>
-      </ul>
-
+    <div class="col-auto">
+      <b>Dernière mise à jour :</b> <i class="text-dark"> 24 / 10 / 2025</i>
     </div>
   </div>
 
+  <br>
 
+  <!-- liste des dernieres notes  -->
+  <div class="card card-info">
+    <div class="card-header">
+      <div class="card-title">
+        Dernieres notes <i class="text-black-50"> - Les 10 plus récentes </i> </div>
+    </div>
+    <div class="card-body carte-données ">
+      <table class="table table-bordered p-2 m-0">
+        <tr>
+          <th>Note</th>
+          <th>Auteur</th>
+          <th class="d-none d-lg-table-cell">Commentaire</th>
+          <th>Biere</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let item of notes | slice:0:10 ">
+          <td>{{item.note}}</td>
+          <td>{{ usersById[item.userId]?.surnom || "Erreur"}}</td>
+          <td class="d-none d-lg-table-cell">{{item.commentaire}}</td>
+          <td>{{ bieresById[item.biereId]?.nom}}</td>
+          <td>{{item.date}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+  <label for="periode" class="form-label">Définir la période</label>
+  <select [(ngModel)]="periodeUser" (change)="rankUsers()" class="periode-select" name="periode" id="periode"
+    title="Période" aria-label="Période">
+
+    <option value=""> 2023 - aujourd'hui </option>
+    <option value="2025">2025</option>
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+
+  </select>
+  <br>
+
+  <!-- classements des bieres -->
+  <div class="card card-info">
+    <div class="card-header">
+      <div class="card-title">
+        Classements des bieres
+      </div>
+    </div>
+    <div class="card-body carte-données">
+      <table class="table table-bordered p-2 m-0">
+        <tr>
+          <th>Nom</th>
+          <th>Nb de note</th>
+          <th>Moyenne</th>
+          <th>Meilleur</th>
+          <th>Pire</th>
+        </tr>
+        <tr *ngFor="let item of rankedBeers">
+          <td>{{item.nom}}</td>
+          <td>{{item.nbNote}}</td>
+          <td>{{item.note}}</td>
+          <td>{{item.top}}</td>
+          <td>{{item.worst}}</td>
+
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <!-- classements des zytologues -->
+  <div class="card card-info">
+    <div class="card-header">
+      <div class="card-title">
+        Classements des zytologues
+        &nbsp;
+      </div>
+    </div>
+    <div class="card-body carte-données">
+      <table class="table table-bordered p-2 m-0">
+        <tr>
+          <th>Nom</th>
+          <th>Nb de notes</th>
+          <th>Moyenne</th>
+          <th>Meilleur</th>
+          <th>Pire</th>
+        </tr>
+        <tr *ngFor="let item of rankedUsers">
+          <td>{{item.nom}}</td>
+          <td>{{item.nbNote}}</td>
+          <td>{{item.note}}</td>
+          <td>{{item.top}}</td>
+          <td>{{item.worst}}</td>
+
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+  <br><br>
 
 
 </div>
