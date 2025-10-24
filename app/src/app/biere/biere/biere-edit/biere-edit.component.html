@@ -82,73 +82,111 @@
 
       <!-- <form [formGroup]="biereForm" (ngSubmit)="onSubmit()"> -->
       <div class="row g-3 m-2">
-        <div class="mb-3 col-lg-4 col-sm-12">
-          <label for="nom" class="form-label">Nom</label>
+        <div class="mb-3 col-lg-8 col-sm-12">
+          <label for="imgUrl" class="form-label">Image</label>
           <input
             type="text"
-            id="nom"
-            [(ngModel)]="biere.nom"
-            [value]="biere.nom"
+            id="imgUrl"
+            [(ngModel)]="biere.imgUrl"
+            [value]="biere.imgUrl"
             class="form-control p-1"
-            placeholder="Nom..."
+            placeholder="Url de l'image..."
           />
         </div>
-        <div class="mb-3 col-lg-4 col-sm-12">
-          <label for="type" class="form-label">Type</label>
-          <select id="type" [(ngModel)]="biere.type" class="form-select p-1">
-            <option *ngFor="let type of types" [value]="type">
-              {{ type }}
-            </option>
-          </select>
+        <div
+          class="mb-3 col-lg-4 col-sm-12 d-flex align-items-end justify-content-center"
+        >
+          <div
+            class="p-3 pt-1 m-0 text-center border border-black"
+            style="width: fit-content; min-width: 50px"
+          >
+            Aperçu
+            <hr />
+            <img
+              *ngIf="biere.imgUrl != ''"
+              src="{{ biere.imgUrl }}"
+              alt="Image de la bière"
+            />
+            <div
+              *ngIf="biere.imgUrl == ''"
+              class="border border-black p-2"
+              style="height: 10vh; min-width: 10vh; display: flex; align-items: center; justify-content: center"
+            >
+              Ajouter un lien
+            </div>
+          </div>
         </div>
-        <div class="mb-3 col-lg-4 col-sm-12">
-          <label for="nom" class="form-label">Alcool</label>
-          <input
-            type="number"
-            id="nom"
-            [(ngModel)]="biere.alcool"
-            placeholder="Taux d'alcool"
-            class="form-control p-1"
-          />
+
+        <!-- <form [formGroup]="biereForm" (ngSubmit)="onSubmit()"> -->
+        <div class="row g-3 m-2">
+          <div class="mb-3 col-lg-4 col-sm-12">
+            <label for="nom" class="form-label">Nom</label>
+            <input
+              type="text"
+              id="nom"
+              [(ngModel)]="biere.nom"
+              [value]="biere.nom"
+              class="form-control p-1"
+              placeholder="Nom..."
+            />
+          </div>
+          <div class="mb-3 col-lg-4 col-sm-12">
+            <label for="type" class="form-label">Type</label>
+            <select id="type" [(ngModel)]="biere.type" class="form-select p-1">
+              <option *ngFor="let type of types" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3 col-lg-4 col-sm-12">
+            <label for="nom" class="form-label">Alcool</label>
+            <input
+              type="number"
+              id="nom"
+              [(ngModel)]="biere.alcool"
+              placeholder="Taux d'alcool"
+              class="form-control p-1"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- liste des notes -->
-<div class="card" *ngIf="editing">
-  <div class="card-header bg-info">
-    <i class="fa-solid fa-list"></i>
-    Liste des notes
-  </div>
+  <!-- liste des notes -->
+  <div class="card" *ngIf="editing">
+    <div class="card-header bg-info">
+      <i class="fa-solid fa-list"></i>
+      Liste des notes
+    </div>
 
-  <div class="card-body ">
-    <table *ngIf="notes.length > 0" class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col" class="table-head">Note</th>
-          <th scope="col" class="table-head">Commentaire</th>
-          <th scope="col" class="table-head">Date</th>
-          <th scope="col" class="table-head">Auteur</th>
-          <th scope="col" class="table-head"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let note of notes" class="slide">
-          <td>{{ note.note }}</td>
-          <td>{{ note.commentaire }}</td>
-          <td>{{ note.date }}</td>
-          <td>{{ usersById[note.userId].surnom }}</td>
-          <td>
-            <span
-              class="fa-solid fa-minus suppr"
-              (click)="deleteNote(note.id)"
-            ></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <span *ngIf="notes.length <= 0">Aucune note pour cette biere </span>
+    <div class="card-body">
+      <table *ngIf="notes.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="table-head">Note</th>
+            <th scope="col" class="table-head">Commentaire</th>
+            <th scope="col" class="table-head">Date</th>
+            <th scope="col" class="table-head">Auteur</th>
+            <th scope="col" class="table-head"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of notes" class="slide">
+            <td>{{ note.note }}</td>
+            <td>{{ note.commentaire }}</td>
+            <td>{{ note.date }}</td>
+            <td>{{ usersById[note.userId].surnom }}</td>
+            <td>
+              <span
+                class="fa-solid fa-minus suppr"
+                (click)="deleteNote(note.id)"
+              ></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <span *ngIf="notes.length <= 0">Aucune note pour cette biere </span>
+    </div>
   </div>
 </div>
