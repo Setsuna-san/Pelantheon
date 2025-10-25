@@ -84,8 +84,8 @@
           <td>
             <div class="" [ngClass]="{
               'bg-success': biere.note === 10,
-              'bg-info': biere.note >= 5 && biere.note < 10,
-              'bg-warning': biere.note >= 3 && biere.note < 5,
+              'bg-info': biere.note >= 7 && biere.note < 10,
+              'bg-warning': biere.note >= 3 && biere.note < 7,
               'bg-danger': biere.note < 3
             }" class="notes">
               {{ biere.note < 10 ? '0' + biere.note : biere.note }} </div>

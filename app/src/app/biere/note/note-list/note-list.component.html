@@ -4,15 +4,15 @@
   <div class="card-header">
     <h5 class="card-title">Liste des notes</h5>
   </div>
-  <div class="card-body">
-    <table class="table table-striped">
+  <div class="card-body p-0">
+    <table class="table p-0 m-0">
       <thead>
         <tr>
-          <th scope="col" class="table-head">Note</th>
-          <th scope="col" class="table-head">Auteur</th>
-          <th scope="col" class="table-head">Biere</th>
-          <th scope="col" class="table-head d-none d-lg-table-cell">Commentaire</th>
-          <th scope="col" class="table-head">Il y a ...</th>
+          <th  class="table-head">Note</th>
+          <th  class="table-head">Auteur</th>
+          <th  class="table-head">Biere</th>
+          <th  class="table-head d-none d-lg-table-cell">Commentaire</th>
+          <th  class="table-head">Il y a ...</th>
         </tr>
       </thead>
       <tr *ngIf="etatLoad == Etatload.LOADING">
@@ -33,16 +33,22 @@
         <tr
           *ngFor="let note of notes"
           [routerLink]="['/bieres', note.biereId]"
-          class="pointer slide"
+          class="pointer slide noteRow"
           [ngClass]="{
             'table-danger': !usersById[note.userId]?.surnom || !bieresById[note.biereId]?.nom
           }"
+          [ngClass]="{
+              'bg-success ': note.note === 10,
+              'bg-info': note.note >= 7 && note.note < 10,
+              'bg-warning': note.note >= 3 && note.note < 7,
+              'bg-danger': note.note < 3
+            }"
         >
           <td>
-            <div class="" [ngClass]="{
+            <div [ngClass]="{
               'bg-success': note.note === 10,
-              'bg-info': note.note >= 5 && note.note < 10,
-              'bg-warning': note.note >= 3 && note.note < 5,
+              'bg-info': note.note >= 7 && note.note < 10,
+              'bg-warning': note.note >= 3 && note.note < 7,
               'bg-danger': note.note < 3
             }" class="notes">
               {{ note.note < 10 ? '0' + note.note : note.note }} </div>

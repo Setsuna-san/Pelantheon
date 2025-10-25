@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'notes/:id', component: InProgressComponent },
   { path: 'qrcode/connexion/:token', component: QrcodeComponent },
   { path: 'qrcode/connexion', component: QrcodeComponent },
-  { path: 'informations', component: InformationsComponent },
+  { path: 'statistiques', component: InformationsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -8,25 +8,31 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/accueil" routerLinkActive="active">Accueil</a>
+          <a class="nav-link" routerLink="/accueil" routerLinkActive="active">
+            <i class="fa-solid fa-house d-sm-none">&nbsp;</i>Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/bieres" routerLinkActive="active">Bieres</a>
+          <a class="nav-link" routerLink="/bieres" routerLinkActive="active">
+            <i class="fa-solid fa-beer-mug-empty d-sm-none">&nbsp;</i>Bieres</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/notes" routerLinkActive="active">Notes</a>
+          <a class="nav-link" routerLink="/notes" routerLinkActive="active">
+            <i class="fa-solid fa-book d-sm-none">&nbsp;</i>Notes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/personnes" routerLinkActive="active">Zytologues</a>
+          <a class="nav-link" routerLink="/personnes" routerLinkActive="active">
+            <i class="fa-solid fa-person-rays d-sm-none">&nbsp;</i>Zytologues</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/informations" routerLinkActive="active">Informations du site</a>
+          <a class="nav-link" routerLink="/statistiques" routerLinkActive="active">
+            <i class="fa-solid fa-chart-simple d-sm-none">&nbsp;</i>Stats</a>
         </li>
 
       </ul>
       <div class="nav-item float-end ">
-        <a class="log" *ngIf="!authService.isAuthenticated()" href="login" >Se
-          connecter</a>
+        <a class="log" *ngIf="!authService.isAuthenticated()" routerLink="/login">
+          Se connecter
+        </a>
         <a class="log" *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Se déconnecter</a>
 
       </div>

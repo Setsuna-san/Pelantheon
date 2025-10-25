@@ -7,35 +7,15 @@
       <span *ngIf="!editing">Création de la bière</span>
       <div class="float-end btn-group">
         &nbsp;&nbsp;
-        <button
-          *ngIf="editing"
-          class="btn btn-success btn-sm"
-          (click)="onUpdate()"
-        >
-          <i
-            *ngIf="etatAction != Etatload.LOADING"
-            class="fa-solid fa-floppy-disk"
-          ></i>
-          <i
-            *ngIf="etatAction == Etatload.LOADING"
-            class="fa-solid fa-spinner fa-spin-pulse"
-          ></i>
-          <span class="d-none d-sm-inline"> Enregistrer</span>
+        <button *ngIf="editing" class="btn btn-success btn-sm" (click)="onUpdate()">
+          <i *ngIf="etatAction != Etatload.LOADING" class="fa-solid fa-floppy-disk"></i>
+          <i *ngIf="etatAction == Etatload.LOADING" class="fa-solid fa-spinner fa-spin-pulse"></i>
+          <span> Enregistrer</span>
         </button>
-        <button
-          *ngIf="!editing"
-          class="btn btn-success btn-sm"
-          (click)="onAdd()"
-        >
-          <i
-            *ngIf="etatAction != Etatload.LOADING"
-            class="fa-solid fa-floppy-disk"
-          ></i>
-          <i
-            *ngIf="etatAction == Etatload.LOADING"
-            class="fa-solid fa-spinner fa-spin-pulse"
-          ></i>
-          <span class="d-none d-sm-inline"> Créer</span>
+        <button *ngIf="!editing" class="btn btn-success btn-sm" (click)="onAdd()">
+          <i *ngIf="etatAction != Etatload.LOADING" class="fa-solid fa-plus"></i>
+          <i *ngIf="etatAction == Etatload.LOADING" class="fa-solid fa-spinner fa-spin-pulse"></i>
+          <span> Créer</span>
         </button>
       </div>
     </h5>
@@ -46,33 +26,23 @@
       <h6 class="text-secondary-emphasis fw-bolder">
         Scanner le Code barre <span class="text-warning">(en test)</span>
       </h6>
-      <div
-        class="row g-3 w-100 align-content-center d-flex justify-content-center"
-      >
+      <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
         <div id="scanButton" class="w-100 h-100"></div>
         <button class="btn btn-outline-success w-auto mt-2" (click)="onScan()">
           {{ isCameraOpen ? "Fermer la caméra" : "Scanner le code-barres" }}
           &nbsp;
-          <i
-            class="fa-solid"
-            [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"
-          ></i>
+          <i class="fa-solid" [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"></i>
         </button>
       </div>
     </div>
 
     <br />
     <div class="ml-4 container text-secondary-emphasis small text-center">
-      <a
-        class="btn btn-info border"
-        style="border-radius: 15px"
-        (click)="getInformationsByEAN()"
-        >Charger les données via EAN</a
-      >
+      <a class="btn btn-info border" style="border-radius: 15px" (click)="getInformationsByEAN()">Charger les données
+        via EAN</a>
 
       <br /><br />
-      <span
-        >Code scanner : <i> {{ biere.ean || "aucun" }}</i>
+      <span>Code scanner : <i> {{ biere.ean || "aucun" }}</i>
       </span>
     </div>
     <br />
@@ -84,34 +54,16 @@
       <div class="row g-3 m-2">
         <div class="mb-3 col-lg-8 col-sm-12">
           <label for="imgUrl" class="form-label">Image</label>
-          <input
-            type="text"
-            id="imgUrl"
-            [(ngModel)]="biere.imgUrl"
-            [value]="biere.imgUrl"
-            class="form-control p-1"
-            placeholder="Url de l'image..."
-          />
+          <input type="text" id="imgUrl" [(ngModel)]="biere.imgUrl" [value]="biere.imgUrl" class="form-control p-1"
+            placeholder="Url de l'image..." />
         </div>
-        <div
-          class="mb-3 col-lg-4 col-sm-12 d-flex align-items-end justify-content-center"
-        >
-          <div
-            class="p-3 pt-1 m-0 text-center border border-black"
-            style="width: fit-content; min-width: 50px"
-          >
+        <div class="mb-3 col-lg-4 col-sm-12 d-flex align-items-end justify-content-center">
+          <div class="p-3 pt-1 m-0 text-center border border-black" style="width: fit-content; min-width: 50px">
             Aperçu
             <hr />
-            <img
-              *ngIf="biere.imgUrl != ''"
-              src="{{ biere.imgUrl }}"
-              alt="Image de la bière"
-            />
-            <div
-              *ngIf="biere.imgUrl == ''"
-              class="border border-black p-2"
-              style="height: 10vh; min-width: 10vh; display: flex; align-items: center; justify-content: center"
-            >
+            <img *ngIf="biere.imgUrl != ''" src="{{ biere.imgUrl }}" alt="Image de la bière" />
+            <div *ngIf="biere.imgUrl == ''" class="border border-black p-2"
+              style="height: 10vh; min-width: 10vh; display: flex; align-items: center; justify-content: center">
               Ajouter un lien
             </div>
           </div>
@@ -121,14 +73,8 @@
         <div class="row g-3 m-2">
           <div class="mb-3 col-lg-4 col-sm-12">
             <label for="nom" class="form-label">Nom</label>
-            <input
-              type="text"
-              id="nom"
-              [(ngModel)]="biere.nom"
-              [value]="biere.nom"
-              class="form-control p-1"
-              placeholder="Nom..."
-            />
+            <input type="text" id="nom" [(ngModel)]="biere.nom" [value]="biere.nom" class="form-control p-1"
+              placeholder="Nom..." />
           </div>
           <div class="mb-3 col-lg-4 col-sm-12">
             <label for="type" class="form-label">Type</label>
@@ -140,13 +86,8 @@
           </div>
           <div class="mb-3 col-lg-4 col-sm-12">
             <label for="nom" class="form-label">Alcool</label>
-            <input
-              type="number"
-              id="nom"
-              [(ngModel)]="biere.alcool"
-              placeholder="Taux d'alcool"
-              class="form-control p-1"
-            />
+            <input type="number" id="nom" [(ngModel)]="biere.alcool" placeholder="Taux d'alcool"
+              class="form-control p-1" />
           </div>
         </div>
       </div>
@@ -178,10 +119,7 @@
             <td>{{ note.date }}</td>
             <td>{{ usersById[note.userId].surnom }}</td>
             <td>
-              <span
-                class="fa-solid fa-minus suppr"
-                (click)="deleteNote(note.id)"
-              ></span>
+              <span class="fa-solid fa-minus suppr" (click)="deleteNote(note.id)"></span>
             </td>
           </tr>
         </tbody>

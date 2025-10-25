@@ -1,10 +1,21 @@
 .carte-données {
-  overflow-y: scroll;
-  height: 30vh;
-  padding-bottom: 0;
+  padding: 0;
+  margin: 0;
+  height: 30vh; 
+  overflow-y: auto;
   text-align: center;
 }
 
+.carte-données td,th {
+  white-space: nowrap; 
+  padding: 3px;
+}
+
+.cell-content {
+  white-space: nowrap;
+}
+
+/* Sélecteur de période */
 .periode-select {
   border-radius: 15px;
   padding: 5px 8px;

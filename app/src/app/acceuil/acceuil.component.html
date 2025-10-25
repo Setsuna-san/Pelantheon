@@ -11,20 +11,12 @@
           <h6 class="text-secondary-emphasis fw-bolder">
             Scanner le Code barre
           </h6>
-          <div
-            class="row g-3 w-100 align-content-center d-flex justify-content-center"
-          >
+          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
             <div id="scanButton" class="w-100 h-100"></div>
-            <button
-              class="btn btn-outline-success w-auto mt-2"
-              (click)="onScan()"
-            >
+            <button class="btn btn-outline-success w-auto mt-2" (click)="onScan()">
               {{ isCameraOpen ? "Fermer la caméra" : "Scanner le code-barres" }}
               &nbsp;
-              <i
-                class="fa-solid"
-                [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"
-              ></i>
+              <i class="fa-solid" [ngClass]="isCameraOpen ? 'fa-times' : 'fa-camera'"></i>
             </button>
           </div>
 
@@ -34,9 +26,7 @@
             </span>
 
             Elle n'existe pas ?
-            <a routerLink="/bieres/new" [queryParams]="{ ean: this.codeBarre }"
-              >la créer</a
-            >
+            <a routerLink="/bieres/new" [queryParams]="{ ean: this.codeBarre }">la créer</a>
             &nbsp; Deja noté ? <a routerLink="/bieres">la chercher</a>
           </div>
         </div>
@@ -44,9 +34,7 @@
 
         <div class="card-body">
           <h6 class="text-secondary-emphasis fw-bolder">Recherche par nom</h6>
-          <div
-            class="row g-3 w-100 align-content-center d-flex justify-content-center"
-          >
+          <div class="row g-3 w-100 align-content-center d-flex justify-content-center">
             <div class="text-center">
               <button class="btn btn-outline-success" routerLink="/bieres">
                 Liste des bieres
@@ -61,13 +49,29 @@
   <div class="card">
     <div class="card-body">
       <h3>Nouveautés et mise à jour</h3>
-      Dernière mise à jour le 11/10/2025 
+      Dernière mise à jour le 25/10/2025
       <br><br>
       <div style="padding-left: 25px;">
+        <b class="text-success text-decoration-underline">
+          Nouveautés de la mise à jour :
+        </b>
+        <ul>
+          <li>
+            Divers classements dans l'onglet <a routerLink="/statistiques">> Stats < </a>
+          </li>
+          <li>
+            Nouveau style pour la liste des notes
+          </li>
+        </ul>
+        <br>
+        <b class="text-info text-decoration-underline">
+          Précedentes mise à jour :
+        </b>
         <ul>
           <li>Nouveau système de connexion plus rapide et plus fexible</li>
           <li>Arrondissements des notes global des bières à 2 décimales</li>
-          <li>Possibilité de supprimer les notes d'une bière ( Dans la page de modification d'un biere ex : <a href="https://les-pelatiens.web.app/bieres/edit/XgqtW3bycw6GZbl9LMaX">Fiche info Kwak</a>  )</li>
+          <li>Possibilité de supprimer les notes d'une bière ( Dans la page de modification d'un biere ex : <a
+              href="https://les-pelatiens.web.app/bieres/edit/XgqtW3bycw6GZbl9LMaX">Fiche info Kwak</a> )</li>
           <li>Liste des notes dans l'ordre d'ajout</li>
         </ul>
       </div>
@@ -82,7 +86,6 @@
       <div style="padding-left: 25px;">
         <ul>
           <li>Statistiques améliorer sur les zytologues</li>
-          <li>Divers classement des zytologues</li>
         </ul>
       </div>
 
