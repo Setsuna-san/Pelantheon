@@ -11,6 +11,26 @@
   padding: 3px;
 }
 
+.first {
+  background-color: rgba(218, 165, 32, 0.5);
+  border: 2px solid black;
+}
+
+.second {
+  background-color: rgba(192, 192, 192, 0.6);
+  border: 2px solid black;
+
+}
+
+.third {
+  background-color: rgba(229, 123, 47, 0.622);
+  border: 2px solid black;
+}
+
+.first td, .second td, .third td {
+  background-color: inherit;
+}
+
 .cell-content {
   white-space: nowrap;
 }

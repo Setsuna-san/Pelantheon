@@ -47,6 +47,7 @@ export class InformationsComponent implements OnInit {
   public rankedBeers: BeerRanking[] = [];
   public empty: UserRanking[] = [];
   public notes: NoteBiere[] = []; // Liste des notes
+  public moyenneNotes: number = 0; // Liste des notes
 
   public users: User[] = [];
   public usersById: { [id: string]: User } = {}; // Index des utilisateurs par ID
@@ -71,6 +72,13 @@ export class InformationsComponent implements OnInit {
         );
         this.notes = notes;
 
+        if (this.notes && this.notes.length !== 0) {
+          let total = this.notes.reduce((sum, n) => sum + n.note, 0);
+          this.moyenneNotes = Math.round((total / this.notes.length) * 10) / 10;
+        }
+
+        this.etatLoad = Etatload.SUCCESS;
+
         // récuperation des utilisateurs
         this.userService.getUsers().subscribe({
           next: (users) => {
@@ -82,15 +90,14 @@ export class InformationsComponent implements OnInit {
               next: (bieres) => {
                 this.bieres = bieres;
                 this.bieresById = this.biereService.indexBieresById(bieres); // Indexation des utilisateurs
-                this.etatLoad = Etatload.SUCCESS;
                 this.rankUsers();
               },
-              error: (err) => (this.etatLoad = Etatload.ERREUR),
+              error: (err) => (this.etatBeerRanking = Etatload.ERREUR),
             });
           },
           error: (err) => {
             this.etatLoad = Etatload.ERREUR;
-
+            this.etatUserRanking = Etatload.ERREUR;
             console.error(
               'Erreur lors de la récupération des utilisateurs:',
               err
@@ -107,6 +114,8 @@ export class InformationsComponent implements OnInit {
 
   rankUsers() {
     this.etatUserRanking = Etatload.LOADING;
+    this.etatBeerRanking = Etatload.LOADING;
+
     // Index temporaire des classements utilisateurs
     const indexRankedUsers: { [id: string]: UserRanking } = {};
     const indexRankedBeer: { [id: string]: BeerRanking } = {};
@@ -198,6 +207,4 @@ export class InformationsComponent implements OnInit {
     this.etatBeerRanking = Etatload.SUCCESS;
     this.etatUserRanking = Etatload.SUCCESS;
   }
-
-
 }

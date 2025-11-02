@@ -82,7 +82,7 @@
           <td *ngIf="biere.alcool==null">Nan</td>
 
           <td>
-            <div class="" [ngClass]="{
+            <div [ngClass]="{
               'bg-success': biere.note === 10,
               'bg-info': biere.note >= 7 && biere.note < 10,
               'bg-warning': biere.note >= 3 && biere.note < 7,
