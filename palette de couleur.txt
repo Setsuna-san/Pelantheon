@@ -1,0 +1,30 @@
+
+/* Palette fluide de rouge (note 0) à vert (note 10) */
+
+.note-0  { background-color: hsl(0, 90%, 50%); }     /* rouge */
+.note-1  { background-color: hsl(12, 90%, 50%); }
+.note-2  { background-color: hsl(24, 90%, 50%); }
+.note-3  { background-color: hsl(36, 90%, 50%); }
+.note-4  { background-color: hsl(48, 90%, 50%); }
+.note-5  { background-color: hsl(60, 90%, 50%); }    /* jaune */
+.note-6  { background-color: hsl(72, 90%, 50%); }
+.note-7  { background-color: hsl(84, 90%, 50%); }
+.note-8  { background-color: hsl(96, 90%, 50%); }
+.note-9  { background-color: hsl(108, 90%, 50%); }
+.note-10 { background-color: hsl(120, 90%, 45%); }   /* vert */
+
+/* Style commun */
+[class^="note-"] {
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[class^="note-"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
