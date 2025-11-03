@@ -18,3 +18,15 @@
 .slide:hover {
   transform: translatex(-10px);
 }
+
+.note-0  { background-color: hsl(0, 90%, 50%); border: 1px solid black; }     /* rouge */
+.note-1  { background-color: hsl(12, 90%, 50%); border: 1px solid black; }
+.note-2  { background-color: hsl(24, 90%, 50%);  border: 1px solid black;}
+.note-3  { background-color: hsl(36, 90%, 50%); border: 1px solid black;}
+.note-4  { background-color: hsl(48, 90%, 50%);  border: 1px solid black;}
+.note-5  { background-color: hsl(60, 90%, 50%); border: 1px solid black;}    /* jaune */
+.note-6  { background-color: hsl(72, 90%, 50%); border: 1px solid black;}
+.note-7  { background-color: hsl(84, 90%, 50%); border: 1px solid black; }
+.note-8  { background-color: hsl(96, 90%, 50%); border: 1px solid black; }
+.note-9  { background-color: hsl(108, 90%, 50%); border: 1px solid black;  }
+.note-10 { background-color: hsl(120, 90%, 45%); border: 1px solid black; }  

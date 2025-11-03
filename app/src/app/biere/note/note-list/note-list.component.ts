@@ -19,6 +19,7 @@ export class NoteListComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {}
+  public Math = Math;
   public notes: NoteBiere[] = []; // Liste des bières
   users: User[] = [];
   usersById: { [id: string]: User } = {}; // Index des utilisateurs par ID

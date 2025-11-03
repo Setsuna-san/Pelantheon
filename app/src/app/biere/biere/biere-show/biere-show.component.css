@@ -1,8 +1,8 @@
-.trash, .pen {
+.trash,
+.pen {
   font-weight: bolder;
   transition: 0.4s;
 }
-
 
 .trash:hover {
   color: red;
@@ -41,5 +41,47 @@ select {
 
 .ajout:hover {
   transform: scale(1.1);
+}
 
+.noteBarre {
+  transform: translateY(-5px);
+  border: 2px solid black;
+}
+
+.noteBarre {
+  position: relative;
+}
+
+.noteBarre::before {
+  content: "\25BC";
+  font-size: 0.9rem;
+  color: black;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%);
+  display: block;
+  font-weight: bolder;
+}
+
+.cadrePhoto {
+  border: 1px solid black;
+  width: 100%;
+  text-align: center;
+}
+.photo {
+  width: 100%;
+}
+
+/* Responsive pour écrans en dessous de 800px */
+@media screen and (max-width: 800px) {
+  
+  /* photos et cadres */
+  .cadrePhoto {
+    width: 25vw;
+    max-width: 25vw;
+  }
+  .photo {
+    width: 25vw;
+  }
 }

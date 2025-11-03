@@ -17,28 +17,39 @@
 
   <!-- decription de la biere -->
   <div class="card-body indent">
+    <br>
     <div class="row">
-      <div class="w-25 h-25 col-lg-3 col-sm-6">
-        <img src="{{biere.imgUrl}}" alt="Image biere">
-      </div>
       <div class="col-lg-3 col-sm-6">
-        Type : {{biere.type}}
-        <br>
-        Alcool : {{biere.alcool}} %
-        <br>
-        <br>
+        <div class="cadrePhoto">
+          <img class="photo" src="{{biere.imgUrl || './assets/beer.png'}}" alt="Image biere">
+        </div>
         Code barre (EAN) : {{biere.ean || "Aucun code"}}
-
+<br><br>
       </div>
-
       <div class="col-lg-3 col-sm-6">
-        Note globale : {{biere.note}}
+        Type : <b>{{biere.type}}</b> 
         <br>
-        Nombre de notes : {{biere.nb_notes}}
+        Alcool : <b>{{biere.alcool}}%</b> 
+        <br><br>
       </div>
-      <div class="col-lg-4 col-sm-6">
-        <br>
+      <div class="col-lg-6 col-sm-12">
 
+        <div class="w-100 d-flex text-center fw-bold">
+          <span [ngClass]="Math.floor(biere.note) == 0 ? 'noteBarre' : '' " class="col note-0">0</span>
+          <span [ngClass]="Math.floor(biere.note) == 1 ? 'noteBarre' : '' " class="col note-1">1</span>
+          <span [ngClass]="Math.floor(biere.note) == 2 ? 'noteBarre' : '' " class="col note-2">2</span>
+          <span [ngClass]="Math.floor(biere.note) == 3 ? 'noteBarre' : '' " class="col note-3">3</span>
+          <span [ngClass]="Math.floor(biere.note) == 4 ? 'noteBarre' : '' " class="col note-4">4</span>
+          <span [ngClass]="Math.floor(biere.note) == 5 ? 'noteBarre' : '' " class="col note-5">5</span>
+          <span [ngClass]="Math.floor(biere.note) == 6 ? 'noteBarre' : '' " class="col note-6">6</span>
+          <span [ngClass]="Math.floor(biere.note) == 7 ? 'noteBarre' : '' " class="col note-7">7</span>
+          <span [ngClass]="Math.floor(biere.note) == 8 ? 'noteBarre' : '' " class="col note-8">8</span>
+          <span [ngClass]="Math.floor(biere.note) == 9 ? 'noteBarre' : '' " class="col note-9">9</span>
+          <span [ngClass]="Math.floor(biere.note) == 10 ? 'noteBarre' : '' " class="col note-10">10</span>
+        </div>
+        <br>
+       <b>{{biere.nb_notes}}</b> note(s) soit <b>{{biere.note}}/10</b> 
+        
       </div>
 
     </div>

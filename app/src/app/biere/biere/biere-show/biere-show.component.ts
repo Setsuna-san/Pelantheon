@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   standalone: false,
 })
 export class BiereShowComponent implements OnInit {
+  public Math = Math ;
   biere: Biere = new Biere();
   notes: NoteBiere[] = [];
   users: User[] = [];

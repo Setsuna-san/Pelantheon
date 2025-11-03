@@ -82,12 +82,7 @@
           <td *ngIf="biere.alcool==null">Nan</td>
 
           <td>
-            <div [ngClass]="{
-              'bg-success': biere.note === 10,
-              'bg-info': biere.note >= 7 && biere.note < 10,
-              'bg-warning': biere.note >= 3 && biere.note < 7,
-              'bg-danger': biere.note < 3
-            }" class="notes">
+            <div [ngClass]="'note-' + Math.floor(biere.note)" class="notes">
               {{ biere.note < 10 ? '0' + biere.note : biere.note }} </div>
           </td>
           <td class="d-none d-lg-table-cell" >{{ biere.nb_notes }}</td>

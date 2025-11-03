@@ -20,6 +20,7 @@ export class BiereListComponent implements OnInit {
     private router: Router
   ) {
   }
+  public Math = Math ; 
   public bieres: Biere[] = []; // Liste des bières
   public types = TypeBiere; // Liste des types de bières
   public etatLoad: Etatload = Etatload.LOADING;
