@@ -6,13 +6,3 @@
   color: black;
   border-radius: 5px;
 }
-
-
-.noteRow  {
-  border: 5px solid white;
-  color: black;
-}
-
-.noteRow td {
-    background-color: rgba(255, 255, 255, 0.50);
-}

@@ -13,20 +13,26 @@
 
 .slide {
   transition: 0.4s;
-
 }
 .slide:hover {
   transform: translatex(-10px);
 }
 
-.note-0  { background-color: hsl(0, 90%, 50%); border: 1px solid black; }     /* rouge */
-.note-1  { background-color: hsl(12, 90%, 50%); border: 1px solid black; }
-.note-2  { background-color: hsl(24, 90%, 50%);  border: 1px solid black;}
-.note-3  { background-color: hsl(36, 90%, 50%); border: 1px solid black;}
-.note-4  { background-color: hsl(48, 90%, 50%);  border: 1px solid black;}
-.note-5  { background-color: hsl(60, 90%, 50%); border: 1px solid black;}    /* jaune */
-.note-6  { background-color: hsl(72, 90%, 50%); border: 1px solid black;}
-.note-7  { background-color: hsl(84, 90%, 50%); border: 1px solid black; }
-.note-8  { background-color: hsl(96, 90%, 50%); border: 1px solid black; }
-.note-9  { background-color: hsl(108, 90%, 50%); border: 1px solid black;  }
-.note-10 { background-color: hsl(120, 90%, 45%); border: 1px solid black; }  
+/* 0–3 : rouge/orange clair (faible) */
+.note-0 { background-color: hsl(0, 85%, 70%); }     /* rouge clair */
+.note-1 { background-color: hsl(10, 85%, 72%); }
+.note-2 { background-color: hsl(20, 85%, 74%); }
+.note-3 { background-color: hsl(30, 85%, 76%); }
+
+/* 4–6 : jaune vif (moyen) */
+.note-4 { background-color: hsl(45, 90%, 70%); }    /* jaune doux */
+.note-5 { background-color: hsl(50, 90%, 68%); }
+.note-6 { background-color: hsl(55, 90%, 65%); }
+
+/* 7–8 : vert clair (bon) */
+.note-7 { background-color: hsl(110, 70%, 65%); }   /* vert clair primaire */
+.note-8 { background-color: hsl(120, 70%, 60%); }
+
+/* 9–10 : bleu-vert / bleu clair (excellent) */
+.note-9  { background-color: hsl(190, 70%, 65%); }  /* bleu-vert clair */
+.note-10 { background-color: hsl(210, 70%, 65%); }  /* bleu clair primaire */
