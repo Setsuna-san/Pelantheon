@@ -33,6 +33,6 @@
 .note-7 { background-color: hsl(110, 70%, 65%); }   /* vert clair primaire */
 .note-8 { background-color: hsl(120, 70%, 60%); }
 
-/* 9–10 : bleu-vert / bleu clair (excellent) */
-.note-9  { background-color: hsl(190, 70%, 65%); }  /* bleu-vert clair */
-.note-10 { background-color: hsl(210, 70%, 65%); }  /* bleu clair primaire */
+/* 9–10 : vert foncé (excellent) */
+.note-9  { background-color: hsl(130, 60%, 35%); }  /* vert soutenu */
+.note-10 { background-color: hsl(140, 60%, 30%); }  /* vert foncé profond */

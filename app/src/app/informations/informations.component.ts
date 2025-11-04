@@ -203,7 +203,11 @@ export class InformationsComponent implements OnInit {
 
     // 6️⃣ (Optionnel) Tri par moyenne descendante
     this.rankedUsers.sort((a, b) => b.nbNote - a.nbNote);
-    this.rankedBeers.sort((a, b) => b.note - a.note);
+
+    this.rankedBeers = this.rankedBeers
+      .filter((b) => b.nbNote > 1)
+      .sort((a, b) => b.note - a.note);
+
     this.etatBeerRanking = Etatload.SUCCESS;
     this.etatUserRanking = Etatload.SUCCESS;
   }

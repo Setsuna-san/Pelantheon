@@ -2,41 +2,40 @@ import { getLocaleDateFormat } from '@angular/common';
 
 export class Biere {
   constructor(
-    public id: string = "",
+    public id: string = '',
     public nom: string = '',
     public alcool: number = 0.0,
-    public ean : string = "",
-    public imgUrl : string = "",
-    public type: string = "",
+    public ean: string = '',
+    public imgUrl: string = '',
+    public type: string = '',
     public note: number = 0.0,
-    public nb_notes: number = 0.0,
+    public nb_notes: number = 0.0
   ) {}
 }
 
 export class NoteBiere {
   constructor(
-    public id: string = "",
+    public id: string = '',
     public note: number = 0,
     public commentaire: string = '',
     public date: string | Date = new Date().toLocaleDateString('fr-FR'),
-    public biereId: string = "",
-    public userId: string = "",
+    public biereId: string = '',
+    public userId: string = ''
   ) {}
 }
 
 export const TypeBiere = [
-  'NEIPA',
-  'BLONDE',
   'AMBREE',
-  'STOUT',
   'BLANCHE',
-  'RED ALE',
+  'BLONDE',
+  'BRUNE',
   'IPA',
+  'NEIPA',
+  'RED ALE',
+  'STOUT',
   'TEQUILA',
   'TRIPLE',
-  'AUTRES'
+  'AUTRE',
 ] as const;
 
-export type TypeBiereType = typeof TypeBiere[number];
-
-
+export type TypeBiereType = (typeof TypeBiere)[number];

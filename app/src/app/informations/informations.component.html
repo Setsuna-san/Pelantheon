@@ -15,13 +15,16 @@
 
   <div class="row gap-3">
     <div class="col-auto">
-      <b>Nombre de notes : </b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i *ngIf="etatLoad == Etatload.SUCCESS">{{ notes.length }}</i>
+      <b>Nombre de notes : </b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i
+        *ngIf="etatLoad == Etatload.SUCCESS">{{ notes.length }}</i>
     </div>
     <div class="col-auto">
-      <b>Moyenne globale : </b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i *ngIf="etatLoad == Etatload.SUCCESS"> {{ moyenneNotes }} </i>
+      <b>Moyenne globale : </b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i
+        *ngIf="etatLoad == Etatload.SUCCESS"> {{ moyenneNotes }} </i>
     </div>
     <div class="col-auto">
-      <b>Nombre de bières :</b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i *ngIf="etatLoad == Etatload.SUCCESS"> {{ bieres.length }} </i>
+      <b>Nombre de bières :</b> <i *ngIf="etatLoad == Etatload.LOADING" class="fa-solid fa-ellipsis fa-fade"></i> <i
+        *ngIf="etatLoad == Etatload.SUCCESS"> {{ bieres.length }} </i>
     </div>
 
   </div>
