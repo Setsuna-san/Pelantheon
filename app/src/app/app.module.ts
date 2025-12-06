@@ -20,6 +20,7 @@ import { UtilisateurEditComponent } from './utilisateur/utilisateur-edit/utilisa
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 import { QrcodeComponent } from './auth/qrcode/qrcode.component';
 import { InformationsComponent } from './informations/informations.component';
+import { NoteAddComponent } from './biere/note/note-add/note-add.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { InformationsComponent } from './informations/informations.component';
     UtilisateurListComponent,
     BoutonRetourComponent,
     QrcodeComponent,
-    InformationsComponent
+    InformationsComponent,
+    NoteAddComponent
    ],
   imports: [
     NgSelectModule,

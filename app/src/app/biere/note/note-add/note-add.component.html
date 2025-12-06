@@ -1,0 +1,101 @@
+<h2>
+    Nouvelle(s) note(s)
+</h2>
+
+
+<div *ngIf="etatSave == Etatload.SUCCESS" class="alert alert-dismissible alert-success">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong> {{selectedUsers.length}} notes ont été ajoutées !</strong>
+</div>
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row" *ngIf="etatLoad == Etatload.SUCCESS">
+            <div class="col-lg-2 col-sm-5 ">
+                <label for="auteur">Auteur</label>
+                <ng-select [items]="users" bindLabel="surnom" bindValue="id" [multiple]="true"
+                    placeholder="Chercher une personne" [searchable]="true" [(ngModel)]="selectedUsers">
+                </ng-select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4 ">
+                <label for="biere">Biere</label>
+                <ng-select [items]="bieres" bindLabel="nom" bindValue="id" placeholder="Chercher une biere"
+                    [searchable]="true" [(ngModel)]="selectedBeer">
+                </ng-select>
+            </div>
+        </div>
+
+
+        <div class="row" *ngIf="etatLoad == Etatload.LOADING">
+            <div class="col-lg-2 col-sm-5 ">
+                <label for="auteur">Auteur</label>
+                <ng-select placeholder="Chargement..." [searchable]="true">
+                </ng-select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4 ">
+                <label for="biere">Biere</label>
+                <ng-select placeholder="Chargement ..." [searchable]="true">
+                </ng-select>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="etatLoad == Etatload.ERREUR">
+            <span class="text-danger">Erreur lors de la connexion</span>
+
+            <div class="col-lg-2 col-sm-5 ">
+                <label for="auteur">Auteur</label>
+                <ng-select placeholder="Erreur..." [searchable]="true">
+                </ng-select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4 ">
+                <label for="biere">Biere</label>
+                <ng-select placeholder="Erreur..." [searchable]="true">
+                </ng-select>
+            </div>
+
+        </div>
+        <hr>
+
+        <div *ngFor="let userId of selectedUsers">
+            <div class="m-2 card note-user">
+                <div class="card-header">
+                    {{ getUserName(userId) }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 col-sm-2">
+                            <label>Note </label>
+                            <input type="number" class="form-control" placeholder="..." [(ngModel)]="notes[userId]">
+                        </div>
+                        <div class="col-11 col-sm-10">
+                            <label>Commentaire</label>
+                            <input type="text" class="form-control" placeholder="..."
+                                [(ngModel)]="commentaires[userId]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center">
+        <span *ngIf="etatSave == Etatload.ERREUR" class="text-danger">{{errorMessage}}</span>
+
+    </div>
+
+    <div class="m-1">
+
+        <a (click)="saveNotes()" *ngIf="etatSave == Etatload.WAITING || etatSave == Etatload.SUCCESS "
+            class="btn btn-info m-1  float-end"> Envoyer <i class="fa-solid fa-arrow-right"></i> </a>
+        <a (click)="saveNotes()" *ngIf="etatSave == Etatload.LOADING" class="btn btn-info disabled m-1  float-end">
+            Envoyer <i class="fa-solid fa-spinner fa-spin-pulse"></i> </a>
+        <a (click)="saveNotes()" *ngIf="etatSave == Etatload.ERREUR" class="btn btn-danger m-1  float-end">
+            Envoyer <i class="fa-solid fa-arrow-right"></i> </a>
+    </div>
+</div>

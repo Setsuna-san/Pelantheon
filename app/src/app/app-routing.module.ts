@@ -14,6 +14,7 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
 import { InformationsComponent } from './informations/informations.component';
 import { NoteListComponent } from './biere/note/note-list/note-list.component';
 import { QrcodeComponent } from './auth/qrcode/qrcode.component';
+import { NoteAddComponent } from './biere/note/note-add/note-add.component';
 
 const routes: Routes = [
   { path: '', component: AcceuilComponent },
@@ -24,15 +25,14 @@ const routes: Routes = [
   { path: 'personnes' , component: UtilisateurListComponent},
   { path: 'personnes/new', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
   { path: 'personnes/:id', component: UtilisateurEditComponent , canActivate: [AuthGuard] },
-  { path: 'notes', component: NoteListComponent },
   { path: 'bieres', component: BiereListComponent },
   { path: 'bieres/new', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/new/:ean', component: BiereEditComponent, canActivate: [AuthGuard]  },
   { path: 'bieres/edit/:id', component: BiereEditComponent , canActivate: [AuthGuard] },
   { path: 'bieres/:id', component: BiereShowComponent , canActivate: [AuthGuard] },
-  { path: 'notes', component: InProgressComponent },
-  { path: 'notes/new', component: InProgressComponent },
-  { path: 'notes/:id', component: InProgressComponent },
+  { path: 'notes', component: NoteListComponent },
+  { path: 'notes/new', component: NoteAddComponent , canActivate: [AuthGuard]  },
+  { path: 'notes/:id', component: InProgressComponent , canActivate: [AuthGuard]  },
   { path: 'qrcode/connexion/:token', component: QrcodeComponent },
   { path: 'qrcode/connexion', component: QrcodeComponent },
   { path: 'statistiques', component: InformationsComponent },
