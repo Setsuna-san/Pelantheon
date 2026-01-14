@@ -59,7 +59,9 @@ export const firebaseConfig = {
   appId: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
   measurementId: "xxxxxxxxxxxxxxxxxxxxxxx"
 };
+```
 
+Build et deployement
 ```bash
 ng build
 firebase deploy
