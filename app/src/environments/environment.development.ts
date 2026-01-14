@@ -1,6 +1,4 @@
 export const environment = {
-    // apiUrl: 'http://91.169.182.147:8080'
-    // apiUrl: 'http://88.182.18.85:33808'
     apiUrl: 'http://localhost:8080',
     status: 'dev',
     biereService: 'src/app/services/bieres/biere.rest.service'
@@ -14,5 +12,5 @@ export const firebaseConfig = {
   messagingSenderId: "722729387483",
   appId: "1:722729387483:web:ffc06a7121b29351ad93fe",
   measurementId: "G-6C6PT2LQZK"
-  
+
 };
