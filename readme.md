@@ -27,7 +27,7 @@ L’objectif est d’offrir un espace simple pour ajouter des bières, attribuer
 ### 1️⃣ Cloner le projet
 
 ```bash
-git clone https://github.com/utilisateur/nom-du-projet.git
+git clone https://github.com/Setsuna-san/pelato.git
 cd pelato
 ```
 
