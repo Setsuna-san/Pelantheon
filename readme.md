@@ -39,6 +39,27 @@ ng serve
 ```
 
 ### Mettre en ligne avec Firebase
+#### ⚠️ Avertissement : Configuration de l’environnement
+
+Pour utiliser Firebase, il est nécessaire de créer un fichier `environment.ts` dans `src/environments` avec vos informations :
+
+```typescript
+export const environment = {
+    apiUrl: 'http://localhost:8080',
+    status: 'normal',
+    biereService: 'src/app/services/bieres/biere.firebase.service'
+};
+
+export const firebaseConfig = {
+  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "la-bonne-biere.firebaseapp.com",
+  projectId: "la-bonne-biere",
+  storageBucket: "la-bonne-biere.firebasestorage.app",
+  messagingSenderId: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  appId: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+  measurementId: "xxxxxxxxxxxxxxxxxxxxxxx"
+};
+
 ```bash
 ng build
 firebase deploy
