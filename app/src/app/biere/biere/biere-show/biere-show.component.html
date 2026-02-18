@@ -27,9 +27,12 @@
 <br><br>
       </div>
       <div class="col-lg-3 col-sm-6">
-        Type : <b>{{biere.type}}</b> 
+        Type : <b>{{biere.type}} <i *ngIf="!biere.type">Non renseigné</i> </b> 
         <br>
-        Alcool : <b>{{biere.alcool}}%</b> 
+        Alcool : <b>{{biere.alcool || '???'}}%</b> 
+        <br>
+        Origine : <b style="text-transform: capitalize;">{{biere.origine}} <i *ngIf="!biere.origine">Non renseigné</i></b> 
+
         <br><br>
       </div>
       <div class="col-lg-6 col-sm-12">
