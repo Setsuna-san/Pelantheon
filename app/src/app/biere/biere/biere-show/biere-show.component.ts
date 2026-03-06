@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   standalone: false,
 })
 export class BiereShowComponent implements OnInit {
-  public Math = Math ;
+  public Math = Math;
   biere: Biere = new Biere();
   notes: NoteBiere[] = [];
   users: User[] = [];
@@ -144,6 +144,14 @@ export class BiereShowComponent implements OnInit {
   }
 
   onDelete() {
-    alert('Impossible pour le moment');
+    if (
+      confirm(
+        'Supprimer la biere ?'
+      )
+    ) {
+      this.bieresService.deleteBiere(this.biere.id);
+      this.bieresService.deleteNoteByBiereId(this.biere.id);
+      this.router.navigate(['/bieres']);
+    }
   }
 }

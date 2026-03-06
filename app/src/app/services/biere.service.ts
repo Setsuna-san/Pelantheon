@@ -36,13 +36,11 @@ export class BiereService {
   //nutriments , alcohol, generic_name_fr, image_front_small_url
 
   indexBieresById(bieres: Biere[]): { [id: string]: Biere } {
-      return bieres.reduce((acc, biere) => {
-        acc[biere.id] = biere;
-        return acc;
-      }, {} as { [id: string]: Biere });
+    return bieres.reduce((acc, biere) => {
+      acc[biere.id] = biere;
+      return acc;
+    }, {} as { [id: string]: Biere });
   }
-
-
 
   getInformations(
     code: string
@@ -132,6 +130,20 @@ export class BiereService {
   deleteBiere(id: string): Observable<void> {
     const docRef = doc(this.db, 'bieres', id);
     return from(deleteDoc(docRef));
+  }
+
+  deleteNoteByBiereId(id: string): Observable<void> {
+    const notesCollection = collection(this.db, 'notes');
+    const q = query(notesCollection, where('biereId', '==', id));
+
+    return from(
+      getDocs(q).then((snapshot) => {
+        const deletions = snapshot.docs.map((d) =>
+          deleteDoc(doc(this.db, 'notes', d.id))
+        );
+        return Promise.all(deletions).then(() => undefined);
+      })
+    );
   }
 
   // 🔍 Récupère toutes les notes
